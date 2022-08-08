@@ -98,17 +98,32 @@ function ataqueAleatorioEnemigo() {
   } else{
     ataqueOponente = 'TIERRA';
   }
-  crearMensaje();
+  combate();
+}
+
+function combate(){
+  //Como condicionales pongo los casos donde gano como jugador
+  if(ataqueOponente == ataqueJugador){
+    crearMensaje("¡EMPATAS!🤝");
+  } else if(ataqueJugador == 'FUEGO' && ataqueOponente == 'TIERRA'){              
+    crearMensaje("¡GANASTE!🍾");                                
+  } else if(ataqueJugador == 'AGUA' && ataqueOponente == 'FUEGO' ){             
+    crearMensaje("¡GANASTE!🍾");
+  } else if(ataqueJugador == 'TIERRA' && ataqueOponente == 'AGUA' ){             
+    crearMensaje("¡GANASTE!🍾");
+  } else {
+    crearMensaje("¡PERDISTE!😣");
+  }
 }
 
 //Mandamos a llamar esta funcion cuando el usuario da click en el ataque para mostrar un mensaje
 //Crearmos ese mensaje con el metodo createElement y seleccionando la etiqueta('p') del documento HTML
-function crearMensaje(){
+//La variable resultado es un parametro que vamos a recibir de la funcion combate por medio de argumentos
+function crearMensaje(resultado){
   let sectionMensajes = document.getElementById('mensajes')
-
   let parrafo = document.createElement('p');                                             
-  parrafo.innerHTML = `Tu mascota ataco con ${ataqueJugador}, la mascota del oponente atacó con ${ataqueOponente} => 🎉¡Pendiente!🎉`; 
-  //Metemos el parrafo en la seccion de mensajes en el documento HTML
+  parrafo.innerHTML = `Tu mascota ataco con ${ataqueJugador}, la mascota del oponente atacó con ${ataqueOponente} => ${resultado}`; 
+  //Metemos el parrafo en la seccion de mensajes en el documento HTML con appendChild
   sectionMensajes.appendChild(parrafo)                                
 }
 
