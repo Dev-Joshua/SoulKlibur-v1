@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MOKEPON</title>
+</head>
+<!-- MAQUETAMOS LA ESTRUCTURA Y EL CONTENIDO GENERAL DE MI PAGINA-JUEGO MOKEPON -->
+<body>
+  <h1>MOKEPON! 🔥 💦 🌱</h1>
+  <section id="select-mascota">
+    <!-- Darle indicacion a los jugadores para que seleccione una mascota-->
+    <h2>Elige tu mascota:</h2>
+    <!-- Los label nos ayudan a darle un indicador al usuarios de que es lo que estan seleccionando(las mascotas) -->
+    <!-- Le damos un atributo(identidicador o id) para saber cual es el valor de cada uno. -->
+    <label for="leon-tortuga">Leon tortuga</label>
+    <input type="radio" name="mascota" id="leon-tortuga"/>
+
+    <label for="tejon-topo">Tejón topo</label>
+    <input type="radio" name="mascota" id="tejon-topo"/>
+
+    <label for="leon-buitre">Leon buitre</label>
+    <input type="radio" name="mascota" id="leon-buitre"/>  
+
+    <!-- Escuchamos el evento click cuando se use este boton por medio del id -->
+    <button id="boton-select-mascota">Seleccionar</button>
+  </section>
+<h2>HOLA</h2>
+  <!-- Seccion para elegir el ataque -->
+  <section id="select-ataque">
+    <h2>Elige el ataque:</h2>
+
+    <p>Tu mascota <span id="mascota-jugador"></span> tiene <span>3</span> vidas</p>
+    <p>La mascota <span id="mascota-oponente"></span> del oponente tiene <span>3</span> vidas</p>
+
+    <p>
+      <button id="boton-ataque-fuego">Fuego 🔥</button>
+      <button id="boton-ataque-agua">Agua 💦</button>
+      <button id="boton-ataque-tierra">Tierra 🌱</button>
+    </p>
+  </section>
+
+  <!-- Seccion de mensajes con un parrafo que sea dinamico -->
+  <section id="mensajes">
+    <!-- <p>Tu mascota ataco con fuego, la mascota del oponente atacó con tierra => 🎉¡GANASTE!🎉</p> -->
+  </section>
+
+  <section id="reiniciar">
+    <button id="boton-reiniciar">Reiniciar</button>
+  </section>
+
+  <script src="./JavaScript/mokepon.js"></script>
+</body>
+</html>
+
+<!-- Debemos poner el 3 dentro de la etiqueta span para poder manipular el numero con JavaScript -->
+<!-- Asi podemos incrementar o restar el 3 dependiendo si perdemos o ganamos vidas -->
