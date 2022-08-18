@@ -4,48 +4,70 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MOKEPON</title>
+  <title>SoulKlibur</title>
   <script src="./JavaScript/mokepon.js"></script>
-  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
 </head>
 <!-- MAQUETAMOS LA ESTRUCTURA Y EL CONTENIDO GENERAL DE MI PAGINA-JUEGO MOKEPON -->
 <body>
-  <h1>MOKEPON! 🔥 💦 🌱</h1>
-  <section id="select-mascota">
-    <!-- Darle indicacion a los jugadores para que seleccione una mascota-->
-    <h2>Elige tu mascota:</h2>
-    <!-- Los label nos ayudan a darle un indicador al usuarios de que es lo que estan seleccionando(las mascotas) -->
+  <h1 class="titulo">👾SoulKlibur👾</h1>
+  <section id="select-personaje">
+    <!-- Darle indicacion a los jugadores para que seleccione una personaje-->
+    <h2 class="subtitulo">Elige tu personaje:</h2>
+    <!-- Los label nos ayudan a darle un indicador al usuarios de que es lo que estan seleccionando(las personajes) -->
     <!-- Le damos un atributo(identidicador o id) para saber cual es el valor de cada uno. -->
-    <label for="leon-tortuga">Leon tortuga</label>
-    <input type="radio" name="mascota" id="leon-tortuga"/>
-
-    <label for="tejon-topo">Tejón topo</label>
-    <input type="radio" name="mascota" id="tejon-topo"/>
-
-    <label for="leon-buitre">Leon buitre</label>
-    <input type="radio" name="mascota" id="leon-buitre"/>  
+    <div class="tarjetas">
+      <label class="tarjeta-personaje" for="akali">
+        <p>Akal'i</p>
+        <div class="contenedor-img">
+          <img src="./assets/akali.png" alt="Akal'i"> 
+        </div>
+      </label>
+      <input type="radio" name="personaje" id="akali"/>
+  
+      <label class="tarjeta-personaje" for="pyke">
+        <p>Pyke</p>
+        <div class="contenedor-img">
+          <img src="./assets/pyke.png" alt="">
+        </div>
+      </label>
+      <input type="radio" name="personaje" id="pyke"/>
+  
+      <label class="tarjeta-personaje" for="cronos">
+        <p>Cronos</p>
+        <div class="contenedor-img">
+          <img src="./assets/combustion.png" alt="">
+        </div>
+      </label>
+      <input type="radio" name="personaje" id="cronos"/>  
+    </div>
 
     <!-- Escuchamos el evento click cuando se use este boton por medio del id -->
-    <button id="boton-select-mascota">Seleccionar</button>
+    <button id="boton-select-personaje">Seleccionar</button>
   </section>
-<h2>HOLA</h2>
+
   <!-- Seccion para elegir el ataque -->
   <section id="select-ataque">
+    <h1 class="titulo">👾Soulklibur👾</h1>
+    
     <h2>Elige el ataque:</h2>
 
-    <p>Tu mascota <span id="mascota-jugador"></span> tiene <span id="vidas-jugador">3</span> vidas</p>
-    <p>La mascota <span id="mascota-oponente"></span> del oponente tiene <span id="vidas-oponente">3</span> vidas</p>
-
     <p>
-      <button id="boton-ataque-fuego">Fuego 🔥</button>
-      <button id="boton-ataque-agua">Agua 💦</button>
-      <button id="boton-ataque-tierra">Tierra 🌱</button>
+      <button id="boton-ataque-fuego">Fuego🔥</button>
+      <button id="boton-ataque-agua">Agua💦</button>
+      <button id="boton-ataque-tierra">Tierra🌱</button>
     </p>
+    <!-- Con la etiqueta span le damos dinamismo a las vidas y nombres de personaje mediante un id-->
+    <p>Tu personaje <span id="personaje-jugador"></span> tiene <span id="vidas-jugador">3</span> vidas</p>
+    <p>El personaje <span id="personaje-oponente"></span> del oponente tiene <span id="vidas-oponente">3</span> vidas</p>
   </section>
 
   <!-- Seccion de mensajes con un parrafo que sea dinamico -->
   <section id="mensajes">
-    <!-- <p>Tu mascota ataco con fuego, la mascota del oponente atacó con tierra => 🎉¡GANASTE!🎉</p> -->
+    <!-- <p>Tu personaje ataco con fuego, la personaje del oponente atacó con tierra => 🎉¡GANASTE!🎉</p> -->
   </section>
 
   <section id="reiniciar">

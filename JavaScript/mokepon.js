@@ -1,6 +1,3 @@
-//LOGICA PRINCIPAL PARA EMPEZAR A EJECUTAR EL JUEGO:
-
-
 //Variables globales:
 let ataqueJugador;
 let ataqueOponente;
@@ -9,16 +6,18 @@ let vidasJugador = 3;
 let vidasOponente = 3;
 
 function iniciarJuego(){
-  //Antes de todo, selecciono la seccion de ataque para escibderla en el HTML hasta que se escoja una mascota
+  //Antes de todo, selecciono la seccion de ataque para escibderla en el HTML hasta que se escoja un personaje
   let sectionSelectAtaque = document.getElementById('select-ataque');
   sectionSelectAtaque.style.display = 'none';
   let sectionReiniciar = document.getElementById('reiniciar');
   sectionReiniciar.style.display = 'none';
 
-  //Creamos la variable donde seleccionamos al boton de seleccionar mascota por medio de su id 
-  let botonMascotaJugador = document.getElementById('boton-select-mascota');
-  //cuando dan 'click' al boton, con el addEventListener() mandamos a llamar la funcion seleccionarMascotaJugador
-  botonMascotaJugador.addEventListener('click', seleccionarMascotaJugador);
+  //El metodo document.getElementVyId() => permite llamar(seleccionar) cualquier elemento de HTML mediante un id''
+  //Creamos la variable donde seleccionamos al boton de seleccionar personaje, 
+  let botonPersonajeJugador = document.getElementById('boton-select-personaje');
+  //Escuchar el evento click del boton(botonPersonajeJugador). 
+  //cuando dan 'click' al boton, con el addEventListener() mandamos a llamar la funcion seleccionarpersonajeJugador
+  botonPersonajeJugador.addEventListener('click', seleccionarPersonajeJugador);
 
   //Botones para seleccionar el ataque de la mascota. Llamamos las funciones cuando el usuario de "click" al boton
   let botonFuego = document.getElementById('boton-ataque-fuego');
@@ -32,52 +31,50 @@ function iniciarJuego(){
   botonReiniciar.addEventListener('click', reiniciarJuego);
 }
 
-//Creo la funcion de seleccionarMascotaJugador.  cuando den click en botonMAscotaJugador
-function seleccionarMascotaJugador(){
-  //Oculto la seccion de select-mascota una vez la eligan
-  let sectionSelectMascota = document.getElementById('select-mascota');
-  sectionSelectMascota.style.display = 'none';
+//Creo la funcion de seleccionarPersonajeJugador cuando den click en botonPersonajeJugador
+function seleccionarPersonajeJugador(){
+  //Oculto la seccion de select-personaje una vez la eligan
+  let sectionSelectPersonaje = document.getElementById('select-personaje');
+  sectionSelectPersonaje.style.display = 'none';
   //Cuando le damos click(selccionar) aparece la seccion select-ataque
   let sectionSelectAtaque = document.getElementById('select-ataque');
   sectionSelectAtaque.style.display = 'block';
-  //Creo las variables que traeran el input de cada mascota con getElementById() que pueden elegir
-  let inputLeonTortuga = document.getElementById("leon-tortuga");
-  let inputTejonTopo = document.getElementById("tejon-topo");
-  let inputLeonBuitre = document.getElementById("leon-buitre");
-  //La variable permite traer la etiqueta span para cambiar su html(MASCOTA) segun eleccion.
-  let spanMascotaJugador = document.getElementById("mascota-jugador");
+  //Creo las variables que traeran el input de cada personaje con getElementById() que pueden elegir
+  let inputAkali = document.getElementById("akali");
+  let inputPyke = document.getElementById("pyke");
+  let inputCronos = document.getElementById("cronos");
+  //La variable permite traer la etiqueta span para cambiar su html(PERSONAJE) segun eleccion.
+  let spanPersonajeJugador = document.getElementById("personaje-jugador");
   
   //Con .checked validamos que el input(radio) este seleccionado
-  if(inputLeonTortuga.checked){            //SI! este input tiene la propiedad checked como true, entonces se ejecuta la funcion para mostrar en el HTML la mascota seleccionada
-    spanMascotaJugador.innerHTML = 'Leon tortuga';
-  } else if(inputTejonTopo.checked){
-    spanMascotaJugador.innerHTML = 'Tejon topo';
-  } else if(inputLeonBuitre.checked){
-    spanMascotaJugador.innerHTML = 'Leon buitre';
+  if(inputAkali.checked){            //SI! este input tiene la propiedad checked como true, entonces se ejecuta la funcion para mostrar en el HTML el personaje seleccionada
+    spanPersonajeJugador.innerHTML = 'Akalí';
+  } else if(inputPyke.checked){
+    spanPersonajeJugador.innerHTML = 'Pyke';
+  } else if(inputCronos.checked){
+    spanPersonajeJugador.innerHTML = 'Cronos';
   } else {
     alert("¡Debes seleccionar una mascota!")
   }
-  // Esta condicion solo se cumple si el jugador escoge una mascota para jugar. El pc elige y empezara el juego
-    seleccionarMascotaPc();
- 
+  // Esta condicion solo se cumple si el jugador escoge un personaje para jugar. El pc elige y empezara el juego
+    seleccionarPersonajePc();
 }
 
 function aleatorio(min, max){
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-//Funcion para que el bot JS del juego seleccione una mascota aleatoriamente
-function seleccionarMascotaPc(){
-  let mascota_aleatoria = aleatorio(1, 3);
-  let spanMascotaOponente = document.getElementById('mascota-oponente');
-
+//Funcion para que el bot JS del juego seleccione un personaje aleatoriamente
+function seleccionarPersonajePc(){
+  let personaje_aleatorio = aleatorio(1, 3);
+  let spanPersonajeOponente = document.getElementById("personaje-oponente");
   
-  if(mascota_aleatoria == 1){            
-    spanMascotaOponente.innerHTML = 'Leon tortuga';
-  } else if(mascota_aleatoria == 2){
-    spanMascotaOponente.innerHTML = 'Tejon topo';
-  } else if(mascota_aleatoria == 3){
-    spanMascotaOponente.innerHTML = 'Leon buitre';
+  if(personaje_aleatorio == 1){            
+    spanPersonajeOponente.innerHTML = 'Akalí';
+  } else if(personaje_aleatorio == 2){
+    spanPersonajeOponente.innerHTML = 'Pyke';
+  } else if(personaje_aleatorio == 3){
+    spanPersonajeOponente.innerHTML = 'Cronos';
   } 
 }
 
@@ -97,7 +94,7 @@ function ataqueTierra(){
   ataqueAleatorioEnemigo();
 }
 
-//Logica para seleccionar el ataque de la computadora(oponente)
+//Logica para seleccionar el ataque de la computadora(oponente), una vez seleccione se ejecuta la funcion combate para empezar el duelo
 function ataqueAleatorioEnemigo() {                               
   let ataqueAleatorio = aleatorio(1, 3);
 
@@ -111,27 +108,28 @@ function ataqueAleatorioEnemigo() {
   combate();
 }
 
-//En esta funcion guardamos la logica de si perdimos, ganamos o empatamos.
+//En esta funcion guardamos la logica de si perdimos, ganamos o empatamos.  
 function combate(){
   //Aqui llamo a los span(#vidas) para cambiar la cantidad que se mostrara segun el combate
   let spanVidasJugador = document.getElementById('vidas-jugador');    
   let spanVidasOponente = document.getElementById('vidas-oponente');
-  
+
+  //SI pc elige lo mismo que el jugador => EMPATE
   //Como condicionales pongo los casos donde gano como jugador
   if(ataqueOponente == ataqueJugador){
     crearMensaje("¡EMPATAS!🤝");
   } else if(ataqueJugador == 'FUEGO' && ataqueOponente == 'TIERRA'){              
     crearMensaje("¡GANASTE!🍾");
     vidasOponente--;
-    spanVidasOponente.innerHTML = vidasOponente                                  
+    spanVidasOponente.innerHTML = vidasOponente                                
   } else if(ataqueJugador == 'AGUA' && ataqueOponente == 'FUEGO' ){             
     crearMensaje("¡GANASTE!🍾");
     vidasOponente--;
-    spanVidasOponente.innerHTML = vidasOponente  
+    spanVidasOponente.innerHTML = vidasOponente   
   } else if(ataqueJugador == 'TIERRA' && ataqueOponente == 'AGUA' ){             
     crearMensaje("¡GANASTE!🍾");
     vidasOponente--;
-    spanVidasOponente.innerHTML = vidasOponente  
+    spanVidasOponente.innerHTML = vidasOponente   
   } else {
     crearMensaje("¡PERDISTE!😣");
     vidasJugador--;                                                         //Si pierdo me restan una vida(--) y inserto en HTMLJugador
@@ -157,10 +155,11 @@ function revisarVidas() {
 //La variable resultado es un parametro que vamos a recibir de la funcion combate por medio de argumentos
 function crearMensaje(resultado){
   let sectionMensajes = document.getElementById('mensajes')
-  let parrafo = document.createElement('p');                                             
-  parrafo.innerHTML = `Tu mascota ataco con ${ataqueJugador}, la mascota del oponente atacó con ${ataqueOponente} => ${resultado}`; 
-  //Metemos el parrafo en la seccion de mensajes en el documento HTML con appendChild
-  sectionMensajes.appendChild(parrafo)                                
+
+  let parrafo = document.createElement('p');                          //Creamos un parrafo, elemento de tipo 'p'                   
+  parrafo.innerHTML = `Tu personaje ataco con ${ataqueJugador}, el personaje del oponente atacó con ${ataqueOponente} => ${resultado}`; //Le insertamos texto al parrafo
+
+  sectionMensajes.appendChild(parrafo)                                //Metemos el parrafo en la seccion de mensajes en el documento HTML
 }
 
 //Esta funcion recibe un parametro donde nos diga si perdimos o ganamos como jugador
@@ -179,7 +178,7 @@ function crearMensajeFinal(resultadoFinal){
   botonAgua.disabled = true;
   let botonTierra = document.getElementById('boton-ataque-tierra');
   botonTierra.disabled = true;
-  //Se muestra la opcion reiniciar cuando muestre el mensaje final
+
   let sectionReiniciar = document.getElementById("reiniciar");
   sectionReiniciar.style.display = 'block';
 }
@@ -188,8 +187,12 @@ function crearMensajeFinal(resultadoFinal){
 function reiniciarJuego() {
   location.reload();                                                    //location es un objeto(ubicacion) que tiene un metodo reload()->funcion que recarga la pagina
 }
+
+
+
 //El codigo JS no se va ejecutar hasta que cargue el evento de 'load' para que todos los eleementos del HTML ya existan antes del javascript 
-window.addEventListener('load', iniciarJuego)             
+//window(ventana), 
+window.addEventListener('load', iniciarJuego)                 
 
 
 

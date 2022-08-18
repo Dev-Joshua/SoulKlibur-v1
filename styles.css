@@ -1,22 +1,77 @@
-.titulo {
-  color: salmon;
-  width: 330px;
-  height: 50px;
-  background-color: teal;  
+@import url('http://fonts.cdnfonts.com/css/graphicpixel');
+@import url('http://fonts.cdnfonts.com/css/thumbs-up');
+
+body{
+  font-family: 'GraphicPixel', sans-serif;
+  background: #2A0944;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-label {
-  background-color: tomato;
-  width: 330px;
-  height: 50px;
+.titulo {
+  color: white;
+  font-size: 60px;
+  font-family: 'Thumbs UP', sans-serif;
+  width: 100%;
+  height: 125px;
+  text-align: center;
+  letter-spacing: 8px;
+  font-weight: normal;
+}
+#select-personaje{
+  display: flex;
+  flex-direction: column;
+  height: 50vh;
+  /* width: 42vh; */
+  align-items: center;
+  border: 2px solid white;
+  border-radius: 5px;
+  font-size: 18px;
+}
+.subtitulo{
+  font-size: 36px;
+  color: aliceblue;
+  font-weight: bold;
+  font-family: 'GraphicPixel', sans-serif;
+}
+.tarjetas{
+  display: flex;
+  gap: 10px;
+}
+.tarjeta-personaje{
+  width: 155px;
+  height: 220px;
+  padding: 10px;
+  background: #3FA796;
+  box-sizing: border-box;
+  border-radius: 15px;
+  margin: 10px;
+  color: white;
+  text-align: center;
+}
+.tarjeta-personaje img{
+  width: 137px;
+  height: 145px;
+  object-fit: cover;
+}
+.contenedor-img {
+  overflow: hidden;
 }
 input{
   background-color: aquamarine;
-  width: 330px;
-  height: 50px;
+  justify-content: center;
 }
-
 button{
-  background-color: blueviolet;
+  background-color: #A10035;
+  font-family: 'GraphicPixel', sans-serif;
+  font-size: 25px;
+  font-weight: bold;
   width: 330px;
   height: 50px;
+  margin-top: 50px;
+  color: whitesmoke;
+  border-radius: 30px;
+  border: 2px solid whitesmoke;
+  border-color: #FEC260;
+  letter-spacing: 5px;
 }
