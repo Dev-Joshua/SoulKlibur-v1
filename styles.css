@@ -3,7 +3,7 @@
 @import url('http://fonts.cdnfonts.com/css/fipps');
 
 body{
-  font-family: 'GraphicPixel', sans-serif;
+  font-family: 'GraphicPixel', sans-serif;                                      
   background: #2A0944;
   display: flex;
   flex-direction: column;
