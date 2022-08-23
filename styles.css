@@ -22,7 +22,7 @@ body{
 #select-personaje{
   display: flex;
   flex-direction: column;
-  height: 50vh;
+  height: 460px;
   /* width: 42vh; */
   align-items: center;
   border: 2px solid white;
