@@ -110,13 +110,12 @@ button{
 
 #mensajes{
   width: 280px;
-  padding: 20px;
+  padding: 10px;
   margin-top: 30px;
   border-radius: 20px;
   display: flex;
   justify-content: center;
   background-color: #3FA796;
-  font-family: 'GraphicPixel', 'HISKYFLIPPERHIBOLD';
   color: white;
   text-align: center;
 }
@@ -124,6 +123,11 @@ button{
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+#resultado{
+  font-size: 20px;
+  font-weight: bold;
+  font-family: 'GraphicPixel', 'HISKYFLIPPERHIBOLD';
 }
 #boton-reiniciar{
   margin: 40px;
