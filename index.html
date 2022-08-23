@@ -48,18 +48,21 @@
       <button id="boton-ataque-agua" class="boton-ataque">Agua💦</button>
       <button id="boton-ataque-tierra" class="boton-ataque">Tierra🌱</button>
     </div>
-    <div>
-      <!-- Seccion de mensajes con un parrafo que sea dinamico -->
-    <section id="mensajes">
-      <!-- <p>Tu personaje ataco con fuego, la personaje del oponente atacó con tierra => 🎉¡GANASTE!🎉</p> -->
-    </section>
 
-    <section id="reiniciar">
-      <button id="boton-reiniciar">Reiniciar</button>
-    </section>
+    <div class="resultado-ataques">
+      <!-- Seccion de mensajes con un texto que sea dinamico, este se modificara segun resultado del juego mediante JS -->
+      <section id="mensajes">
+        <p id="resultado">Mucha suerte</p>
+      </section>
+
+      <section id="reiniciar">
+        <button id="boton-reiniciar">Reiniciar</button>
+      </section>
     </div>
 
     <div class="mensajes-resultado">
+      <div id="ataques-jugador"></div>
+      <div id="ataques-oponente"></div>
       <!-- Con la etiqueta span le damos dinamismo a las vidas y nombres de personaje mediante un id-->
       <p>Tu personaje <span id="personaje-jugador"></span> tiene <span id="vidas-jugador">3</span> vidas</p>
       <p>El personaje <span id="personaje-oponente"></span> del oponente tiene <span id="vidas-oponente">3</span> vidas</p>

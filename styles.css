@@ -107,3 +107,25 @@ button{
 .mensajes-resultado{
   color: #2A0944;
 }
+
+#mensajes{
+  width: 280px;
+  padding: 20px;
+  margin-top: 30px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  background-color: #3FA796;
+  font-family: 'GraphicPixel', 'HISKYFLIPPERHIBOLD';
+  color: white;
+  text-align: center;
+}
+.resultado-ataques{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#boton-reiniciar{
+  margin: 40px;
+  width: 200px;
+}

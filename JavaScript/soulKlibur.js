@@ -117,21 +117,21 @@ function combate(){
   //SI pc elige lo mismo que el jugador => EMPATE
   //Como condicionales pongo los casos donde gano como jugador
   if(ataqueOponente == ataqueJugador){
-    crearMensaje("¡EMPATAS!🤝");
+    crearMensaje("EMPATAS🤝");
   } else if(ataqueJugador == 'FUEGO' && ataqueOponente == 'TIERRA'){              
-    crearMensaje("¡GANASTE!🍾");
+    crearMensaje("GANASTE🍾");
     vidasOponente--;
     spanVidasOponente.innerHTML = vidasOponente                                
   } else if(ataqueJugador == 'AGUA' && ataqueOponente == 'FUEGO' ){             
-    crearMensaje("¡GANASTE!🍾");
+    crearMensaje("GANASTE🍾");
     vidasOponente--;
     spanVidasOponente.innerHTML = vidasOponente   
   } else if(ataqueJugador == 'TIERRA' && ataqueOponente == 'AGUA' ){             
-    crearMensaje("¡GANASTE!🍾");
+    crearMensaje("GANASTE🍾");
     vidasOponente--;
     spanVidasOponente.innerHTML = vidasOponente   
   } else {
-    crearMensaje("¡PERDISTE!😣");
+    crearMensaje("PERDISTE😣");
     vidasJugador--;                                                         //Si pierdo me restan una vida(--) y inserto en HTMLJugador
     spanVidasJugador.innerHTML = vidasJugador;
   }
@@ -143,10 +143,10 @@ function combate(){
 function revisarVidas() {
   if(vidasOponente == 0) {
     //gana jugador
-    crearMensajeFinal("¡Has gando el combate!🎉");
+    crearMensajeFinal("Has gando el combate \n Felicitaciones🎉");
   } else if(vidasJugador == 0) {
     //gana pc
-    crearMensajeFinal("¡Has perdido el combate!😣");
+    crearMensajeFinal("Has perdido el combate😣");
   }
 }
 
@@ -154,22 +154,32 @@ function revisarVidas() {
 //Crearmos ese mensaje con el metodo createElement y seleccionando la etiqueta('p') del documento HTML
 //La variable resultado es un parametro que vamos a recibir de la funcion combate por medio de argumentos
 function crearMensaje(resultado){
-  let sectionMensajes = document.getElementById('mensajes')
+  let sectionMensajes = document.getElementById('resultado');
+  let ataquesDelJugador = document.getElementById('ataques-jugador');
+  let ataquesDelOponente = document.getElementById('ataques-oponente');
 
-  let parrafo = document.createElement('p');                          //Creamos un parrafo, elemento de tipo 'p'                   
-  parrafo.innerHTML = `Tu personaje ataco con ${ataqueJugador}, el personaje del oponente atacó con ${ataqueOponente} => ${resultado}`; //Le insertamos texto al parrafo
+  //Creo el parrafo dentro de los contenedores en HTML mediante su id
+  //let parrafo = document.createElement('p');                          //Creo un parrafo, elemento de tipo 'p'                   
+  //parrafo.innerHTML = `Tu personaje ataco con ${ataqueJugador}, el personaje del oponente atacó con ${ataqueOponente} => ${resultado}`; //Le insertamos texto al parrafo
+  let nuevoAtaqueDelJugador = document.createElement('p');
+  let nuevoAtaqueDelOponente = document.createElement('p');
 
-  sectionMensajes.appendChild(parrafo)                                //Metemos el parrafo en la seccion de mensajes en el documento HTML
+  //Añado los parrafos a los elementos HTML.
+  sectionMensajes.innerHTML = resultado;
+  nuevoAtaqueDelJugador.innerHTML = ataqueJugador;
+  nuevoAtaqueDelOponente.innerHTML = ataqueOponente;
+
+  
+  ataquesDelJugador.appendChild(nuevoAtaqueDelJugador);
+  ataquesDelOponente.appendChild(nuevoAtaqueDelOponente);
+  // sectionMensajes.appendChild(parrafo)                                //Metemos el parrafo en la seccion de mensajes en el documento HTML
 }
 
 //Esta funcion recibe un parametro donde nos diga si perdimos o ganamos como jugador
 function crearMensajeFinal(resultadoFinal){
   let sectionMensajes = document.getElementById('mensajes')
-
-  let parrafo = document.createElement('p');                                            
-  parrafo.innerHTML = resultadoFinal; 
-
-  sectionMensajes.appendChild(parrafo)   
+                                         
+  sectionMensajes.innerHTML = resultadoFinal;  
 
   //Terminado el combate desabilitamos los botones de ataque(disabled=true)
   let botonFuego = document.getElementById('boton-ataque-fuego');
