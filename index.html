@@ -43,26 +43,33 @@
   <!-- Seccion para elegir el ataque -->
   <section id="select-ataque"> 
     <h2>Elige el ataque:</h2>
-
-    <p>
+    <div>
       <button id="boton-ataque-fuego">Fuego🔥</button>
       <button id="boton-ataque-agua">Agua💦</button>
       <button id="boton-ataque-tierra">Tierra🌱</button>
-    </p>
-    <!-- Con la etiqueta span le damos dinamismo a las vidas y nombres de personaje mediante un id-->
-    <p>Tu personaje <span id="personaje-jugador"></span> tiene <span id="vidas-jugador">3</span> vidas</p>
-    <p>El personaje <span id="personaje-oponente"></span> del oponente tiene <span id="vidas-oponente">3</span> vidas</p>
+    </div>
+    <div>
+      <!-- Seccion de mensajes con un parrafo que sea dinamico -->
+    <section id="mensajes">
+      <!-- <p>Tu personaje ataco con fuego, la personaje del oponente atacó con tierra => 🎉¡GANASTE!🎉</p> -->
+    </section>
+
+    <section id="reiniciar">
+      <button id="boton-reiniciar">Reiniciar</button>
+    </section>
+    </div>
+
+    <div>
+      <!-- Con la etiqueta span le damos dinamismo a las vidas y nombres de personaje mediante un id-->
+      <p>Tu personaje <span id="personaje-jugador"></span> tiene <span id="vidas-jugador">3</span> vidas</p>
+      <p>El personaje <span id="personaje-oponente"></span> del oponente tiene <span id="vidas-oponente">3</span> vidas</p>
+    </div>
+    
   </section>
 
-  <!-- Seccion de mensajes con un parrafo que sea dinamico -->
-  <section id="mensajes">
-    <!-- <p>Tu personaje ataco con fuego, la personaje del oponente atacó con tierra => 🎉¡GANASTE!🎉</p> -->
-  </section>
+  
 
-  <section id="reiniciar">
-    <button id="boton-reiniciar">Reiniciar</button>
-  </section>
-
+  
   
 </body>
 </html>

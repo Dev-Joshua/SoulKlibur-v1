@@ -1,9 +1,14 @@
 @import url('http://fonts.cdnfonts.com/css/graphicpixel');
 @import url('http://fonts.cdnfonts.com/css/thumbs-up');
 @import url('http://fonts.cdnfonts.com/css/fipps');
+@import url('http://fonts.cdnfonts.com/css/hiskyflipper');
 
 body{
-  font-family: 'GraphicPixel', sans-serif;                                      
+  /* font-family: 'GraphicPixel', sans-serif;*/
+  font-family: 'HISKYFLIPPERHIBOLD', 'GraphicPixel';
+  font-family: 'HISKYFLIPPERHI', 'GraphicPixel';
+  font-family: 'HISKYFLIPPERLOW', 'GraphicPixel';
+  font-family: 'HISKYFLIPPERLOWBOLD', 'GraphicPixel';
   background: #2A0944;
   display: flex;
   flex-direction: column;
@@ -33,7 +38,10 @@ body{
   font-size: 36px;
   color: aliceblue;
   font-weight: bold;
-  font-family: 'GraphicPixel', sans-serif;
+  font-family: 'HISKYFLIPPERHIBOLD', 'GraphicPixel';
+  font-family: 'HISKYFLIPPERHI', 'GraphicPixel';
+  font-family: 'HISKYFLIPPERLOW', 'GraphicPixel';
+  font-family: 'HISKYFLIPPERLOWBOLD', 'GraphicPixel';
 }
 .tarjetas{
   display: flex;
@@ -61,7 +69,10 @@ input{
 }
 button{
   background-color: #A10035;
-  font-family: 'GraphicPixel', sans-serif;
+  font-family: 'GraphicPixel', 'HISKYFLIPPERHIBOLD';
+  font-family: 'GraphicPixel', 'HISKYFLIPPERHI';
+  font-family: 'GraphicPixel', 'HISKYFLIPPERLOW';
+  font-family: 'GraphicPixel', 'HISKYFLIPPERLOWBOLD';
   font-size: 25px;
   font-weight: bold;
   width: 330px;
