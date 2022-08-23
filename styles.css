@@ -5,10 +5,7 @@
 
 body{
   /* font-family: 'GraphicPixel', sans-serif;*/
-  font-family: 'HISKYFLIPPERHIBOLD', 'GraphicPixel';
-  font-family: 'HISKYFLIPPERHI', 'GraphicPixel';
-  font-family: 'HISKYFLIPPERLOW', 'GraphicPixel';
-  font-family: 'HISKYFLIPPERLOWBOLD', 'GraphicPixel';
+  font-family: 'GraphicPixel', 'HISKYFLIPPERHIBOLD';
   background: #2A0944;
   display: flex;
   flex-direction: column;
@@ -28,20 +25,18 @@ body{
   display: flex;
   flex-direction: column;
   height: 460px;
-  /* width: 42vh; */
+  width: 56vh;
   align-items: center;
   border: 2px solid white;
   border-radius: 5px;
   font-size: 18px;
 }
 .subtitulo{
-  font-size: 36px;
+  font-size: 40px;
   color: aliceblue;
   font-weight: bold;
-  font-family: 'HISKYFLIPPERHIBOLD', 'GraphicPixel';
-  font-family: 'HISKYFLIPPERHI', 'GraphicPixel';
-  font-family: 'HISKYFLIPPERLOW', 'GraphicPixel';
-  font-family: 'HISKYFLIPPERLOWBOLD', 'GraphicPixel';
+  font-family: 'GraphicPixel', 'HISKYFLIPPERLOWBOLD';
+  letter-spacing: 5px;
 }
 .tarjetas{
   display: flex;
@@ -66,13 +61,11 @@ body{
 }
 input{
   width: 5px;
+  display: none;
 }
 button{
   background-color: #A10035;
   font-family: 'GraphicPixel', 'HISKYFLIPPERHIBOLD';
-  font-family: 'GraphicPixel', 'HISKYFLIPPERHI';
-  font-family: 'GraphicPixel', 'HISKYFLIPPERLOW';
-  font-family: 'GraphicPixel', 'HISKYFLIPPERLOWBOLD';
   font-size: 25px;
   font-weight: bold;
   width: 330px;
@@ -83,4 +76,34 @@ button{
   border: 2px solid whitesmoke;
   border-color: #FEC260;
   letter-spacing: 5px;
+}
+
+#select-ataque{
+  /* display: flex; */
+  background-color: #D61C4E;
+  flex-direction: column;
+  align-items: center;
+  height: auto;
+  width: 90vh;
+  align-items: center;
+  border: 10px solid #FEC260;
+  border-radius: 5px;
+  margin-top: 100px;
+}
+.boton-ataque{
+  background-color: #3FA796;
+  font-family: 'GraphicPixel', 'HISKYFLIPPERHIBOLD';
+  font-size: 25px;
+  font-weight: bold;
+  width: 180px;
+  height: 50px;
+  margin-top: 50px;
+  color: whitesmoke;
+  border-radius: 8px;
+  border: 4px solid black;
+  letter-spacing: 5px;
+  margin-right: 20px;
+}
+.mensajes-resultado{
+  color: #2A0944;
 }

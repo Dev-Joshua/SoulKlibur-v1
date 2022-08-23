@@ -42,11 +42,11 @@
 
   <!-- Seccion para elegir el ataque -->
   <section id="select-ataque"> 
-    <h2>Elige el ataque:</h2>
+    <h2 class="subtitulo">Elige el ataque:</h2>
     <div>
-      <button id="boton-ataque-fuego">Fuego🔥</button>
-      <button id="boton-ataque-agua">Agua💦</button>
-      <button id="boton-ataque-tierra">Tierra🌱</button>
+      <button id="boton-ataque-fuego" class="boton-ataque">Fuego🔥</button>
+      <button id="boton-ataque-agua" class="boton-ataque">Agua💦</button>
+      <button id="boton-ataque-tierra" class="boton-ataque">Tierra🌱</button>
     </div>
     <div>
       <!-- Seccion de mensajes con un parrafo que sea dinamico -->
@@ -59,7 +59,7 @@
     </section>
     </div>
 
-    <div>
+    <div class="mensajes-resultado">
       <!-- Con la etiqueta span le damos dinamismo a las vidas y nombres de personaje mediante un id-->
       <p>Tu personaje <span id="personaje-jugador"></span> tiene <span id="vidas-jugador">3</span> vidas</p>
       <p>El personaje <span id="personaje-oponente"></span> del oponente tiene <span id="vidas-oponente">3</span> vidas</p>

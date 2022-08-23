@@ -38,7 +38,7 @@ function seleccionarPersonajeJugador(){
   sectionSelectPersonaje.style.display = 'none';
   //Cuando le damos click(selccionar) aparece la seccion select-ataque
   let sectionSelectAtaque = document.getElementById('select-ataque');
-  sectionSelectAtaque.style.display = 'block';
+  sectionSelectAtaque.style.display = 'flex';
   //Creo las variables que traeran el input de cada personaje con getElementById() que pueden elegir
   let inputAkali = document.getElementById("akali");
   let inputPyke = document.getElementById("pyke");
