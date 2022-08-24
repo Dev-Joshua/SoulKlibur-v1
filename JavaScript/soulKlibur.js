@@ -80,17 +80,17 @@ function seleccionarPersonajePc(){
 
 //Una vez el usuario escoja la funcion(ataque) se ejecutara el ataque aleatorio de la pc 
 function ataqueFuego(){                                             
-  ataqueJugador = 'FUEGO';
+  ataqueJugador = 'FUEGO🔥';
   ataqueAleatorioEnemigo();
 }
 
 function ataqueAgua(){
-  ataqueJugador = 'AGUA';
+  ataqueJugador = 'AGUA💦';
   ataqueAleatorioEnemigo();
 }
 
 function ataqueTierra(){
-  ataqueJugador = 'TIERRA';
+  ataqueJugador = 'TIERRA🌱';
   ataqueAleatorioEnemigo();
 }
 
@@ -99,11 +99,11 @@ function ataqueAleatorioEnemigo() {
   let ataqueAleatorio = aleatorio(1, 3);
 
   if(ataqueAleatorio == 1) {
-    ataqueOponente = 'FUEGO';
+    ataqueOponente = 'FUEGO🔥';
   } else if(ataqueAleatorio == 2){
-    ataqueOponente = 'AGUA';
+    ataqueOponente = 'AGUA💦';
   } else{
-    ataqueOponente = 'TIERRA';
+    ataqueOponente = 'TIERRA🌱';
   }
   combate();
 }
