@@ -102,7 +102,7 @@ function ataqueAleatorioEnemigo() {
     ataqueOponente = 'FUEGO🔥';
   } else if(ataqueAleatorio == 2){
     ataqueOponente = 'AGUA💦';
-  } else{
+  } else if(ataqueAleatorio == 3){
     ataqueOponente = 'TIERRA🌱';
   }
   combate();
@@ -118,15 +118,15 @@ function combate(){
   //Como condicionales pongo los casos donde gano como jugador
   if(ataqueOponente == ataqueJugador){
     crearMensaje("EMPATAS🤝");
-  } else if(ataqueJugador == 'FUEGO' && ataqueOponente == 'TIERRA'){              
+  } else if(ataqueJugador == 'FUEGO🔥' && ataqueOponente == 'TIERRA🌱'){              
     crearMensaje("GANASTE🍾");
     vidasOponente--;
     spanVidasOponente.innerHTML = vidasOponente                                
-  } else if(ataqueJugador == 'AGUA' && ataqueOponente == 'FUEGO' ){             
+  } else if(ataqueJugador == 'AGUA💦' && ataqueOponente == 'FUEGO🔥'){             
     crearMensaje("GANASTE🍾");
     vidasOponente--;
     spanVidasOponente.innerHTML = vidasOponente   
-  } else if(ataqueJugador == 'TIERRA' && ataqueOponente == 'AGUA' ){             
+  } else if(ataqueJugador == 'TIERRA🌱' && ataqueOponente == 'AGUA💦'){             
     crearMensaje("GANASTE🍾");
     vidasOponente--;
     spanVidasOponente.innerHTML = vidasOponente   
