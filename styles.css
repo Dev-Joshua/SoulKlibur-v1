@@ -39,7 +39,7 @@ body{
   font-family: 'GraphicPixel', 'HISKYFLIPPERLOWBOLD';
   letter-spacing: 5px;
 }
-.tarjetas{
+.tarjetas, .tarjetas-ataques{
   display: flex;
   gap: 10px;
 }
@@ -160,4 +160,110 @@ button{
 #vidas-jugador, #vidas-oponente{
   font-size: 30px;
   font-weight: bold;
+}
+
+/* Hasta(max-width) este tamaño de pantalla se estilara lo que esta dentro del @media */
+@media (max-width: 428px) {
+  .titulo{
+    color: white;
+    font-size: 33px;
+    font-family: 'Fipps', sans-serif;
+    /* width: auto; */
+    height: 125px;
+    text-align: center;
+    letter-spacing: 3px;
+    font-weight: normal;
+    margin: 0;
+  }
+  #select-personaje{
+    display: flex;
+    flex-direction: column;
+    height: 560px;
+    width: 30vh;
+    align-items: center;
+    border: 10px solid #D61C4E;
+    border-radius: 5px;
+    font-size: 18px;
+    margin-top: 30px;
+  }
+  .subtitulo{
+    font-size: 20px;
+    color: aliceblue;
+    font-weight: bold;
+    font-family: 'GraphicPixel', 'HISKYFLIPPERLOWBOLD';
+    letter-spacing: 0px;
+  }
+  .tarjetas, .tarjetas-ataques {
+    flex-direction: column;
+  }
+  .tarjeta-personaje{
+    width: 110px;
+    height: 120px;
+    font-size: 15px;
+    padding: 0px;
+    background: #3FA796;
+    box-sizing: border-box;
+    border-radius: 15px;
+    margin: 10px;
+    color: white;
+    text-align: center;
+  }
+  .tarjeta-personaje img{
+    width: 110px;
+    height: 72px;
+    object-fit: cover;
+  }
+  button {
+    background-color: #A10035;
+    font-family: 'GraphicPixel', 'HISKYFLIPPERHIBOLD';
+    font-size: 17px;
+    font-weight: bold;
+    width: 170px;
+    height: 45px;
+    margin: 15px;
+    color: whitesmoke;
+    border-radius: 30px;
+    border: 5px solid #FEC260;
+    letter-spacing: 3px;
+  }
+  #select-ataque{
+    background-color: #D61C4E;
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+    width: 30vh;
+    align-items: center;
+    border: 6px solid #FEC260;
+    border-radius: 5px;
+    margin-top: 30px;
+  }
+  .boton-ataque{
+    background-color: #3FA796;
+    font-family: 'GraphicPixel', 'HISKYFLIPPERHIBOLD';
+    font-size: 15px;
+    font-weight: bold;
+    width: 124px;
+    height: 45px;
+    margin-top: 15px;
+    color: whitesmoke;
+    border-radius: 8px;
+    border: 2px solid #2A0944;
+    letter-spacing: 2px;
+    margin-right: 20px;
+  }
+  #mensajes{
+    border: none;
+    width: auto;
+    margin-top: 0px;
+    display: none;
+    color: white;
+    text-align: center;
+  }
+ .mensajes-ataques{
+  display: grid;
+  grid-template-columns: 100px 100px;
+  margin: 30px;
+  height: auto;
+  gap: 20px;
+ }
 }
