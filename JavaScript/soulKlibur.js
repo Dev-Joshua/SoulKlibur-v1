@@ -1,50 +1,63 @@
 //Variables globales:
+
+//Antes de todo, selecciono la seccion de ataque para esconderla en el HTML hasta que se escoja un personaje
+const sectionSelectAtaque = document.getElementById('select-ataque');
+const sectionReiniciar = document.getElementById('reiniciar');
+//El metodo document.getElementVyId() => permite llamar(seleccionar) cualquier elemento de HTML mediante un id''
+//Creamos la variable donde seleccionamos al boton de seleccionar personaje, 
+const botonPersonajeJugador = document.getElementById('boton-select-personaje');
+//Botones para seleccionar el ataque de la mascota. Llamamos las funciones cuando el usuario de "click" al boton
+const botonFuego = document.getElementById('boton-ataque-fuego');
+const botonAgua = document.getElementById('boton-ataque-agua');
+const botonTierra = document.getElementById('boton-ataque-tierra');
+const botonReiniciar = document.getElementById("boton-reiniciar");
+
+
+const sectionSelectPersonaje = document.getElementById('select-personaje');
+//variables que traeran el input de cada personaje con getElementById() que pueden elegir
+const inputAkali = document.getElementById("akali");
+const inputPyke = document.getElementById("pyke");
+const inputCronos = document.getElementById("cronos");
+
+//La variable permite traer la etiqueta span para cambiar su html(PERSONAJE) segun eleccion.
+const spanPersonajeJugador = document.getElementById("personaje-jugador");
+const spanPersonajeOponente = document.getElementById("personaje-oponente");
+
+//Aqui llamo a los span(#vidas) para cambiar la cantidad que se mostrara segun el combate
+const spanVidasJugador = document.getElementById('vidas-jugador');    
+const spanVidasOponente = document.getElementById('vidas-oponente');
+
+const sectionMensajes = document.getElementById('resultado');
+const ataquesDelJugador = document.getElementById('ataques-jugador');
+const ataquesDelOponente = document.getElementById('ataques-oponente');
+
 let ataqueJugador;
 let ataqueOponente;
-//Ambos jugadores inician con 3 vidas. 
 let vidasJugador = 3;
 let vidasOponente = 3;
+//Ambos jugadores inician con 3 vidas. 
 
 function iniciarJuego(){
-  //Antes de todo, selecciono la seccion de ataque para escibderla en el HTML hasta que se escoja un personaje
-  let sectionSelectAtaque = document.getElementById('select-ataque');
+  //con display none escondo esta seccion(ataques) al iniciar el juego
   sectionSelectAtaque.style.display = 'none';
-  let sectionReiniciar = document.getElementById('reiniciar');
   sectionReiniciar.style.display = 'none';
-
-  //El metodo document.getElementVyId() => permite llamar(seleccionar) cualquier elemento de HTML mediante un id''
-  //Creamos la variable donde seleccionamos al boton de seleccionar personaje, 
-  let botonPersonajeJugador = document.getElementById('boton-select-personaje');
   //Escuchar el evento click del boton(botonPersonajeJugador). 
   //cuando dan 'click' al boton, con el addEventListener() mandamos a llamar la funcion seleccionarpersonajeJugador
   botonPersonajeJugador.addEventListener('click', seleccionarPersonajeJugador);
 
-  //Botones para seleccionar el ataque de la mascota. Llamamos las funciones cuando el usuario de "click" al boton
-  let botonFuego = document.getElementById('boton-ataque-fuego');
   botonFuego.addEventListener('click', ataqueFuego);
-  let botonAgua = document.getElementById('boton-ataque-agua');
   botonAgua.addEventListener('click', ataqueAgua);
-  let botonTierra = document.getElementById('boton-ataque-tierra');
   botonTierra.addEventListener('click', ataqueTierra);
 
-  let botonReiniciar = document.getElementById("boton-reiniciar");
   botonReiniciar.addEventListener('click', reiniciarJuego);
 }
 
 //Creo la funcion de seleccionarPersonajeJugador cuando den click en botonPersonajeJugador
 function seleccionarPersonajeJugador(){
-  //Oculto la seccion de select-personaje una vez la eligan
-  let sectionSelectPersonaje = document.getElementById('select-personaje');
+  
   sectionSelectPersonaje.style.display = 'none';
-  //Cuando le damos click(selccionar) aparece la seccion select-ataque
-  let sectionSelectAtaque = document.getElementById('select-ataque');
   sectionSelectAtaque.style.display = 'flex';
-  //Creo las variables que traeran el input de cada personaje con getElementById() que pueden elegir
-  let inputAkali = document.getElementById("akali");
-  let inputPyke = document.getElementById("pyke");
-  let inputCronos = document.getElementById("cronos");
-  //La variable permite traer la etiqueta span para cambiar su html(PERSONAJE) segun eleccion.
-  let spanPersonajeJugador = document.getElementById("personaje-jugador");
+  
   
   //Con .checked validamos que el input(radio) este seleccionado
   if(inputAkali.checked){            //SI! este input tiene la propiedad checked como true, entonces se ejecuta la funcion para mostrar en el HTML el personaje seleccionada
@@ -67,7 +80,6 @@ function aleatorio(min, max){
 //Funcion para que el bot JS del juego seleccione un personaje aleatoriamente
 function seleccionarPersonajePc(){
   let personaje_aleatorio = aleatorio(1, 3);
-  let spanPersonajeOponente = document.getElementById("personaje-oponente");
   
   if(personaje_aleatorio == 1){            
     spanPersonajeOponente.innerHTML = 'Akalí';
@@ -110,10 +122,6 @@ function ataqueAleatorioEnemigo() {
 
 //En esta funcion guardamos la logica de si perdimos, ganamos o empatamos.  
 function combate(){
-  //Aqui llamo a los span(#vidas) para cambiar la cantidad que se mostrara segun el combate
-  let spanVidasJugador = document.getElementById('vidas-jugador');    
-  let spanVidasOponente = document.getElementById('vidas-oponente');
-
   //SI pc elige lo mismo que el jugador => EMPATE
   //Como condicionales pongo los casos donde gano como jugador
   if(ataqueOponente == ataqueJugador){
@@ -152,12 +160,8 @@ function revisarVidas() {
 
 //Mandamos a llamar esta funcion cuando el usuario da click en el ataque para mostrar un mensaje
 //Crearmos ese mensaje con el metodo createElement y seleccionando la etiqueta('p') del documento HTML
-//La variable resultado es un parametro que vamos a recibir de la funcion combate por medio de argumentos
+//resultado es un parametro que vamos a recibir de la funcion combate por medio de argumentos
 function crearMensaje(resultado){
-  let sectionMensajes = document.getElementById('resultado');
-  let ataquesDelJugador = document.getElementById('ataques-jugador');
-  let ataquesDelOponente = document.getElementById('ataques-oponente');
-
   //Creo el parrafo dentro de los contenedores en HTML mediante su id
   //let parrafo = document.createElement('p');                          //Creo un parrafo, elemento de tipo 'p'                   
   //parrafo.innerHTML = `Tu personaje ataco con ${ataqueJugador}, el personaje del oponente atacó con ${ataqueOponente} => ${resultado}`; //Le insertamos texto al parrafo
@@ -176,20 +180,13 @@ function crearMensaje(resultado){
 }
 
 //Esta funcion recibe un parametro donde nos diga si perdimos o ganamos como jugador
-function crearMensajeFinal(resultadoFinal){
-  let sectionMensajes = document.getElementById('mensajes')
-                                         
+function crearMensajeFinal(resultadoFinal){                 
   sectionMensajes.innerHTML = resultadoFinal;  
-
   //Terminado el combate desabilitamos los botones de ataque(disabled=true)
-  let botonFuego = document.getElementById('boton-ataque-fuego');
   botonFuego.disabled = true;
-  let botonAgua = document.getElementById('boton-ataque-agua');
   botonAgua.disabled = true;
-  let botonTierra = document.getElementById('boton-ataque-tierra');
   botonTierra.disabled = true;
-
-  let sectionReiniciar = document.getElementById("reiniciar");
+  
   sectionReiniciar.style.display = 'block';
 }
 
@@ -201,7 +198,7 @@ function reiniciarJuego() {
 
 
 //El codigo JS no se va ejecutar hasta que cargue el evento de 'load' para que todos los eleementos del HTML ya existan antes del javascript 
-//window(ventana), 
+//window(ventana) 
 window.addEventListener('load', iniciarJuego)                 
 
 
