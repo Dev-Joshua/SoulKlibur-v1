@@ -45,14 +45,19 @@ class Personaje {
     this.foto = foto;
     this.vida = vida;
   }
-
 }
 
-//Creo primer objeto(akali) de la clase Personaje
+//Creo array para ir guardando los personajes
+let personajes = [];
+
+//Creo primer objeto(akali) de la clase Personaje...
 let akali = new Personaje('Akalí', './assets/akali.png', 5);
 let pyke = new Personaje('Pyke','./assets/pyke.png"', 5);
 let cronos = new Personaje('Cronos','./assets/combustion.png"', 5);
 
+//Inyecto estos valores con push(metodo) al array de personajes
+personajes.push(akali, pyke, cronos);
+console.log(personajes);
 
 function iniciarJuego(){
   //con display none escondo esta seccion(ataques) al iniciar el juego
