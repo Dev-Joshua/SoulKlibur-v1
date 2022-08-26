@@ -37,6 +37,23 @@ let vidasJugador = 3;
 let vidasOponente = 3;
 //Ambos jugadores inician con 3 vidas. 
 
+//Creo mi primera clase
+class Personaje {
+  //Constructor(llevara propiedades de de mis objetos)
+  constructor(nombre, foto, vida){
+    this.nombre = nombre;                                               //Esto mismo(el nombre sera igual al del parametro)
+    this.foto = foto;
+    this.vida = vida;
+  }
+
+}
+
+//Creo primer objeto(akali) de la clase Personaje
+let akali = new Personaje('Akalí', './assets/akali.png', 5);
+let pyke = new Personaje('Pyke','./assets/pyke.png"', 5);
+let cronos = new Personaje('Cronos','./assets/combustion.png"', 5);
+
+
 function iniciarJuego(){
   //con display none escondo esta seccion(ataques) al iniciar el juego
   sectionSelectAtaque.style.display = 'none';
