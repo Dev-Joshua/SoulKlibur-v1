@@ -44,6 +44,7 @@ class Personaje {
     this.nombre = nombre;                                               //Esto mismo(el nombre sera igual al del parametro)
     this.foto = foto;
     this.vida = vida;
+    this.ataques = [];                                                  //Agrego la propiedad ataques[]
   }
 }
 
@@ -55,9 +56,34 @@ let akali = new Personaje('Akalí', './assets/akali.png', 5);
 let pyke = new Personaje('Pyke','./assets/pyke.png"', 5);
 let cronos = new Personaje('Cronos','./assets/combustion.png"', 5);
 
+//Inyecto estos valores con push(metodo) al array de ataques
+//Con este bloque tenemos los 3 personajes con sus ataques(c/u ataques distintos segun su elemento)
+akali.ataques.push(
+  { nombre: 'Tierra🌱', id: 'boton-ataque-tierra' },
+  { nombre: 'Tierra🌱', id: 'boton-ataque-tierra' },
+  { nombre: 'Tierra🌱', id: 'boton-ataque-tierra' },
+  { nombre: 'Fuego🔥', id: 'boton-ataque-fuego' },
+  { nombre: 'Agua💦', id: 'boton-ataque-agua' }
+);
+pyke.ataques.push(
+  { nombre: 'Agua💦', id: 'boton-ataque-agua' },
+  { nombre: 'Agua💦', id: 'boton-ataque-agua' },
+  { nombre: 'Agua💦', id: 'boton-ataque-agua' },
+  { nombre: 'Fuego🔥', id: 'boton-ataque-fuego' },
+  { nombre: 'Tierra🌱', id: 'boton-ataque-tierra' }
+);
+cronos.ataques.push(
+  { nombre: 'Fuego🔥', id: 'boton-ataque-fuego' },
+  { nombre: 'Fuego🔥', id: 'boton-ataque-fuego' },
+  { nombre: 'Fuego🔥', id: 'boton-ataque-fuego' },
+  { nombre: 'Tierra🌱', id: 'boton-ataque-tierra' },
+  { nombre: 'Agua💦', id: 'boton-ataque-agua' }
+);
+
+
 //Inyecto estos valores con push(metodo) al array de personajes
-personajes.push(akali, pyke, cronos);
-console.log(personajes);
+// personajes.push(akali, pyke, cronos);
+// console.log(personajes);
 
 function iniciarJuego(){
   //con display none escondo esta seccion(ataques) al iniciar el juego
