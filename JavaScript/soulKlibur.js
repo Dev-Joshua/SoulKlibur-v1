@@ -31,8 +31,12 @@ const sectionMensajes = document.getElementById('resultado');
 const ataquesDelJugador = document.getElementById('ataques-jugador');
 const ataquesDelOponente = document.getElementById('ataques-oponente');
 
+//Creo array para ir guardando los personajes
+let personajes = [];
 let ataqueJugador;
 let ataqueOponente;
+let opcionPersonajes;
+const contenedorTarjetas = document.getElementById('contenedorTarjetas');
 let vidasJugador = 3;
 let vidasOponente = 3;
 //Ambos jugadores inician con 3 vidas. 
@@ -48,13 +52,11 @@ class Personaje {
   }
 }
 
-//Creo array para ir guardando los personajes
-let personajes = [];
 
 //Creo primer objeto(akali) de la clase Personaje...
 let akali = new Personaje('Akalí', './assets/akali.png', 5);
-let pyke = new Personaje('Pyke','./assets/pyke.png"', 5);
-let cronos = new Personaje('Cronos','./assets/combustion.png"', 5);
+let pyke = new Personaje('Pyke','./assets/pyke.png', 5);
+let cronos = new Personaje('Cronos','./assets/combustion.png', 5);
 
 //Inyecto estos valores con push(metodo) al array de ataques
 //Con este bloque tenemos los 3 personajes con sus ataques(c/u ataques distintos segun su elemento)
@@ -80,14 +82,34 @@ cronos.ataques.push(
   { nombre: 'Agua💦', id: 'boton-ataque-agua' }
 );
 
-
 //Inyecto estos valores con push(metodo) al array de personajes
-// personajes.push(akali, pyke, cronos);
+personajes.push(akali, pyke, cronos);
 // console.log(personajes);
 
+
+//Al iniciar el juego quiero cargar la informacion de personajes
 function iniciarJuego(){
   //con display none escondo esta seccion(ataques) al iniciar el juego
   sectionSelectAtaque.style.display = 'none';
+  //Recorro cada elemneto del array para extraer info de los objetos y poder inyectarlo en HTML
+  personajes.forEach((personaje) => {
+    //Imprimir cada objeto en cada iteracion
+    // console.log(personaje.nombre)                   
+    //Le digo a JS, x cada elemento(personaje) que exista en este array(personajes), generame esta estructura de HTML(tarjeta personaje)
+    opcionPersonajes = `
+    <input type="radio" name="personaje" id=${personaje.nombre}/>                 
+    <label class="tarjeta-personaje" for=${personaje.nombre}>
+      <p>${personaje.nombre}</p>
+      <img src=${personaje.foto} alt=${personaje.nombre}>        
+    </label>
+    `; 
+    //E inyecta la informacion(tarjeta personaje) dentro del contenedorTarjetas(div).
+    //Para asi sustituir lo que se tenia en HTML(de forma manual) y poderlo hacer de forma automatica con JS
+    contenedorTarjetas.innerHTML += opcionPersonajes;
+    // (+=) sumara cada iteracion para que se muestren las tres tarjetas de personajes
+  });
+
+
   sectionReiniciar.style.display = 'none';
   //Escuchar el evento click del boton(botonPersonajeJugador). 
   //cuando dan 'click' al boton, con el addEventListener() mandamos a llamar la funcion seleccionarpersonajeJugador
@@ -273,5 +295,10 @@ window.addEventListener('load', iniciarJuego)
 --->Logica para que una vez terminado el combate se pueda reiniciar el juego
   
 -->Con inner insertamos contenido a una etiqueta en html desde js
+
+-->Genero una pequeña estructura(templates literarios) dentro de la funcion inicicar juego, esta es la forma
+   de implementar html con valores de nuestras variables para hacer un mix de ambas cosas.
+   Creo la variable 'opcionesPersonaje', que guardara toda la estructura de HTML que se hara en JS para despues inyectar
+   esa variable con toda la estructura como valor directamente en el HTML.
    -----------------------------------------------------------------------------------------------------------
 */

@@ -17,24 +17,24 @@
     <h2 class="subtitulo">Elige tu personaje:</h2>
     <!-- Los label nos ayudan a darle un indicador al usuarios de que es lo que estan seleccionando(las personajes) -->
     <!-- Le damos un atributo(identidicador o id) para saber cual es el valor de cada uno. -->
-    <div class="tarjetas">
-      <input type="radio" name="personaje" id="akali"/>
+    <div id="contenedorTarjetas" class="tarjetas">
+      <!-- Paso este codigo(tarjeta) HTML al archivo JS dentro de la funcion iniciarJuego() -->
+      
+      <!-- <input type="radio" name="personaje" id="akali"/>
       <label class="tarjeta-personaje" for="akali">
         <p>Akal'i</p>
         <img src="./assets/akali.png" alt="Akal'i">        
-      </label>
-       
-      <input type="radio" name="personaje" id="pyke"/> 
+      </label> -->
+      <!-- <input type="radio" name="personaje" id="pyke"/> 
       <label class="tarjeta-personaje" for="pyke">
         <p>Pyke</p>        
         <img src="./assets/pyke.png" alt="">        
-      </label>
-      
-      <input type="radio" name="personaje" id="cronos"/> 
+      </label> -->
+      <!-- <input type="radio" name="personaje" id="cronos"/> 
       <label class="tarjeta-personaje" for="cronos">
         <p>Cronos</p>     
         <img src="./assets/combustion.png" alt="">    
-      </label> 
+      </label>  -->
     </div>
 
     <!-- Escuchamos el evento click cuando se use este boton por medio del id -->
@@ -88,3 +88,13 @@
            El navegador empieza a leer, css, html y si llega a un JS 
            deja de un lado la lectura, para leer solo JS(Esto genera un bloqueo).
 -->
+<!-- 
+    Para poder tener mas personajes en el juego o mas ataques sin tener que escribir el codigo de cada uno,
+    podemos absorber informacion del array de personajes creado en JS, asi como de los ataques.
+    
+    La seccion tarjetas que llevaba el codigo HTML de la informacion de mis personajes, la elimino de este documento
+    porque ya lo he cogido desde el JS en la variable opcionPErsonajes
+
+    La etiqueta div(class="tarjetas") funcionara como un contenedor donde inyectaremos cada uno de los elementos
+    o estructura de HTML que genero en JS desde opcionPersonaje
+  -->
