@@ -85,8 +85,12 @@
 <!-- Asi podemos incrementar o restar el 3 dependiendo si perdemos o ganamos vidas -->
 
 <!-- NOTA: El enlace a JS debe colocarse abajo para mejores practicas.
-           El navegador empieza a leer, css, html y si llega a un JS 
+           El navegador empieza a leer el documento de arriba hacia abajo, css, html y si llega a un JS 
            deja de un lado la lectura, para leer solo JS(Esto genera un bloqueo).
+
+           El navegador lo primero que hace es renderizar y crear cada uno de los elementos de HTML
+           en el navegador, al final abre el archivo de JS y empieza a leer de igual forma de arriba hacia abajo
+           las lineas de codigo.
 -->
 <!-- 
     Para poder tener mas personajes en el juego o mas ataques sin tener que escribir el codigo de cada uno,

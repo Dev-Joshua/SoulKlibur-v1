@@ -1,7 +1,8 @@
 @import url('http://fonts.cdnfonts.com/css/graphicpixel');
-@import url('http://fonts.cdnfonts.com/css/thumbs-up');
 @import url('http://fonts.cdnfonts.com/css/fipps');
 @import url('http://fonts.cdnfonts.com/css/hiskyflipper');
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
 
 body{
   /* font-family: 'GraphicPixel', sans-serif;*/
@@ -14,12 +15,13 @@ body{
 .titulo {
   color: white;
   font-size: 60px;
-  font-family: 'Fipps', sans-serif;
+  font-family: 'Press Start 2P', 'Fipps', sans-serif;
   width: 100%;
   height: 125px;
   text-align: center;
   letter-spacing: 8px;
   font-weight: normal;
+  margin-top: 100px;
 }
 #select-personaje{
   display: flex;
@@ -33,15 +35,16 @@ body{
   margin-top: 100px;
 }
 .subtitulo{
-  font-size: 40px;
+  font-size: 30px;
   color: aliceblue;
   font-weight: bold;
-  font-family: 'GraphicPixel', 'HISKYFLIPPERLOWBOLD';
+  font-family: 'Press Start 2P','GraphicPixel', 'HISKYFLIPPERLOWBOLD';
   letter-spacing: 5px;
 }
 .tarjetas, .tarjetas-ataques{
   display: flex;
   gap: 10px;
+  margin-top: 30px;
 }
 .tarjeta-personaje{
   width: 165px;
@@ -61,6 +64,10 @@ body{
   height: 145px;
   object-fit: cover;
 }
+.tarjeta-personaje p{
+  font-family: 'Press Start 2P','GraphicPixel', 'HISKYFLIPPERHIBOLD';
+  font-size: 14px;
+}
 input{
   width: 5px;
   display: none;
@@ -71,8 +78,8 @@ input:checked + label{
 }
 button{
   background-color: #A10035;
-  font-family: 'GraphicPixel', 'HISKYFLIPPERHIBOLD';
-  font-size: 25px;
+  font-family: 'Press Start 2P','GraphicPixel', 'HISKYFLIPPERHIBOLD';
+  font-size: 18px;
   font-weight: bold;
   width: 330px;
   height: 60px;
@@ -98,8 +105,8 @@ button{
 }
 .boton-ataque{
   background-color: #3FA796;
-  font-family: 'GraphicPixel', 'HISKYFLIPPERHIBOLD';
-  font-size: 25px;
+  font-family: 'Press Start 2P','GraphicPixel', 'HISKYFLIPPERHIBOLD';
+  font-size: 16px;
   font-weight: bold;
   width: 180px;
   height: 60px;
@@ -135,11 +142,12 @@ button{
   align-items: center;
 }
 #resultado{
-  font-size: 20px;
+  font-size: 18px;
   font-weight: bold;
-  font-family: 'GraphicPixel', 'HISKYFLIPPERHIBOLD';
+  font-family: 'Press Start 2P','GraphicPixel', 'HISKYFLIPPERHIBOLD';
 }
 #boton-reiniciar{
+  font-size: 14px;
   margin: 40px;
   width: 200px;
 }
@@ -163,10 +171,12 @@ button{
   font-size: 12px;
 }
 #personaje-jugador, #personaje-oponente{
-  font-size: 20px;
+  font-family: 'Press Start 2P','GraphicPixel', 'HISKYFLIPPERHIBOLD';
+  font-size: 14px;
   font-weight: bold;
 }
 #vidas-jugador, #vidas-oponente{
+  font-family: 'Press Start 2P','GraphicPixel', 'HISKYFLIPPERHIBOLD';
   font-size: 30px;
   font-weight: bold;
 }
@@ -175,20 +185,20 @@ button{
 @media (max-width: 428px) {
   .titulo{
     color: white;
-    font-size: 33px;
-    font-family: 'Fipps', sans-serif;
+    font-size: 28px;
+    font-family: 'Press Start 2P', 'Fipps', sans-serif;
     /* width: auto; */
-    height: 125px;
+    height: 60px;
     text-align: center;
     letter-spacing: 3px;
     font-weight: normal;
-    margin: 0;
+    margin-top: 50px;
   }
   #select-personaje{
     display: flex;
     flex-direction: column;
-    height: 560px;
-    width: 30vh;
+    height: auto;
+    width: 40vh;
     align-items: center;
     border: 10px solid #D61C4E;
     border-radius: 5px;
@@ -196,18 +206,18 @@ button{
     margin-top: 30px;
   }
   .subtitulo{
-    font-size: 20px;
+    font-size: 16px;
     color: aliceblue;
     font-weight: bold;
-    font-family: 'GraphicPixel', 'HISKYFLIPPERLOWBOLD';
+    font-family: 'Press Start 2P', 'GraphicPixel', 'HISKYFLIPPERLOWBOLD';
     letter-spacing: 0px;
   }
   .tarjetas, .tarjetas-ataques {
     flex-direction: column;
   }
-  .tarjeta-personaje:hover{
+  .tarjeta-personaje{
     width: 110px;
-    height: 120px;
+    height: 125px;
     font-size: 15px;
     padding: 0px;
     background: #3FA796;
@@ -224,8 +234,8 @@ button{
   }
   button {
     background-color: #A10035;
-    font-family: 'GraphicPixel', 'HISKYFLIPPERHIBOLD';
-    font-size: 17px;
+    font-family: 'Press Start 2P', 'GraphicPixel', 'HISKYFLIPPERHIBOLD';
+    font-size: 10px;
     font-weight: bold;
     width: 170px;
     height: 45px;
@@ -240,7 +250,7 @@ button{
     flex-direction: column;
     align-items: center;
     height: auto;
-    width: 30vh;
+    width: 40vh;
     align-items: center;
     border: 6px solid #FEC260;
     border-radius: 5px;
@@ -248,8 +258,8 @@ button{
   }
   .boton-ataque{
     background-color: #3FA796;
-    font-family: 'GraphicPixel', 'HISKYFLIPPERHIBOLD';
-    font-size: 15px;
+    font-family: 'Press Start 2P', 'GraphicPixel', 'HISKYFLIPPERHIBOLD';
+    font-size: 12px;
     font-weight: bold;
     width: 124px;
     height: 45px;
@@ -264,15 +274,24 @@ button{
     border: none;
     width: auto;
     margin-top: 0px;
-    display: none;
+    display: flex;
     color: white;
     text-align: center;
   }
  .mensajes-ataques{
   display: grid;
-  grid-template-columns: 100px 100px;
+  grid-template-columns: 130px 130px;
   margin: 30px;
   height: auto;
   gap: 20px;
+ }
+ #resultado{
+  font-size: 18px;
+ }
+ #boton-reiniciar{
+  font-size: 12px;
+  margin: 40px;
+  width: 170px;
+  height: 45px;
  }
 }

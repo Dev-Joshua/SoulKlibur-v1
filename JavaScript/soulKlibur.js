@@ -1,8 +1,10 @@
 //Variables globales:
 
-//Antes de todo, selecciono la seccion de ataque para esconderla en el HTML hasta que se escoja un personaje
+//Antes de todo, ligamos variables a elementos que tengan un ID en HTML
+//selecciono la seccion de ataque para esconderla en el HTML hasta que se escoja un personaje
 const sectionSelectAtaque = document.getElementById('select-ataque');
 const sectionReiniciar = document.getElementById('reiniciar');
+sectionReiniciar.style.display = 'none';
 //El metodo document.getElementVyId() => permite llamar(seleccionar) cualquier elemento de HTML mediante un id''
 //Creamos la variable donde seleccionamos al boton de seleccionar personaje, 
 const botonPersonajeJugador = document.getElementById('boton-select-personaje');
@@ -14,10 +16,7 @@ const botonReiniciar = document.getElementById("boton-reiniciar");
 
 
 const sectionSelectPersonaje = document.getElementById('select-personaje');
-//variables que traeran el input de cada personaje con getElementById() que pueden elegir
-const inputAkali = document.getElementById("akali");
-const inputPyke = document.getElementById("pyke");
-const inputCronos = document.getElementById("cronos");
+
 
 //La variable permite traer la etiqueta span para cambiar su html(PERSONAJE) segun eleccion.
 const spanPersonajeJugador = document.getElementById("personaje-jugador");
@@ -30,13 +29,18 @@ const spanVidasOponente = document.getElementById('vidas-oponente');
 const sectionMensajes = document.getElementById('resultado');
 const ataquesDelJugador = document.getElementById('ataques-jugador');
 const ataquesDelOponente = document.getElementById('ataques-oponente');
+const contenedorTarjetas = document.getElementById('contenedorTarjetas');
 
 //Creo array para ir guardando los personajes
 let personajes = [];
 let ataqueJugador;
 let ataqueOponente;
 let opcionPersonajes;
-const contenedorTarjetas = document.getElementById('contenedorTarjetas');
+//variables que traeran el input de cada personaje con getElementById() para elegir.Cuando se ejecute iniciarJuego
+let inputAkali; 
+let inputPyke;
+let inputCronos;
+
 let vidasJugador = 3;
 let vidasOponente = 3;
 //Ambos jugadores inician con 3 vidas. 
@@ -54,7 +58,7 @@ class Personaje {
 
 
 //Creo primer objeto(akali) de la clase Personaje...
-let akali = new Personaje('Akalí', './assets/akali.png', 5);
+let akali = new Personaje('Akali', './assets/akali.png', 5);
 let pyke = new Personaje('Pyke','./assets/pyke.png', 5);
 let cronos = new Personaje('Cronos','./assets/combustion.png', 5);
 
@@ -97,7 +101,7 @@ function iniciarJuego(){
     // console.log(personaje.nombre)                   
     //Le digo a JS, x cada elemento(personaje) que exista en este array(personajes), generame esta estructura de HTML(tarjeta personaje)
     opcionPersonajes = `
-    <input type="radio" name="personaje" id=${personaje.nombre}/>                 
+    <input type="radio" name="personaje" id=${personaje.nombre} />                 
     <label class="tarjeta-personaje" for=${personaje.nombre}>
       <p>${personaje.nombre}</p>
       <img src=${personaje.foto} alt=${personaje.nombre}>        
@@ -107,10 +111,14 @@ function iniciarJuego(){
     //Para asi sustituir lo que se tenia en HTML(de forma manual) y poderlo hacer de forma automatica con JS
     contenedorTarjetas.innerHTML += opcionPersonajes;
     // (+=) sumara cada iteracion para que se muestren las tres tarjetas de personajes
+    inputAkali = document.getElementById("Akali");
+    inputPyke = document.getElementById("Pyke");
+    inputCronos = document.getElementById("Cronos");
+    //Despues de generar los elementos con el HTML, ligamos los elementos con el id a las variables.
+    //ledigo a JS que busque los id y que los valores(nombre de personaje) los guarde en estas variables declaradas al inicio.
   });
 
 
-  sectionReiniciar.style.display = 'none';
   //Escuchar el evento click del boton(botonPersonajeJugador). 
   //cuando dan 'click' al boton, con el addEventListener() mandamos a llamar la funcion seleccionarpersonajeJugador
   botonPersonajeJugador.addEventListener('click', seleccionarPersonajeJugador);
@@ -131,7 +139,7 @@ function seleccionarPersonajeJugador(){
   
   //Con .checked validamos que el input(radio) este seleccionado
   if(inputAkali.checked){            //SI! este input tiene la propiedad checked como true, entonces se ejecuta la funcion para mostrar en el HTML el personaje seleccionada
-    spanPersonajeJugador.innerHTML = 'Akalí';
+    spanPersonajeJugador.innerHTML = 'Akali';
   } else if(inputPyke.checked){
     spanPersonajeJugador.innerHTML = 'Pyke';
   } else if(inputCronos.checked){
