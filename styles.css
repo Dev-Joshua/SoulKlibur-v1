@@ -27,7 +27,7 @@ body{
   display: flex;
   flex-direction: column;
   height: 500px;
-  width: 60vh;
+  width: 70vh;
   align-items: center;
   border: 10px solid #D61C4E;
   border-radius: 5px;
@@ -35,7 +35,7 @@ body{
   margin-top: 100px;
 }
 .subtitulo{
-  font-size: 30px;
+  font-size: 22px;
   color: aliceblue;
   font-weight: bold;
   font-family: 'Press Start 2P','GraphicPixel', 'HISKYFLIPPERLOWBOLD';
@@ -142,7 +142,7 @@ button{
   align-items: center;
 }
 #resultado{
-  font-size: 18px;
+  font-size: 14px;
   font-weight: bold;
   font-family: 'Press Start 2P','GraphicPixel', 'HISKYFLIPPERHIBOLD';
 }
@@ -185,7 +185,7 @@ button{
 @media (max-width: 428px) {
   .titulo{
     color: white;
-    font-size: 28px;
+    font-size: 21px;
     font-family: 'Press Start 2P', 'Fipps', sans-serif;
     /* width: auto; */
     height: 60px;
@@ -198,7 +198,7 @@ button{
     display: flex;
     flex-direction: column;
     height: auto;
-    width: 40vh;
+    width: 48vh;
     align-items: center;
     border: 10px solid #D61C4E;
     border-radius: 5px;
@@ -206,7 +206,7 @@ button{
     margin-top: 30px;
   }
   .subtitulo{
-    font-size: 16px;
+    font-size: 14px;
     color: aliceblue;
     font-weight: bold;
     font-family: 'Press Start 2P', 'GraphicPixel', 'HISKYFLIPPERLOWBOLD';
@@ -250,7 +250,7 @@ button{
     flex-direction: column;
     align-items: center;
     height: auto;
-    width: 40vh;
+    width: 48vh;
     align-items: center;
     border: 6px solid #FEC260;
     border-radius: 5px;
@@ -286,7 +286,7 @@ button{
   gap: 20px;
  }
  #resultado{
-  font-size: 18px;
+  font-size: 14px;
  }
  #boton-reiniciar{
   font-size: 12px;

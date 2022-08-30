@@ -132,11 +132,11 @@ function iniciarJuego(){
 
 //Creo la funcion de seleccionarPersonajeJugador cuando den click en botonPersonajeJugador
 function seleccionarPersonajeJugador(){
-  
+  //Manipulamos esta funcion
   sectionSelectPersonaje.style.display = 'none';
   sectionSelectAtaque.style.display = 'flex';
   
-  
+  //Estos input estan ligados a elementos de HTML que colocamos con JS.   
   //Con .checked validamos que el input(radio) este seleccionado
   if(inputAkali.checked){            //SI! este input tiene la propiedad checked como true, entonces se ejecuta la funcion para mostrar en el HTML el personaje seleccionada
     spanPersonajeJugador.innerHTML = 'Akali';
