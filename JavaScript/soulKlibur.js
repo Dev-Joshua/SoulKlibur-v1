@@ -136,14 +136,14 @@ function seleccionarPersonajeJugador(){
   sectionSelectPersonaje.style.display = 'none';
   sectionSelectAtaque.style.display = 'flex';
   
-  //Estos input estan ligados a elementos de HTML que colocamos con JS.   
+  //Estos input estan ligados a elementos de HTML que colocamos con JS. Estos objetosienen la informacion que necesitamos para validar  
   //Con .checked validamos que el input(radio) este seleccionado
-  if(inputAkali.checked){            //SI! este input tiene la propiedad checked como true, entonces se ejecuta la funcion para mostrar en el HTML el personaje seleccionada
-    spanPersonajeJugador.innerHTML = 'Akali';
+  if(inputAkali.checked){            //SI! este input tiene la propiedad checked como true, entonces se muestra en el HTML el personaje seleccionada
+    spanPersonajeJugador.innerHTML = inputAkali.id;   //Esta variable(span) sera igual al valor del id de ese elemento(id contiene el nombre del objeto akali)
   } else if(inputPyke.checked){
-    spanPersonajeJugador.innerHTML = 'Pyke';
+    spanPersonajeJugador.innerHTML = inputPyke.id ;
   } else if(inputCronos.checked){
-    spanPersonajeJugador.innerHTML = 'Cronos';
+    spanPersonajeJugador.innerHTML = inputCronos.id;
   } else {
     alert("¡Debes seleccionar una mascota!")
   }
