@@ -30,17 +30,19 @@ const sectionMensajes = document.getElementById('resultado');
 const ataquesDelJugador = document.getElementById('ataques-jugador');
 const ataquesDelOponente = document.getElementById('ataques-oponente');
 const contenedorTarjetas = document.getElementById('contenedorTarjetas');
+const contenedorAtaques = document.getElementById('select-ataque');
 
 //Creo array para ir guardando los personajes
 let personajes = [];
 let ataqueJugador;
 let ataqueOponente;
+let personajeJugador;
 let opcionPersonajes;
+let ataquesPersonaje;
 //variables que traeran el input de cada personaje con getElementById() para elegir.Cuando se ejecute iniciarJuego
 let inputAkali; 
 let inputPyke;
 let inputCronos;
-
 let vidasJugador = 3;
 let vidasOponente = 3;
 //Ambos jugadores inician con 3 vidas. 
@@ -140,16 +142,46 @@ function seleccionarPersonajeJugador(){
   //Con .checked validamos que el input(radio) este seleccionado
   if(inputAkali.checked){            //SI! este input tiene la propiedad checked como true, entonces se muestra en el HTML el personaje seleccionada
     spanPersonajeJugador.innerHTML = inputAkali.id;   //Esta variable(span) sera igual al valor del id de ese elemento(id contiene el nombre del objeto akali)
+    personajeJugador = inputAkali.id;
   } else if(inputPyke.checked){
     spanPersonajeJugador.innerHTML = inputPyke.id ;
+    personajeJugador = inputAkali.id;
   } else if(inputCronos.checked){
     spanPersonajeJugador.innerHTML = inputCronos.id;
+    //En cada validacion extraigo el nombre y lo guarde en la variable
+    //dicha variable la utilizo para acceder a los ataques de mis personajes(objetos)
+    personajeJugador = inputAkali.id;
   } else {
-    alert("¡Debes seleccionar una mascota!")
+    alert("¡Debes seleccionar un personaje!")
   }
-  // Esta condicion solo se cumple si el jugador escoge un personaje para jugar. El pc elige y empezara el juego
-    seleccionarPersonajePc();
+   extraerAtaques(personajeJugador);
+   seleccionarPersonajePc();
+   // Esta condicion solo se cumple si el jugador escoge un personaje para jugar. El pc elige y empezara el juego
+
 }
+
+//Extraigo los ataques de cada oersonajeJugador seleccionado
+function extraerAtaques(personajeJugador) {
+  let ataques;
+  //Itero por cada elemento existente del array, mientras i sea menor a 3
+  for (let i = 0; i < personajes.length; i++) {
+    //Mientras el elmento(nombre) seleccionado en personajeJugador sae igual al mismo del array[i]
+    if(personajeJugador === personajes[i].nombre) {
+      //Extraigo los ataques de ese personajeJugador
+      ataques = personajes[i].ataques;
+    }
+  }
+  // console.log(ataques);
+  // inyecto los ataques en html con esta funcion
+  mostrarAtaques(ataques);
+}
+
+mostrarAtaques(ataques) {
+  ataques.forEach((ataque) => {
+    ataquesPersonaje = `<button id="${ataque.nombre}" class="boton-ataque">${ataque.nombre}</button>`;
+    contenedorAtaques.innerHTML += ataquesPersonaje;
+    });
+  }
 
 function aleatorio(min, max){
   return Math.floor(Math.random() * (max - min + 1) + min);
@@ -157,15 +189,19 @@ function aleatorio(min, max){
 
 //Funcion para que el bot JS del juego seleccione un personaje aleatoriamente
 function seleccionarPersonajePc(){
-  let personaje_aleatorio = aleatorio(1, 3);
+  //Convierto en fuente de verdad esta funcion para manipularla
+  let personaje_aleatorio = aleatorio(0, personajes.length -1);                 //personaje aleatorio entre 0  al #tamaño del array -1 = 3
   
-  if(personaje_aleatorio == 1){            
-    spanPersonajeOponente.innerHTML = 'Akalí';
-  } else if(personaje_aleatorio == 2){
-    spanPersonajeOponente.innerHTML = 'Pyke';
-  } else if(personaje_aleatorio == 3){
-    spanPersonajeOponente.innerHTML = 'Cronos';
-  } 
+  spanPersonajeOponente.innerHTML = personajes[personaje_aleatorio].nombre;                      //spanPersonajeOp sera igual a personajes[y # que de aleatorio]
+  // if(personaje_aleatorio == 1){            
+  //   spanPersonajeOponente.innerHTML = 'Akalí';
+  // } else if(personaje_aleatorio == 2){
+  //   spanPersonajeOponente.innerHTML = 'Pyke';
+  // } else if(personaje_aleatorio == 3){
+  //   spanPersonajeOponente.innerHTML = 'Cronos';
+  // } 
+
+  //Imprime el personaje aleatorio seleccionado para pc
 }
 
 //Una vez el usuario escoja la funcion(ataque) se ejecutara el ataque aleatorio de la pc 
