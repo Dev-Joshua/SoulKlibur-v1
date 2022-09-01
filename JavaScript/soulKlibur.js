@@ -9,9 +9,9 @@ sectionReiniciar.style.display = 'none';
 //Creamos la variable donde seleccionamos al boton de seleccionar personaje, 
 const botonPersonajeJugador = document.getElementById('boton-select-personaje');
 //Botones para seleccionar el ataque de la mascota. Llamamos las funciones cuando el usuario de "click" al boton
-const botonFuego = document.getElementById('boton-ataque-fuego');
-const botonAgua = document.getElementById('boton-ataque-agua');
-const botonTierra = document.getElementById('boton-ataque-tierra');
+// const botonFuego = document.getElementById('boton-ataque-fuego');
+// const botonAgua = document.getElementById('boton-ataque-agua');
+// const botonTierra = document.getElementById('boton-ataque-tierra');
 const botonReiniciar = document.getElementById("boton-reiniciar");
 
 
@@ -30,19 +30,26 @@ const sectionMensajes = document.getElementById('resultado');
 const ataquesDelJugador = document.getElementById('ataques-jugador');
 const ataquesDelOponente = document.getElementById('ataques-oponente');
 const contenedorTarjetas = document.getElementById('contenedorTarjetas');
-const contenedorAtaques = document.getElementById('select-ataque');
+const contenedorAtaques = document.getElementById('contenedor-ataques');
 
 //Creo array para ir guardando los personajes
 let personajes = [];
-let ataqueJugador;
+let ataqueJugador = [];
 let ataqueOponente;
 let personajeJugador;
+//opcion y ataquesPersonajes guardaran la estructura de html
 let opcionPersonajes;
 let ataquesPersonaje;
 //variables que traeran el input de cada personaje con getElementById() para elegir.Cuando se ejecute iniciarJuego
 let inputAkali; 
 let inputPyke;
 let inputCronos;
+let botonFuego; 
+let botonAgua;
+let botonTierra;
+//Array que tendra cada boton que se creara
+let botones = [];
+let ataqueJu                                                                   
 let vidasJugador = 3;
 let vidasOponente = 3;
 //Ambos jugadores inician con 3 vidas. 
@@ -67,25 +74,25 @@ let cronos = new Personaje('Cronos','./assets/combustion.png', 5);
 //Inyecto estos valores con push(metodo) al array de ataques
 //Con este bloque tenemos los 3 personajes con sus ataques(c/u ataques distintos segun su elemento)
 akali.ataques.push(
-  { nombre: 'Tierra🌱', id: 'boton-ataque-tierra' },
-  { nombre: 'Tierra🌱', id: 'boton-ataque-tierra' },
-  { nombre: 'Tierra🌱', id: 'boton-ataque-tierra' },
-  { nombre: 'Fuego🔥', id: 'boton-ataque-fuego' },
-  { nombre: 'Agua💦', id: 'boton-ataque-agua' }
+  { nombre: '🌱', id: 'boton-ataque-tierra' },
+  { nombre: '🌱', id: 'boton-ataque-tierra' },
+  { nombre: '🌱', id: 'boton-ataque-tierra' },
+  { nombre: '🔥', id: 'boton-ataque-fuego' },
+  { nombre: '💦', id: 'boton-ataque-agua' }
 );
 pyke.ataques.push(
-  { nombre: 'Agua💦', id: 'boton-ataque-agua' },
-  { nombre: 'Agua💦', id: 'boton-ataque-agua' },
-  { nombre: 'Agua💦', id: 'boton-ataque-agua' },
-  { nombre: 'Fuego🔥', id: 'boton-ataque-fuego' },
-  { nombre: 'Tierra🌱', id: 'boton-ataque-tierra' }
+  { nombre: '💦', id: 'boton-ataque-agua' },
+  { nombre: '💦', id: 'boton-ataque-agua' },
+  { nombre: '💦', id: 'boton-ataque-agua' },
+  { nombre: '🔥', id: 'boton-ataque-fuego' },
+  { nombre: '🌱', id: 'boton-ataque-tierra' }
 );
 cronos.ataques.push(
-  { nombre: 'Fuego🔥', id: 'boton-ataque-fuego' },
-  { nombre: 'Fuego🔥', id: 'boton-ataque-fuego' },
-  { nombre: 'Fuego🔥', id: 'boton-ataque-fuego' },
-  { nombre: 'Tierra🌱', id: 'boton-ataque-tierra' },
-  { nombre: 'Agua💦', id: 'boton-ataque-agua' }
+  { nombre: '🔥', id: 'boton-ataque-fuego' },
+  { nombre: '🔥', id: 'boton-ataque-fuego' },
+  { nombre: '🔥', id: 'boton-ataque-fuego' },
+  { nombre: '🌱', id: 'boton-ataque-tierra' },
+  { nombre: '💦', id: 'boton-ataque-agua' }
 );
 
 //Inyecto estos valores con push(metodo) al array de personajes
@@ -125,16 +132,16 @@ function iniciarJuego(){
   //cuando dan 'click' al boton, con el addEventListener() mandamos a llamar la funcion seleccionarpersonajeJugador
   botonPersonajeJugador.addEventListener('click', seleccionarPersonajeJugador);
 
-  botonFuego.addEventListener('click', ataqueFuego);
-  botonAgua.addEventListener('click', ataqueAgua);
-  botonTierra.addEventListener('click', ataqueTierra);
+  // botonFuego.addEventListener('click', ataqueFuego);
+  // botonAgua.addEventListener('click', ataqueAgua);
+  // botonTierra.addEventListener('click', ataqueTierra);
 
   botonReiniciar.addEventListener('click', reiniciarJuego);
 }
 
 //Creo la funcion de seleccionarPersonajeJugador cuando den click en botonPersonajeJugador
 function seleccionarPersonajeJugador(){
-  //Manipulamos esta funcion
+  //Manipulamos esta funcion para dejarla como unica fuente de verdad
   sectionSelectPersonaje.style.display = 'none';
   sectionSelectAtaque.style.display = 'flex';
   
@@ -160,12 +167,12 @@ function seleccionarPersonajeJugador(){
 
 }
 
-//Extraigo los ataques de cada oersonajeJugador seleccionado
+//Extraigo los ataques de cada personajeJugador seleccionado
 function extraerAtaques(personajeJugador) {
   let ataques;
   //Itero por cada elemento existente del array, mientras i sea menor a 3
   for (let i = 0; i < personajes.length; i++) {
-    //Mientras el elmento(nombre) seleccionado en personajeJugador sae igual al mismo del array[i]
+    //Mientras el elmento(nombre) seleccionado en personajeJugador sae igual al mismo del array personajes[i]
     if(personajeJugador === personajes[i].nombre) {
       //Extraigo los ataques de ese personajeJugador
       ataques = personajes[i].ataques;
@@ -176,12 +183,56 @@ function extraerAtaques(personajeJugador) {
   mostrarAtaques(ataques);
 }
 
-mostrarAtaques(ataques) {
+//Una sola fuente de la verdad para mostarAtaques
+function mostrarAtaques(ataques) {
+  //Inyecto los botones en HTML
   ataques.forEach((ataque) => {
-    ataquesPersonaje = `<button id="${ataque.nombre}" class="boton-ataque">${ataque.nombre}</button>`;
+    //Agrego clase BAtaque a la estructura HTML que se inyecta en el documento para acceder a los botones
+    ataquesPersonaje = `<button id="${ataque.id}" class="boton-ataque BAtaque">${ataque.nombre}</button>`;
     contenedorAtaques.innerHTML += ataquesPersonaje;
     });
+
+    //Los botones van a existir hasta que se ejecute este bloque
+    botonFuego = document.getElementById('boton-ataque-fuego');
+    botonAgua = document.getElementById('boton-ataque-agua');
+    botonTierra = document.getElementById('boton-ataque-tierra');
+    //selecciono todos los elementos que tengan la clase 'Bataque'.(no se puede id porque no puede repetirse)
+    botones = document.querySelectorAll('.BAtaque');
+    console.log(botones);
+
+    // botonFuego.addEventListener('click', ataqueFuego);
+    // botonAgua.addEventListener('click', ataqueAgua);
+    // botonTierra.addEventListener('click', ataqueTierra);
+    // Esta parte no me sirve en la nueva logica a los botones de ataque porque ya tengo un evento de click en secuenciaAtaque
   }
+
+//Itero sobre los ataques y agrego un evento'click' por cada boton del array(botones)
+//Cambio la logica del juego de vidas por victorias(que solo de 5 rondas de ataque y gane quien tenga +victrias)
+function secuenciaAtaque() {
+  //Cada boton debe tener la funcion de 'click'
+  //Por cada boton que exista en el array(botones) agrega el evento 'click' y valida cual es el valor que se sta seleccionando
+  botones.forEach((boton) => {
+    boton.addEventListener('click',(e) => {               //la (e) hace referencia al evento mismo(click). 
+      console.log(e);
+      //si el contenido de la propiedad textContent del target es = 🔥':
+      if(e.target.textContent === '🔥') {
+        ataqueJugador.push('FUEGO🔥');
+        console.log(ataqueJugador);
+        boton.style.background = '#2A0944';
+      } else if(e.target.textContent === '💦') {
+        ataqueJugador.push('AGUA💦');
+        console.log(ataqueJugador);
+        boton.style.background = '#2A0944';
+      } else if(e.target.textContent === '🌱') {
+        ataqueJugador.push('TIERRA🌱');
+        console.log(ataqueJugador);
+        boton.style.background = '#2A0944';
+      }
+    });
+    //Cuando doy click en el boton la (e) regresara cual es el evento que esta sucediendo.
+    //Por medio del evento(e) puedo llegar al contenido de texto del boton para validar cual es el atque seleccionado
+  });
+}
 
 function aleatorio(min, max){
   return Math.floor(Math.random() * (max - min + 1) + min);
@@ -193,6 +244,8 @@ function seleccionarPersonajePc(){
   let personaje_aleatorio = aleatorio(0, personajes.length -1);                 //personaje aleatorio entre 0  al #tamaño del array -1 = 3
   
   spanPersonajeOponente.innerHTML = personajes[personaje_aleatorio].nombre;                      //spanPersonajeOp sera igual a personajes[y # que de aleatorio]
+  //Una vez selecionado el personaje del oponente se va a ejecuar la secuencia xq se mostraran los botnes ataque
+  secuenciaAtaque();
   // if(personaje_aleatorio == 1){            
   //   spanPersonajeOponente.innerHTML = 'Akalí';
   // } else if(personaje_aleatorio == 2){
@@ -204,7 +257,8 @@ function seleccionarPersonajePc(){
   //Imprime el personaje aleatorio seleccionado para pc
 }
 
-//Una vez el usuario escoja la funcion(ataque) se ejecutara el ataque aleatorio de la pc 
+// ESTE BLOQUUE DE CODIGO NO ME SIRVE una veZ cambiada la logica de botones y ataques
+// Una vez el usuario escoja la funcion(ataque) se ejecutara el ataque aleatorio de la pc 
 function ataqueFuego(){                                             
   ataqueJugador = 'FUEGO🔥';
   ataqueAleatorioEnemigo();
