@@ -139,6 +139,7 @@ function iniciarJuego(){
   botonReiniciar.addEventListener('click', reiniciarJuego);
 }
 
+
 //Creo la funcion de seleccionarPersonajeJugador cuando den click en botonPersonajeJugador
 function seleccionarPersonajeJugador(){
   //Manipulamos esta funcion para dejarla como unica fuente de verdad
@@ -167,6 +168,7 @@ function seleccionarPersonajeJugador(){
 
 }
 
+
 //Extraigo los ataques de cada personajeJugador seleccionado
 function extraerAtaques(personajeJugador) {
   let ataques;
@@ -182,6 +184,7 @@ function extraerAtaques(personajeJugador) {
   // inyecto los ataques en html con esta funcion
   mostrarAtaques(ataques);
 }
+
 
 //Una sola fuente de la verdad para mostarAtaques
 function mostrarAtaques(ataques) {
@@ -206,6 +209,7 @@ function mostrarAtaques(ataques) {
     // Esta parte no me sirve en la nueva logica a los botones de ataque porque ya tengo un evento de click en secuenciaAtaque
   }
 
+
 //Itero sobre los ataques y agrego un evento'click' por cada boton del array(botones)
 //Cambio la logica del juego de vidas por victorias(que solo de 5 rondas de ataque y gane quien tenga +victrias)
 function secuenciaAtaque() {
@@ -214,19 +218,21 @@ function secuenciaAtaque() {
   botones.forEach((boton) => {
     boton.addEventListener('click',(e) => {               //la (e) hace referencia al evento mismo(click). 
       console.log(e);
-      //si el contenido de la propiedad textContent del target es = 🔥':
+      //si el contenido de la propiedad textContent(target) del elemento selccionado es = 🔥':
       if(e.target.textContent === '🔥') {
+        //Agrega push del elemento fuego al array de ataqueJugador, imprime en consola cual ataque seleccione
         ataqueJugador.push('FUEGO🔥');
         console.log(ataqueJugador);
-        boton.style.background = '#2A0944';
+        boton.style.background = '#112f58';
       } else if(e.target.textContent === '💦') {
         ataqueJugador.push('AGUA💦');
         console.log(ataqueJugador);
-        boton.style.background = '#2A0944';
+        boton.style.background = '#112f58';
       } else if(e.target.textContent === '🌱') {
         ataqueJugador.push('TIERRA🌱');
         console.log(ataqueJugador);
-        boton.style.background = '#2A0944';
+        //Cambia el color de fondo para saber que ya fue seleccionado
+        boton.style.background = '#112f58';
       }
     });
     //Cuando doy click en el boton la (e) regresara cual es el evento que esta sucediendo.
@@ -234,9 +240,11 @@ function secuenciaAtaque() {
   });
 }
 
+
 function aleatorio(min, max){
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
+
 
 //Funcion para que el bot JS del juego seleccione un personaje aleatoriamente
 function seleccionarPersonajePc(){
@@ -257,22 +265,21 @@ function seleccionarPersonajePc(){
   //Imprime el personaje aleatorio seleccionado para pc
 }
 
-// ESTE BLOQUUE DE CODIGO NO ME SIRVE una veZ cambiada la logica de botones y ataques
-// Una vez el usuario escoja la funcion(ataque) se ejecutara el ataque aleatorio de la pc 
-function ataqueFuego(){                                             
-  ataqueJugador = 'FUEGO🔥';
-  ataqueAleatorioEnemigo();
-}
 
-function ataqueAgua(){
-  ataqueJugador = 'AGUA💦';
-  ataqueAleatorioEnemigo();
-}
-
-function ataqueTierra(){
-  ataqueJugador = 'TIERRA🌱';
-  ataqueAleatorioEnemigo();
-}
+// ESTE BLOQUUE DE CODIGO NO ME SIRVE una veZ cambiada la logica de botones y ataques.(Xq me sobreescribe el array ataqueJugador)
+// Cuando el usuario escoja la funcion(ataque) se ejecutara el ataque aleatorio de la pc 
+// function ataqueFuego(){                                             
+//   ataqueJugador = 'FUEGO🔥';
+//   ataqueAleatorioEnemigo();
+// }
+// function ataqueAgua(){
+//   ataqueJugador = 'AGUA💦';
+//   ataqueAleatorioEnemigo();
+// }
+// function ataqueTierra(){
+//   ataqueJugador = 'TIERRA🌱';
+//   ataqueAleatorioEnemigo();
+// }
 
 //Logica para seleccionar el ataque de la computadora(oponente), una vez seleccione se ejecuta la funcion combate para empezar el duelo
 function ataqueAleatorioEnemigo() {                               
