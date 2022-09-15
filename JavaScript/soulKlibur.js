@@ -201,9 +201,9 @@ function mostrarAtaques(ataques) {
 
     //Ligo las variables de los botones a los elementos de HTML que tienen este id
     //Los botones van a existir hasta que se ejecute este bloque
-    botonFuego = document.getElementById('boton-ataque-fuego');
-    botonAgua = document.getElementById('boton-ataque-agua');
-    botonTierra = document.getElementById('boton-ataque-tierra');
+    botonFuego = document.getElementById('botonfuego');
+    botonAgua = document.getElementById('boton-agua');
+    botonTierra = document.getElementById('boton-tierra');
     //selecciono todos los elementos(botones) que tengan la clase 'Bataque'.(no se puede id porque no puede repetirse)
     botones = document.querySelectorAll('.BAtaque');
     console.log(botones);
@@ -230,15 +230,19 @@ function secuenciaAtaque() {
         ataqueJugador.push('FUEGO');
         console.log(ataqueJugador);
         boton.style.background = '#112f58';
+        boton.disabled = true;
       } else if(e.target.textContent === '💦') {
         ataqueJugador.push('AGUA');
         console.log(ataqueJugador);
         boton.style.background = '#112f58';
+        boton.disabled = true;
       } else if(e.target.textContent === '🌱') {
         ataqueJugador.push('TIERRA');
         console.log(ataqueJugador);
         //Cambia el color de fondo para saber que ya fue seleccionado
         boton.style.background = '#112f58';
+        //Desabilito cada boton cuando se seleccione
+        boton.disabled = true;
       }
       //Llamo a esta funcion despues de terminar de ejecutar secuenciaAtaque
       ataqueAleatorioEnemigo();
@@ -323,7 +327,8 @@ function indexArrayPlayers(jugador, oponente) {
   indexAtaqueOponente = ataqueOponente[oponente];
 } 
 
-//En esta funcion guardamos la logica de si perdimos, ganamos o empatamos.  
+//En esta funcion guardamos la logica de si perdimos, ganamos o empatamos.
+//Cambio la logica de ganar por +vidas a ganar por +victorias  
 function combate(){
   //El for me ayuda a recorrer a traves de los 2 arrays(ataquesJugador y ataquesOponente) que tengo.
   for (let index = 0; index < ataqueJugador.length; index++) {
@@ -334,18 +339,19 @@ function combate(){
     if(ataqueJugador[index] == ataqueOponente[index]) {
       indexArrayPlayers(index, index);
       crearMensaje("EMPATAS");
-      // victoriasJugador++;
-      spanVidasJugador.innerHTML = victoriasJugador;
     } else if(ataqueJugador[index] == 'FUEGO' && ataqueOponente[index] == 'TIERRA') {
       indexArrayPlayers(index, index);
+      crearMensaje("GANASTE🍾");
       victoriasJugador++;
       spanVidasJugador.innerHTML = victoriasJugador;
     } else if(ataqueJugador[index] == 'AGUA' && ataqueOponente[index] == 'FUEGO') {
       indexArrayPlayers(index, index);
+      crearMensaje("GANASTE🍾");
       victoriasJugador++;
       spanVidasJugador.innerHTML = victoriasJugador;
     } else if(ataqueJugador[index] == 'TIERRA' && ataqueOponente[index] == 'AGUA') {
       indexArrayPlayers(index, index);
+      crearMensaje("GANASTE🍾");
       victoriasJugador++;
       spanVidasJugador.innerHTML = victoriasJugador;
     } else {
@@ -389,7 +395,7 @@ function revisarVidas() {
     crearMensajeFinal("Has gando el combate.\n ¡Felicitaciones!🎉");
     //gana jugador
   } else {
-    crearMensajeFinal("Has perdido el combate😣");
+    crearMensajeFinal("¡Has perdido el combate!");
   }
 }
 
@@ -420,10 +426,9 @@ function crearMensajeFinal(resultadoFinal){
   sectionReiniciar.style.display = 'block';
 
   //Terminado el combate desabilitamos los botones de ataque(disabled=true)
-  botonFuego.disabled = true;
-  botonAgua.disabled = true;
-  botonTierra.disabled = true;
-  
+  // botonFuego.disabled = true;
+  // botonAgua.disabled = true;
+  // botonTierra.disabled = true;
 }
 
 //Funcion para reiniciar el juuego cuando de click
