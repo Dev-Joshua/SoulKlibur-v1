@@ -72,30 +72,46 @@ mapaBackground.src = '../assets/mapa_fondo_canvas.png';
 
 //Creo mi primera clase
 class Personaje {
-  //Constructor(llevara propiedades de de mis objetos)
-  constructor(nombre, foto, vida){
+  //Constructor(llevara propiedades/atributos de de mis objetos(personajes))
+  constructor(nombre, foto, vida, fotoMapa, x = 50, y = 50){
     this.nombre = nombre;                                               //Esto mismo(el nombre sera igual al del parametro)
     this.foto = foto;
     this.vida = vida;
     this.ataques = [];                                                  //Agrego la propiedad ataques[]
-     //Modifico la clase personaje
-    this.x = 20;
-    this.y = 30;
-    this.ancho = 80;
-    this.alto = 80;
+     
+    this.x = x;                                                        //Modifico la clase personaje para darle atributos al(cabeza-personaje) en el Canvas
+    this.y = y;  
+    this.ancho = 100;
+    this.alto = 100;
+    
     this.mapaFoto = new Image();
-    this.mapaFoto.src = foto;
+    this.mapaFoto.src = fotoMapa;                                       //Uso fotoMapa que viene siendo los avatar(cabeza) de los personajes
     this.velocidadX = 0;
     this.velocidadY = 0;
-
+  }
+  //Declaro una funcion pintarPersonaje
+  pintarPersonaje() {
+    //Este lienzo va pintar el personajeoObjeto con .this
+    lienzo.drawImage(
+      this.mapaFoto,
+      this.x,
+      this.y,
+      this.ancho,
+      this.alto
+      //Estos atributos atributos son del objeto creado(personaje)
+    )
   }
 }
 
 
 //Creo primer objeto(akali) de la clase Personaje...
-let akali = new Personaje('Akali', '../assets/imgRenderAkali.png', 5);
-let pyke = new Personaje('Pyke','../assets/imgRenderPyke.png', 5);
-let cronos = new Personaje('Cronos','../assets/imgRenderCronos.png', 5);
+let akali = new Personaje('Akali', '../assets/imgRenderAkali.png', 5, '../assets/cabeza-akali.png');
+let pyke = new Personaje('Pyke','../assets/imgRenderPyke.png', 5, '../assets/cabeza-pyke.png');
+let cronos = new Personaje('Cronos','../assets/imgRenderCronos.png', 5, '../assets/cabeza-cronos.png');
+
+let akaliOponente = new Personaje('Akali', '../assets/imgRenderAkali.png', 5, '../assets/cabeza-akali.png', 800, 120);
+let pykeOponente = new Personaje('Pyke','../assets/imgRenderPyke.png', 5, '../assets/cabeza-pyke.png', 520, 400);
+let cronosOponente = new Personaje('Cronos','../assets/imgRenderCronos.png', 5, '../assets/cabeza-cronos.png', 100, 390);
 
 //Inyecto estos valores con push(metodo) al array de ataques
 //Con este bloque tenemos los 3 personajes con sus ataques(c/u ataques distintos segun su elemento)
@@ -472,6 +488,8 @@ function reiniciarJuego() {
 function aleatorio(min, max){
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
+
+
 //Funcion para dibujar el mapa con CANVAS
 function pintarCanvas() {
   //Necesito obtener el objeto completo del personaje(personajeJugadorObjeto), no solo el nombre! 
@@ -481,22 +499,28 @@ function pintarCanvas() {
   personajeJugadorObjeto.y = personajeJugadorObjeto.y + personajeJugadorObjeto.velocidadY;
   //clearRect permite borrar los pixeles especificados dentro del rectangulo
   lienzo.clearRect(0, 0, mapa.width, mapa.height);
-  //Este drawImage va a pintar el fondo con la imagen
+  //Este drawImage va a pintar el fondo con la imagen(mapa)
   lienzo.drawImage(
-    mapaBackground,                                             //imagen 
+    mapaBackground,                                             //imagen-mapa 
     0,
     0,
     mapa.width,
     mapa.height
   );
-  lienzo.drawImage(
-    personajeJugadorObjeto.mapaFoto,
-    personajeJugadorObjeto.x,
-    personajeJugadorObjeto.y,
-    personajeJugadorObjeto.ancho,
-    personajeJugadorObjeto.alto
-    //Estos atributos de la img en CANVAS estan en el constructor
-  )
+  // //Este lienzo va pintar el personajeJugador
+  // lienzo.drawImage(
+  //   personajeJugadorObjeto.mapaFoto,
+  //   personajeJugadorObjeto.x,
+  //   personajeJugadorObjeto.y,
+  //   personajeJugadorObjeto.ancho,
+  //   personajeJugadorObjeto.alto
+  //   //Estos atributos de la img en CANVAS estan en el constructor
+  // )
+  //Uso el objeto que se creo del personajeJugador(eleccion del personaje) y llamo a la funcion pintar
+  personajeJugadorObjeto.pintarPersonaje();
+  akaliOponente.pintarPersonaje();
+  cronosOponente.pintarPersonaje();
+  pykeOponente.pintarPersonaje(); 
 }
 //Funcion para mover la img del personaje en el mapa CANVAS
 function moverDerecha() {
@@ -526,7 +550,7 @@ function detenerMovimiento() {
   personajeJugadorObjeto.velocidadX = 0;
   personajeJugadorObjeto.velocidadY = 0;
 }
-//Funcion psuhKey(se presiono una tecla). 
+//Funcion psuhKey(Si se presiona una tecla). permite capturar el evento 
 function pushKey(event) {
   console.log(event.key);        //se imprime el nombre de la tecla presionada en consola
                                
