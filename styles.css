@@ -23,6 +23,9 @@ body{
   font-weight: normal;
   margin-top: 100px;
 }
+.titulo #ver-mapa {
+  margin-top: 0px;
+}
 #select-personaje{
   display: flex;
   flex-direction: column;
@@ -32,7 +35,6 @@ body{
   border: 10px solid #D61C4E;
   border-radius: 5px;
   font-size: 18px;
-  margin: 100px;
 }
 .subtitulo{
   font-size: 22px;

@@ -14,7 +14,7 @@ const botonPersonajeJugador = document.getElementById('boton-select-personaje');
 // const botonTierra = document.getElementById('boton-ataque-tierra');
 const botonReiniciar = document.getElementById("boton-reiniciar");
 const sectionSelectPersonaje = document.getElementById('select-personaje');
-
+const tituloDelJuego = document.getElementById('titulo');
 
 //La variable permite traer la etiqueta span para cambiar su html(PERSONAJE) segun eleccion.
 const spanPersonajeJugador = document.getElementById("personaje-jugador");
@@ -41,6 +41,7 @@ let personajes = [];
 let ataqueJugador = [];
 let ataqueOponente = [];
 let personajeJugador;
+let personajeJugadorObjeto;
 //opcion y ataquesPersonajes guardaran la estructura de html
 let opcionPersonajes;
 let ataquesPersonaje;
@@ -63,7 +64,9 @@ let victoriasJugador = 0;
 let victoriasOponente = 0;
 //Esta variable me permite dibujar dentro de canvas
 let lienzo = mapa.getContext("2d");
-let intervalo; 
+let intervalo;
+let mapaBackground = new Image();
+mapaBackground.src = '../assets/mapa_fondo_canvas.png'; 
 
 
 
@@ -168,28 +171,11 @@ function iniciarJuego(){
 //Esta funcion seleccionarPersonajeJugador se ejecutara cuando den click en Seleccionar(botonPersonajeJugador)
 //Manipulamos esta funcion para dejarla como unica fuente de verdad
 function seleccionarPersonajeJugador(){
+  tituloDelJuego.style.display = 'none';
   sectionSelectPersonaje.style.display = 'none';
   // sectionSelectAtaque.style.display = 'flex';
-
-  sectionVerMapa.style.display = 'flex';
-  //Creo un rectangulo dentro del canvas(x,y,ancho,alto)
-  // lienzo.fillRect(5, 15, 20, 40)
-  //Convierto el rectangulo del lienzo a la imagen del personaje
-  // let imagenAkali = new Image();
-  // imagenAkali.src = akali.foto;
-  // lienzo.drawImage(
-  //   imagenAkali,
-  //   20,
-  //   40,
-  //   100,
-  //   100
-  // )
-  //Esta variable guarda la funcion setInterval(recibe el nombre de la funcion que tiene que ejecutar, recibe en ms cada cuanto ejecutara la funcion)
-  intervalo = setInterval(pintarPersonaje, 50)
   
-  //Para manejar los eventos del teclado agrego un addEventListener(tipo de evento, funcion que ejecutara cuando se presione la tecla)
-  window.addEventListener('keydown', pushKey)                       //Si presiono se mueve
-  window.addEventListener('keyup', detenerMovimiento);                //si suelto la tecla se detiene
+  sectionVerMapa.style.display = 'flex';
 
   //Estos input estan ligados a elementos de HTML que colocamos con JS. Estos objetos tienen la informacion que necesitamos para validar  
   //Con .checked validamos que el input(radio) este seleccionado
@@ -208,6 +194,9 @@ function seleccionarPersonajeJugador(){
     alert("¡Debes seleccionar un personaje!")
   }
    extraerAtaques(personajeJugador);
+   sectionVerMapa.style.display = 'flex';
+   //Ejecuto la funcion que me mostrara todo lo que debe mostrar el mapa CANVAS
+   iniciarMapa();
    seleccionarPersonajePc();
    // Esta condicion solo se cumple si el jugador escoge un personaje para jugar. El pc elige y empezara el juego
 
@@ -483,19 +472,29 @@ function reiniciarJuego() {
 function aleatorio(min, max){
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
-//Funcion para plasmar la img del personaje en CANVAS
-function pintarPersonaje() {
+//Funcion para dibujar el mapa con CANVAS
+function pintarCanvas() {
+  //Necesito obtener el objeto completo del personaje(personajeJugadorObjeto), no solo el nombre! 
+  //para poder traer al canvas el personaje elegido por el jugador
   //Si el personaje tiene velocidad en x o y, actualizamos su posicion(akali.x/y)
-  akali.x = akali.x + akali.velocidadX;
-  akali.y = akali.y + akali.velocidadY;
-  //clearRect permite ocultar la img del personaje al incio
-  lienzo.clearRect(0, 0, mapa.width, mapa.height)
+  personajeJugadorObjeto.x = personajeJugadorObjeto.x + personajeJugadorObjeto.velocidadX;
+  personajeJugadorObjeto.y = personajeJugadorObjeto.y + personajeJugadorObjeto.velocidadY;
+  //clearRect permite borrar los pixeles especificados dentro del rectangulo
+  lienzo.clearRect(0, 0, mapa.width, mapa.height);
+  //Este drawImage va a pintar el fondo con la imagen
   lienzo.drawImage(
-    akali.mapaFoto,
-    akali.x,
-    akali.y,
-    akali.ancho,
-    akali.alto
+    mapaBackground,                                             //imagen 
+    0,
+    0,
+    mapa.width,
+    mapa.height
+  );
+  lienzo.drawImage(
+    personajeJugadorObjeto.mapaFoto,
+    personajeJugadorObjeto.x,
+    personajeJugadorObjeto.y,
+    personajeJugadorObjeto.ancho,
+    personajeJugadorObjeto.alto
     //Estos atributos de la img en CANVAS estan en el constructor
   )
 }
@@ -503,29 +502,29 @@ function pintarPersonaje() {
 function moverDerecha() {
   // //Le sumo 5pixeles a las x(es decir se mueve a la derecha)
   // akali.x = akali.x + 5;
-  // pintarPersonaje();
-  akali.velocidadX = 5;
+  // pintarCanvas();
+  personajeJugadorObjeto.velocidadX = 5;
 }
 function moverIzquierda() {
   // //Le resto 5 para mover a la izquieda
   // akali.x = akali.x - 5;
-  // pintarPersonaje()
-  akali.velocidadX = -5
+  // pintarCanvas()
+  personajeJugadorObjeto.velocidadX = -5
 }
 function moverAbajo() {
   // akali.y = akali.y + 5;
-  // pintarPersonaje()
-  akali.velocidadY = 5
+  // pintarCanvas()
+  personajeJugadorObjeto.velocidadY = 5
 }
 function moverArriba() {
   // akali.y = akali.y - 5;
-  // pintarPersonaje()
-  akali.velocidadY = -5;
+  // pintarCanvas()
+  personajeJugadorObjeto.velocidadY = -5;
 }
 //Despues de hacer mover continuamente el personaje creo funcion para el evento de detener
 function detenerMovimiento() {
-  akali.velocidadX = 0;
-  akali.velocidadY = 0;
+  personajeJugadorObjeto.velocidadX = 0;
+  personajeJugadorObjeto.velocidadY = 0;
 }
 //Funcion psuhKey(se presiono una tecla). 
 function pushKey(event) {
@@ -548,6 +547,32 @@ function pushKey(event) {
       break;
   }
 }
+//Esta funcion guarda las funcionalidades del mapa CANVAS
+function iniciarMapa() {
+  //Hacer el mapa mas grande
+  mapa.width = 1000;
+  mapa.height = 600;
+  //Esta variable va ser igual al personaje(objeto) elegido por el judaor para poder traer la imagen al CANVAS
+  personajeJugadorObjeto = obtenerObjetoPersonaje(personajeJugador);
+  console.log(personajeJugadorObjeto, personajeJugador);
+  //Esta variable guarda la funcion setInterval(recibe el nombre de la funcion que tiene que ejecutar, recibe en ms cada cuanto ejecutara la funcion)
+  intervalo = setInterval(pintarCanvas, 50)
+  
+  //Para manejar los eventos del teclado agrego un addEventListener(tipo de evento, funcion que ejecutara cuando se presione la tecla)
+  window.addEventListener('keydown', pushKey)                       //Si presiono se mueve
+  window.addEventListener('keyup', detenerMovimiento);              //si suelto la tecla se detiene
+}
+
+function obtenerObjetoPersonaje() {
+  //Itero por cada elemento existente del array, mientras i sea menor al tamaño del array
+  for (let i = 0; i < personajes.length; i++) {
+    //Mientras el elemento(nombre) seleccionado en personajeJugador sea igual al mismo del array personajes[i]
+    if(personajeJugador === personajes[i].nombre) {
+      //Retorno el objeto personaje
+      return personajes[i];
+    }
+  }
+}
 
 //El codigo JS no se va ejecutar hasta que cargue el evento de 'load' para que todos los eleementos del HTML ya existan antes del javascript 
 //window(ventana) 
@@ -557,4 +582,17 @@ window.addEventListener('load', iniciarJuego)
 
 
 
-
+//--------------------------------------------------------------------------
+  //Creo un rectangulo dentro del canvas(x,y,ancho,alto)
+  // lienzo.fillRect(5, 15, 20, 40)
+  //Convierto el rectangulo del lienzo a la imagen del personaje
+  // let imagenAkali = new Image();
+  // imagenAkali.src = akali.foto;
+  // lienzo.drawImage(
+  //   imagenAkali,
+  //   20,
+  //   40,
+  //   100,
+  //   100
+  // )
+  //--------------------------------------------------------------------------
