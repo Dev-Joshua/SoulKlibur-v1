@@ -187,6 +187,10 @@ function seleccionarPersonajeJugador(){
   //Esta variable guarda la funcion setInterval(recibe el nombre de la funcion que tiene que ejecutar, recibe en ms cada cuanto ejecutara la funcion)
   intervalo = setInterval(pintarPersonaje, 50)
   
+  //Para manejar los eventos del teclado agrego un addEventListener(tipo de evento, funcion que ejecutara cuando se presione la tecla)
+  window.addEventListener('keydown', pushKey)                       //Si presiono se mueve
+  window.addEventListener('keyup', detenerMovimiento);                //si suelto la tecla se detiene
+
   //Estos input estan ligados a elementos de HTML que colocamos con JS. Estos objetos tienen la informacion que necesitamos para validar  
   //Con .checked validamos que el input(radio) este seleccionado
   if(inputAkali.checked){            //SI! este input tiene la propiedad checked como true, entonces se muestra en el HTML el personaje seleccionado
@@ -523,7 +527,27 @@ function detenerMovimiento() {
   akali.velocidadX = 0;
   akali.velocidadY = 0;
 }
-
+//Funcion psuhKey(se presiono una tecla). 
+function pushKey(event) {
+  console.log(event.key);        //se imprime el nombre de la tecla presionada en consola
+                               
+  switch (event.key) {          //Con switch valido los casos donde se oprime las teclas de las flechas
+    case 'ArrowUp':             //En el caso 'flechaArriva'
+      moverArriba();            //Ejecutar funcion moverArriba()
+      break;
+    case 'ArrowDown':
+      moverAbajo();
+      break;
+    case 'ArrowLeft':
+      moverIzquierda();
+      break;
+    case 'ArrowRight':
+      moverDerecha();
+      break
+    default:
+      break;
+  }
+}
 
 //El codigo JS no se va ejecutar hasta que cargue el evento de 'load' para que todos los eleementos del HTML ya existan antes del javascript 
 //window(ventana) 
