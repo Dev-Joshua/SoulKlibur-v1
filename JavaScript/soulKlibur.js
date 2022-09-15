@@ -35,11 +35,12 @@ const contenedorAtaques = document.getElementById('contenedor-ataques');
 //Creo array para ir guardando los personajes
 let personajes = [];
 let ataqueJugador = [];
-let ataqueOponente;
+let ataqueOponente = [];
 let personajeJugador;
 //opcion y ataquesPersonajes guardaran la estructura de html
 let opcionPersonajes;
 let ataquesPersonaje;
+let ataquesPersonajeOponente;
 //variables que traeran el input de cada personaje con getElementById() para elegir.Cuando se ejecute iniciarJuego
 let inputAkali; 
 let inputPyke;
@@ -47,9 +48,8 @@ let inputCronos;
 let botonFuego; 
 let botonAgua;
 let botonTierra;
-//Array que tendra cada boton que se creara
-let botones = [];
-let ataqueJu                                                                   
+//Array que tendra cada boton(ataque) que se creara
+let botones = [];                                                                
 let vidasJugador = 3;
 let vidasOponente = 3;
 //Ambos jugadores inician con 3 vidas. 
@@ -146,19 +146,19 @@ function seleccionarPersonajeJugador(){
   sectionSelectPersonaje.style.display = 'none';
   sectionSelectAtaque.style.display = 'flex';
   
-  //Estos input estan ligados a elementos de HTML que colocamos con JS. Estos objetosienen la informacion que necesitamos para validar  
+  //Estos input estan ligados a elementos de HTML que colocamos con JS. Estos objetos tienen la informacion que necesitamos para validar  
   //Con .checked validamos que el input(radio) este seleccionado
-  if(inputAkali.checked){            //SI! este input tiene la propiedad checked como true, entonces se muestra en el HTML el personaje seleccionada
+  if(inputAkali.checked){            //SI! este input tiene la propiedad checked como true, entonces se muestra en el HTML el personaje seleccionado
     spanPersonajeJugador.innerHTML = inputAkali.id;   //Esta variable(span) sera igual al valor del id de ese elemento(id contiene el nombre del objeto akali)
-    personajeJugador = inputAkali.id;
+    personajeJugador = inputAkali.id;                 //#sta variable va a guardar el nombre del personaje seleccionado en esta funcion.
   } else if(inputPyke.checked){
     spanPersonajeJugador.innerHTML = inputPyke.id ;
-    personajeJugador = inputAkali.id;
+    personajeJugador = inputPyke.id;
   } else if(inputCronos.checked){
     spanPersonajeJugador.innerHTML = inputCronos.id;
     //En cada validacion extraigo el nombre y lo guarde en la variable
-    //dicha variable la utilizo para acceder a los ataques de mis personajes(objetos)
-    personajeJugador = inputAkali.id;
+    //dicha variable la utilizo para extraer los ataques de mis personajes(objetos)
+    personajeJugador = inputCronos.id;
   } else {
     alert("¡Debes seleccionar un personaje!")
   }
@@ -171,12 +171,13 @@ function seleccionarPersonajeJugador(){
 
 //Extraigo los ataques de cada personajeJugador seleccionado
 function extraerAtaques(personajeJugador) {
+  //Tengo que guardar los ataques en let ataques, para poder utilziarlos
   let ataques;
-  //Itero por cada elemento existente del array, mientras i sea menor a 3
+  //Itero por cada elemento existente del array, mientras i sea menor al tamaño del array
   for (let i = 0; i < personajes.length; i++) {
-    //Mientras el elmento(nombre) seleccionado en personajeJugador sae igual al mismo del array personajes[i]
+    //Mientras el elemento(nombre) seleccionado en personajeJugador sea igual al mismo del array personajes[i]
     if(personajeJugador === personajes[i].nombre) {
-      //Extraigo los ataques de ese personajeJugador
+      //Extraigo los ataques de ese personaje
       ataques = personajes[i].ataques;
     }
   }
@@ -188,52 +189,56 @@ function extraerAtaques(personajeJugador) {
 
 //Una sola fuente de la verdad para mostarAtaques
 function mostrarAtaques(ataques) {
-  //Inyecto los botones en HTML
+  //Inyecto los botones en HTML por cada ataque que exista
   ataques.forEach((ataque) => {
     //Agrego clase BAtaque a la estructura HTML que se inyecta en el documento para acceder a los botones
     ataquesPersonaje = `<button id="${ataque.id}" class="boton-ataque BAtaque">${ataque.nombre}</button>`;
-    contenedorAtaques.innerHTML += ataquesPersonaje;
+    contenedorAtaques.innerHTML += ataquesPersonaje;                                                      //inyecto los ataques directamente al HTML
     });
 
+    //Ligo las variables de los botones a los elementos de HTML que tienen este id
     //Los botones van a existir hasta que se ejecute este bloque
     botonFuego = document.getElementById('boton-ataque-fuego');
     botonAgua = document.getElementById('boton-ataque-agua');
     botonTierra = document.getElementById('boton-ataque-tierra');
-    //selecciono todos los elementos que tengan la clase 'Bataque'.(no se puede id porque no puede repetirse)
+    //selecciono todos los elementos(botones) que tengan la clase 'Bataque'.(no se puede id porque no puede repetirse)
     botones = document.querySelectorAll('.BAtaque');
     console.log(botones);
 
+    // Esta parte no me sirve en la nueva logica a los botones de ataque porque ya tengo un evento de click en secuenciaAtaque
     // botonFuego.addEventListener('click', ataqueFuego);
     // botonAgua.addEventListener('click', ataqueAgua);
     // botonTierra.addEventListener('click', ataqueTierra);
-    // Esta parte no me sirve en la nueva logica a los botones de ataque porque ya tengo un evento de click en secuenciaAtaque
   }
 
 
-//Itero sobre los ataques y agrego un evento'click' por cada boton del array(botones)
+
 //Cambio la logica del juego de vidas por victorias(que solo de 5 rondas de ataque y gane quien tenga +victrias)
+//Esta funcion va a agregar un evento de click por cada boton que se va generando
 function secuenciaAtaque() {
-  //Cada boton debe tener la funcion de 'click'
-  //Por cada boton que exista en el array(botones) agrega el evento 'click' y valida cual es el valor que se sta seleccionando
+  //Cada boton debe tener el addEventListener con la funcion de 'click'
+  //Itero botones. Por cada boton que exista en el array agrega el evento 'click' y valida cual es el valor que se esta seleccionando
   botones.forEach((boton) => {
     boton.addEventListener('click',(e) => {               //la (e) hace referencia al evento mismo(click). 
       console.log(e);
-      //si el contenido de la propiedad textContent(target) del elemento selccionado es = 🔥':
+      //si el contenido de la propiedad textContent(target) del elemento selccionado(e) es = 🔥':
       if(e.target.textContent === '🔥') {
-        //Agrega push del elemento fuego al array de ataqueJugador, imprime en consola cual ataque seleccione
-        ataqueJugador.push('FUEGO🔥');
+        //Agrega el elemento fuego al array de ataqueJugador, imprime en consola cual ataque seleccione
+        ataqueJugador.push('FUEGO');
         console.log(ataqueJugador);
         boton.style.background = '#112f58';
       } else if(e.target.textContent === '💦') {
-        ataqueJugador.push('AGUA💦');
+        ataqueJugador.push('AGUA');
         console.log(ataqueJugador);
         boton.style.background = '#112f58';
       } else if(e.target.textContent === '🌱') {
-        ataqueJugador.push('TIERRA🌱');
+        ataqueJugador.push('TIERRA');
         console.log(ataqueJugador);
         //Cambia el color de fondo para saber que ya fue seleccionado
         boton.style.background = '#112f58';
       }
+      //Llamo a esta funcion despues de terminar de ejecutar secuenciaAtaque
+      ataqueAleatorioEnemigo();
     });
     //Cuando doy click en el boton la (e) regresara cual es el evento que esta sucediendo.
     //Por medio del evento(e) puedo llegar al contenido de texto del boton para validar cual es el atque seleccionado
@@ -252,6 +257,8 @@ function seleccionarPersonajePc(){
   let personaje_aleatorio = aleatorio(0, personajes.length -1);                 //personaje aleatorio entre 0  al #tamaño del array -1 = 3
   
   spanPersonajeOponente.innerHTML = personajes[personaje_aleatorio].nombre;                      //spanPersonajeOp sera igual a personajes[y # que de aleatorio]
+  ataquesPersonajeOponente = personajes[personaje_aleatorio].ataques;                            //Esta variable guardara los ataques enemigos
+  
   //Una vez selecionado el personaje del oponente se va a ejecuar la secuencia xq se mostraran los botnes ataque
   secuenciaAtaque();
   // if(personaje_aleatorio == 1){            
@@ -281,17 +288,19 @@ function seleccionarPersonajePc(){
 //   ataqueAleatorioEnemigo();
 // }
 
-//Logica para seleccionar el ataque de la computadora(oponente), una vez seleccione se ejecuta la funcion combate para empezar el duelo
+//Logica para seleccionar el ataque de la computadora(oponente), una vez seleccione como jugador en secuenciaAtaque se ejecuta la funcion combate para empezar el duelo
 function ataqueAleatorioEnemigo() {                               
-  let ataqueAleatorio = aleatorio(1, 3);
+  let ataqueAleatorio = aleatorio(0, ataquesPersonajeOponente.length -1);
 
-  if(ataqueAleatorio == 1) {
-    ataqueOponente = 'FUEGO🔥';
-  } else if(ataqueAleatorio == 2){
-    ataqueOponente = 'AGUA💦';
-  } else if(ataqueAleatorio == 3){
-    ataqueOponente = 'TIERRA🌱';
+  //Si! ataqueAleatorio es = 0, Ó ataqueAleatorio es = 1: Agregar el push del 'FUEGO' a ataqueOponente
+  if(ataqueAleatorio == 0 ||  ataqueAleatorio == 1) {
+    ataqueOponente.push('FUEGO');
+  } else if(ataqueAleatorio == 3 || ataqueAleatorio == 4 ){
+    ataqueOponente.push('Agua');
+  } else {
+    ataqueOponente.push('Tierra');
   }
+  console.log(ataqueOponente);
   combate();
 }
 
