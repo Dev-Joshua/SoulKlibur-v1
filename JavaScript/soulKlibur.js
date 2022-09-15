@@ -63,6 +63,9 @@ let victoriasJugador = 0;
 let victoriasOponente = 0;
 //Esta variable me permite dibujar dentro de canvas
 let lienzo = mapa.getContext("2d");
+let intervalo; 
+
+
 
 //Creo mi primera clase
 class Personaje {
@@ -72,6 +75,16 @@ class Personaje {
     this.foto = foto;
     this.vida = vida;
     this.ataques = [];                                                  //Agrego la propiedad ataques[]
+     //Modifico la clase personaje
+    this.x = 20;
+    this.y = 30;
+    this.ancho = 80;
+    this.alto = 80;
+    this.mapaFoto = new Image();
+    this.mapaFoto.src = foto;
+    this.velocidadX = 0;
+    this.velocidadY = 0;
+
   }
 }
 
@@ -159,18 +172,20 @@ function seleccionarPersonajeJugador(){
   // sectionSelectAtaque.style.display = 'flex';
 
   sectionVerMapa.style.display = 'flex';
-  //Convierto el rectangulo del lienzo por la imagen del personaje
-  let imagenAkali = new Image();
-  imagenAkali.src = akali.foto;
-  lienzo.drawImage(
-    imagenAkali,
-    20,
-    40,
-    100,
-    100
-  )
   //Creo un rectangulo dentro del canvas(x,y,ancho,alto)
   // lienzo.fillRect(5, 15, 20, 40)
+  //Convierto el rectangulo del lienzo a la imagen del personaje
+  // let imagenAkali = new Image();
+  // imagenAkali.src = akali.foto;
+  // lienzo.drawImage(
+  //   imagenAkali,
+  //   20,
+  //   40,
+  //   100,
+  //   100
+  // )
+  //Esta variable guarda la funcion setInterval(recibe el nombre de la funcion que tiene que ejecutar, recibe en ms cada cuanto ejecutara la funcion)
+  intervalo = setInterval(pintarPersonaje, 50)
   
   //Estos input estan ligados a elementos de HTML que colocamos con JS. Estos objetos tienen la informacion que necesitamos para validar  
   //Con .checked validamos que el input(radio) este seleccionado
@@ -276,10 +291,6 @@ function secuenciaAtaque() {
 }
 
 
-function aleatorio(min, max){
-  return Math.floor(Math.random() * (max - min + 1) + min);
-}
-
 
 //Funcion para que el bot JS del juego seleccione un personaje aleatoriamente
 function seleccionarPersonajePc(){
@@ -318,6 +329,7 @@ function seleccionarPersonajePc(){
 //   ataqueAleatorioEnemigo();
 // }
 
+
 //Logica para seleccionar el ataque de la computadora(oponente), una vez seleccione como jugador en secuenciaAtaque se ejecuta la funcion combate para empezar el duelo
 function ataqueAleatorioEnemigo() {                               
   let ataqueAleatorio = aleatorio(0, ataquesPersonajeOponente.length -1);
@@ -335,6 +347,7 @@ function ataqueAleatorioEnemigo() {
   iniciarCombate();
 }
 
+
 //Funcion que validara  que yo tenga una secuencia de 5 ataques.(Si dicha secuencia ya existe puedo iniciar el combate)
 function iniciarCombate() {
   //El navegador va esperar hasta que el tamaño de ataquejugador sea = 5 para ejecutar la funcion combate();
@@ -349,6 +362,7 @@ function indexArrayPlayers(jugador, oponente) {
   indexAtaqueJugador = ataqueJugador[jugador];            //Variables que guardaran el ataque index del jugador y ataque index del oponente
   indexAtaqueOponente = ataqueOponente[oponente];
 } 
+
 
 //En esta funcion guardamos la logica de si perdimos, ganamos o empatamos.
 //Cambio la logica de ganar por +vidas a ganar por +victorias  
@@ -409,6 +423,7 @@ function combate(){
   revisarVidas();
 }
 
+
 //Esta funcion preguntara a las variables de vidaJugador/oponente si estan en 0
 function revisarVidas() {
   if(victoriasJugador == victoriasOponente) {
@@ -421,6 +436,7 @@ function revisarVidas() {
     crearMensajeFinal("¡Has perdido el combate!");
   }
 }
+
 
 //Mandamos a llamar esta funcion cuando el usuario da click en el ataque para mostrar un mensaje
 //Crearmos ese mensaje con el metodo createElement y seleccionando la etiqueta('p') del documento HTML
@@ -443,6 +459,7 @@ function crearMensaje(resultado){
   // sectionMensajes.appendChild(parrafo)                                //Metemos el parrafo en la seccion de mensajes en el documento HTML
 }
 
+
 //Esta funcion recibe un parametro donde nos diga si perdimos o ganamos como jugador
 function crearMensajeFinal(resultadoFinal){                 
   sectionMensajes.innerHTML = resultadoFinal;  
@@ -458,7 +475,54 @@ function crearMensajeFinal(resultadoFinal){
 function reiniciarJuego() {
   location.reload();                                                    //location es un objeto(ubicacion) que tiene un metodo reload()->funcion que recarga la pagina
 }
-
+//Funcion para que el pc eliga con un numero aleatorio
+function aleatorio(min, max){
+  return Math.floor(Math.random() * (max - min + 1) + min);
+}
+//Funcion para plasmar la img del personaje en CANVAS
+function pintarPersonaje() {
+  //Si el personaje tiene velocidad en x o y, actualizamos su posicion(akali.x/y)
+  akali.x = akali.x + akali.velocidadX;
+  akali.y = akali.y + akali.velocidadY;
+  //clearRect permite ocultar la img del personaje al incio
+  lienzo.clearRect(0, 0, mapa.width, mapa.height)
+  lienzo.drawImage(
+    akali.mapaFoto,
+    akali.x,
+    akali.y,
+    akali.ancho,
+    akali.alto
+    //Estos atributos de la img en CANVAS estan en el constructor
+  )
+}
+//Funcion para mover la img del personaje en el mapa CANVAS
+function moverDerecha() {
+  // //Le sumo 5pixeles a las x(es decir se mueve a la derecha)
+  // akali.x = akali.x + 5;
+  // pintarPersonaje();
+  akali.velocidadX = 5;
+}
+function moverIzquierda() {
+  // //Le resto 5 para mover a la izquieda
+  // akali.x = akali.x - 5;
+  // pintarPersonaje()
+  akali.velocidadX = -5
+}
+function moverAbajo() {
+  // akali.y = akali.y + 5;
+  // pintarPersonaje()
+  akali.velocidadY = 5
+}
+function moverArriba() {
+  // akali.y = akali.y - 5;
+  // pintarPersonaje()
+  akali.velocidadY = -5;
+}
+//Despues de hacer mover continuamente el personaje creo funcion para el evento de detener
+function detenerMovimiento() {
+  akali.velocidadX = 0;
+  akali.velocidadY = 0;
+}
 
 
 //El codigo JS no se va ejecutar hasta que cargue el evento de 'load' para que todos los eleementos del HTML ya existan antes del javascript 
@@ -470,29 +534,3 @@ window.addEventListener('load', iniciarJuego)
 
 
 
-/* -----------------------------------------------------------------------------------------------------------
-  Recapitulando este archivo:
-  Tenemos 3 inputs en HTML(mascotas para seleccionar), ademas tenemos un boton al que los jugadores le dan click.
-  Cuando le dan 'click' al boton seleccionar, ejecutamos la funcion seleccionarMascotaJugador() cuyo proposito
-  Es validar cual de las 3 mascotas fue a la que seleccionaron los usuarios
-  Validamos con el condicional if, y asignamos los input en cada parametro para confirmar
-
-  LOGICA PRINCIPAL PARA EMPEZAR A EJECUTAR EL JUEGO:
---->Logica para saber tanto en HTML como en JS que mascotas seleccionan nuestros jugadores.
-    La logica se hace partiendo desde que nuestro jugador pueda seleccionar una mascota, y ademas que JS sepa cual fue
-   la mascota que seleccionaron  y podramos mostrar en HTML con manipulacion del DOM.
---->Logica tambien para seleccionar a la mascota del oponente, es decir que nuestro juego JS saque aleatoriamente
-    a alguna de las mascotas para que sea el oponente con el que debe combatir la mascota del jugador
---->Aplica la misma logica para seleccionar el ataque del jugador y oponente
---->Logica para que la mascota del jugador pierda vidas o la del oponente pierda vidas 
-    dependiendo de si nuestra ataque perdio o gano contra el oponente
---->Logica para que una vez terminado el combate se pueda reiniciar el juego
-  
--->Con inner insertamos contenido a una etiqueta en html desde js
-
--->Genero una pequeña estructura(templates literarios) dentro de la funcion inicicar juego, esta es la forma
-   de implementar html con valores de nuestras variables para hacer un mix de ambas cosas.
-   Creo la variable 'opcionesPersonaje', que guardara toda la estructura de HTML que se hara en JS para despues inyectar
-   esa variable con toda la estructura como valor directamente en el HTML.
-   -----------------------------------------------------------------------------------------------------------
-*/
