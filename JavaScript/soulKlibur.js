@@ -13,8 +13,6 @@ const botonPersonajeJugador = document.getElementById('boton-select-personaje');
 // const botonAgua = document.getElementById('boton-ataque-agua');
 // const botonTierra = document.getElementById('boton-ataque-tierra');
 const botonReiniciar = document.getElementById("boton-reiniciar");
-
-
 const sectionSelectPersonaje = document.getElementById('select-personaje');
 
 
@@ -23,7 +21,9 @@ const spanPersonajeJugador = document.getElementById("personaje-jugador");
 const spanPersonajeOponente = document.getElementById("personaje-oponente");
 
 //Aqui llamo a los span(#vidas) para cambiar la cantidad que se mostrara segun el combate
-const spanVidasJugador = document.getElementById('vidas-jugador');    
+// const spanVidJugador = document.getElementById('vidas-jugador');    
+// const spanVidasOponente = document.getElementById('vidas-oponente');
+const spanVidasJugador = document.getElementById('vidas-jugador');
 const spanVidasOponente = document.getElementById('vidas-oponente');
 
 const sectionMensajes = document.getElementById('resultado');
@@ -49,11 +49,14 @@ let botonFuego;
 let botonAgua;
 let botonTierra;
 //Array que tendra cada boton(ataque) que se creara
-let botones = [];                                                                
-let vidasJugador = 3;
-let vidasOponente = 3;
+let botones = [];
+let indexAtaqueJugador;
+let indexAtaqueOponente;                                                                
+// let vidasJugador = 3;
+// let vidasOponente = 3;
 //Ambos jugadores inician con 3 vidas. 
-
+let victoriasJugador = 0;
+let victoriasOponente = 0;
 //Creo mi primera clase
 class Personaje {
   //Constructor(llevara propiedades de de mis objetos)
@@ -296,48 +299,96 @@ function ataqueAleatorioEnemigo() {
   if(ataqueAleatorio == 0 ||  ataqueAleatorio == 1) {
     ataqueOponente.push('FUEGO');
   } else if(ataqueAleatorio == 3 || ataqueAleatorio == 4 ){
-    ataqueOponente.push('Agua');
+    ataqueOponente.push('AGUA');
   } else {
-    ataqueOponente.push('Tierra');
+    ataqueOponente.push('TIERRA');
   }
   console.log(ataqueOponente);
-  combate();
+  // combate();
+  iniciarCombate();
 }
+
+//Funcion que validara  que yo tenga una secuencia de 5 ataques.(Si dicha secuencia ya existe puedo iniciar el combate)
+function iniciarCombate() {
+  //El navegador va esperar hasta que el tamaño de ataquejugador sea = 5 para ejecutar la funcion combate();
+  if(ataqueJugador.length === 5) {
+    combate();
+  }
+}
+
+
+//Funcion en la que inyectamos el ataque(index) Jugador y del enemigo
+function indexArrayPlayers(jugador, oponente) {
+  indexAtaqueJugador = ataqueJugador[jugador];            //Variables que guardaran el ataque index del jugador y ataque index del oponente
+  indexAtaqueOponente = ataqueOponente[oponente];
+} 
 
 //En esta funcion guardamos la logica de si perdimos, ganamos o empatamos.  
 function combate(){
+  //El for me ayuda a recorrer a traves de los 2 arrays(ataquesJugador y ataquesOponente) que tengo.
+  for (let index = 0; index < ataqueJugador.length; index++) {
+    //Valido que se imprima cada uno de los ataques
+    // console.log(ataqueJugador[index]);
+    
+    //Si! el ataque del jugador(la opcion1 del ataqueJugador es igual a la opcion1 del ataqueOponente) entonces empatas.
+    if(ataqueJugador[index] == ataqueOponente[index]) {
+      indexArrayPlayers(index, index);
+      crearMensaje("EMPATAS");
+      // victoriasJugador++;
+      spanVidasJugador.innerHTML = victoriasJugador;
+    } else if(ataqueJugador[index] == 'FUEGO' && ataqueOponente[index] == 'TIERRA') {
+      indexArrayPlayers(index, index);
+      victoriasJugador++;
+      spanVidasJugador.innerHTML = victoriasJugador;
+    } else if(ataqueJugador[index] == 'AGUA' && ataqueOponente[index] == 'FUEGO') {
+      indexArrayPlayers(index, index);
+      victoriasJugador++;
+      spanVidasJugador.innerHTML = victoriasJugador;
+    } else if(ataqueJugador[index] == 'TIERRA' && ataqueOponente[index] == 'AGUA') {
+      indexArrayPlayers(index, index);
+      victoriasJugador++;
+      spanVidasJugador.innerHTML = victoriasJugador;
+    } else {
+      indexArrayPlayers(index, index);
+      crearMensaje("PERDISTE");
+      victoriasOponente++;
+      spanVidasOponente.innerHTML = victoriasOponente
+    }
+  }
   //SI pc elige lo mismo que el jugador => EMPATE
   //Como condicionales pongo los casos donde gano como jugador
-  if(ataqueOponente == ataqueJugador){
-    crearMensaje("EMPATAS🤝");
-  } else if(ataqueJugador == 'FUEGO🔥' && ataqueOponente == 'TIERRA🌱'){              
-    crearMensaje("GANASTE🍾");
-    vidasOponente--;
-    spanVidasOponente.innerHTML = vidasOponente                                
-  } else if(ataqueJugador == 'AGUA💦' && ataqueOponente == 'FUEGO🔥'){             
-    crearMensaje("GANASTE🍾");
-    vidasOponente--;
-    spanVidasOponente.innerHTML = vidasOponente   
-  } else if(ataqueJugador == 'TIERRA🌱' && ataqueOponente == 'AGUA💦'){             
-    crearMensaje("GANASTE🍾");
-    vidasOponente--;
-    spanVidasOponente.innerHTML = vidasOponente   
-  } else {
-    crearMensaje("PERDISTE😣");
-    vidasJugador--;                                                         //Si pierdo me restan una vida(--) y inserto en HTMLJugador
-    spanVidasJugador.innerHTML = vidasJugador;
-  }
-  //Aqui revisamos las vidas una vez terminado el combate
+  // if(ataqueOponente == ataqueJugador){
+  //   crearMensaje("EMPATAS🤝");
+  // } else if(ataqueJugador == 'FUEGO' && ataqueOponente == 'TIERRA'){              
+  //   crearMensaje("GANASTE🍾");
+  //   vidasOponente--;
+  //   spanVidasOponente.innerHTML = vidasOponente                                
+  // } else if(ataqueJugador == 'AGUA' && ataqueOponente == 'FUEGO'){             
+  //   crearMensaje("GANASTE🍾");
+  //   vidasOponente--;
+  //   spanVidasOponente.innerHTML = vidasOponente   
+  // } else if(ataqueJugador == 'TIERRA' && ataqueOponente == 'AGUA'){             
+  //   crearMensaje("GANASTE🍾");
+  //   vidasOponente--;
+  //   spanVidasOponente.innerHTML = vidasOponente   
+  // } else {
+  //   crearMensaje("PERDISTE😣");
+  //   vidasJugador--;                                                         //Si pierdo me restan una vida(--) y inserto en HTMLJugador
+  //   spanVidasJugador.innerHTML = vidasJugador;
+  // }
+  // //Aqui revisamos las vidas una vez terminado el combate
   revisarVidas();
 }
 
 //Esta funcion preguntara a las variables de vidaJugador/oponente si estan en 0
 function revisarVidas() {
-  if(vidasOponente == 0) {
+  if(victoriasJugador == victoriasOponente) {
+    crearMensajeFinal("¡Es un empate!🤝 ");
+    //empate
+  } else if(victoriasJugador > victoriasOponente) {
+    crearMensajeFinal("Has gando el combate.\n ¡Felicitaciones!🎉");
     //gana jugador
-    crearMensajeFinal("Has gando el combate \n Felicitaciones🎉");
-  } else if(vidasJugador == 0) {
-    //gana pc
+  } else {
     crearMensajeFinal("Has perdido el combate😣");
   }
 }
@@ -354,8 +405,8 @@ function crearMensaje(resultado){
 
   //Añado los parrafos a los elementos HTML.
   sectionMensajes.innerHTML = resultado;
-  nuevoAtaqueDelJugador.innerHTML = ataqueJugador;
-  nuevoAtaqueDelOponente.innerHTML = ataqueOponente;
+  nuevoAtaqueDelJugador.innerHTML = indexAtaqueJugador;
+  nuevoAtaqueDelOponente.innerHTML = indexAtaqueOponente;
 
   
   ataquesDelJugador.appendChild(nuevoAtaqueDelJugador);
@@ -366,12 +417,13 @@ function crearMensaje(resultado){
 //Esta funcion recibe un parametro donde nos diga si perdimos o ganamos como jugador
 function crearMensajeFinal(resultadoFinal){                 
   sectionMensajes.innerHTML = resultadoFinal;  
+  sectionReiniciar.style.display = 'block';
+
   //Terminado el combate desabilitamos los botones de ataque(disabled=true)
   botonFuego.disabled = true;
   botonAgua.disabled = true;
   botonTierra.disabled = true;
   
-  sectionReiniciar.style.display = 'block';
 }
 
 //Funcion para reiniciar el juuego cuando de click

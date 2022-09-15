@@ -26,13 +26,13 @@ body{
 #select-personaje{
   display: flex;
   flex-direction: column;
-  height: 500px;
+  height: 600px;
   width: 70vh;
   align-items: center;
   border: 10px solid #D61C4E;
   border-radius: 5px;
   font-size: 18px;
-  margin-top: 100px;
+  margin: 100px;
 }
 .subtitulo{
   font-size: 22px;
@@ -40,11 +40,14 @@ body{
   font-weight: bold;
   font-family: 'Press Start 2P','GraphicPixel', 'HISKYFLIPPERLOWBOLD';
   letter-spacing: 5px;
+  padding: 20px;
+  margin-top: 50px;
 }
 .tarjetas, .tarjetas-ataques{
   display: flex;
   gap: 10px;
   margin-top: 30px;
+  padding: 50px;
 }
 .tarjeta-personaje{
   width: 165px;
@@ -83,14 +86,12 @@ button{
   font-weight: bold;
   width: 330px;
   height: 60px;
-  margin-top: 40px;
   color: whitesmoke;
   border-radius: 30px;
   border: 5px solid #FEC260;
   letter-spacing: 5px;
   cursor: pointer;
 }
-
 #select-ataque{
   /* display: flex; */
   background-color: #D61C4E;
@@ -101,14 +102,17 @@ button{
   align-items: center;
   border: 10px solid #FEC260;
   border-radius: 5px;
-  margin-top: 100px;
+  margin: 100px;
+}
+#select-ataque button {
+  margin-top: 40px;
 }
 .boton-ataque{
   background-color: #3FA796;
   font-family: 'Press Start 2P','GraphicPixel', 'HISKYFLIPPERHIBOLD';
   font-size: 16px;
   font-weight: bold;
-  width: 180px;
+  width: 100px;
   height: 60px;
   margin: 12px;
   color: whitesmoke;
@@ -125,9 +129,9 @@ button{
 }
 
 #mensajes{
+  height: 100px;
   width: 280px;
   padding: 10px;
-  margin-top: 30px;
   border-radius: 8px;
   display: flex;
   justify-content: center;
@@ -135,6 +139,7 @@ button{
   color: white;
   text-align: center;
   border: 5px solid #2A0944;
+  align-items: center;
 }
 .resultado-ataques{
   display: flex;
@@ -148,7 +153,6 @@ button{
 }
 #boton-reiniciar{
   font-size: 14px;
-  margin: 40px;
   width: 200px;
 }
 
