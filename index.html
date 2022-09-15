@@ -52,10 +52,12 @@
     <button onclick="moverDerecha()">Right</button>   -->
     
     <!--Uso un evento distinto de click para que el movimiento sea continuo  -->
-    <button onmouseup="detenerMovimiento()" onmousedown="moverArriba()">Up</button>
-    <button onmouseup="detenerMovimiento()" onmousedown="moverIzquierda()">Left</button>
-    <button onmouseup="detenerMovimiento()" onmousedown="moverAbajo()">Down</button>
-    <button onmouseup="detenerMovimiento()" onmousedown="moverDerecha()">Right</button>
+    <div class="container-button">
+      <button class="boton-movimiento up" onmouseup="detenerMovimiento()" onmousedown="moverArriba()">Up</button>
+      <button class="boton-movimiento left" onmouseup="detenerMovimiento()" onmousedown="moverIzquierda()">Left</button>
+      <button class="boton-movimiento down" onmouseup="detenerMovimiento()" onmousedown="moverAbajo()">Down</button>
+      <button class="boton-movimiento right" onmouseup="detenerMovimiento()" onmousedown="moverDerecha()">Right</button>
+    </div>
   </section>
 
   <!-- Seccion para elegir el ataque -->

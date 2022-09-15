@@ -73,7 +73,7 @@ mapaBackground.src = '../assets/mapa_fondo_canvas.png';
 //Creo mi primera clase
 class Personaje {
   //Constructor(llevara propiedades/atributos de de mis objetos(personajes))
-  constructor(nombre, foto, vida, fotoMapa, x = 50, y = 50){
+  constructor(nombre, foto, vida, fotoMapa, x = 150, y = 400){
     this.nombre = nombre;                                               //Esto mismo(el nombre sera igual al del parametro)
     this.foto = foto;
     this.vida = vida;
@@ -109,9 +109,9 @@ let akali = new Personaje('Akali', '../assets/imgRenderAkali.png', 5, '../assets
 let pyke = new Personaje('Pyke','../assets/imgRenderPyke.png', 5, '../assets/cabeza-pyke.png');
 let cronos = new Personaje('Cronos','../assets/imgRenderCronos.png', 5, '../assets/cabeza-cronos.png');
 
-let akaliOponente = new Personaje('Akali', '../assets/imgRenderAkali.png', 5, '../assets/cabeza-akali.png', 800, 120);
-let pykeOponente = new Personaje('Pyke','../assets/imgRenderPyke.png', 5, '../assets/cabeza-pyke.png', 520, 400);
-let cronosOponente = new Personaje('Cronos','../assets/imgRenderCronos.png', 5, '../assets/cabeza-cronos.png', 100, 390);
+let akaliOponente = new Personaje('Akali', '../assets/imgRenderAkali.png', 5, '../assets/cabeza-akali.png', 450, 120);
+let pykeOponente = new Personaje('Pyke','../assets/imgRenderPyke.png', 5, '../assets/cabeza-pyke.png', 720, 450);
+let cronosOponente = new Personaje('Cronos','../assets/imgRenderCronos.png', 5, '../assets/cabeza-cronos.png', 800, 90);
 
 //Inyecto estos valores con push(metodo) al array de ataques
 //Con este bloque tenemos los 3 personajes con sus ataques(c/u ataques distintos segun su elemento)
@@ -521,6 +521,15 @@ function pintarCanvas() {
   akaliOponente.pintarPersonaje();
   cronosOponente.pintarPersonaje();
   pykeOponente.pintarPersonaje(); 
+
+  //Si mi personaje se esta moviendo!(tiene una velocidad en x diferente de 0 || y) se revisaran las colisiones
+  if(personajeJugadorObjeto.velocidadX !== 0 || personajeJugadorObjeto.velocidadY !== 0) {
+    //Llamo al metodo revisarColision
+    revisarColision(akaliOponente);
+    revisarColision(pykeOponente);
+    revisarColision(cronosOponente);
+    
+  }
 }
 //Funcion para mover la img del personaje en el mapa CANVAS
 function moverDerecha() {
@@ -597,6 +606,31 @@ function obtenerObjetoPersonaje() {
     }
   }
 }
+
+
+function revisarColision(oponente) {
+  //Valores con los que podre revisar la colision
+  const arribaOponente = oponente.y;
+  const abajoOponente = oponente.y + oponente.alto;
+  const derechaOponente = oponente.x + oponente.ancho;
+  const izquierdaOponente = oponente.x;
+
+  const arribaPersonaje = personajeJugadorObjeto.y;
+  const abajoPersonaje = personajeJugadorObjeto.y + personajeJugadorObjeto.alto;
+  const derechaPersonaje = personajeJugadorObjeto.x + personajeJugadorObjeto.ancho;
+  const izquierdaPersonaje = personajeJugadorObjeto.x;
+  if(
+      abajoPersonaje < arribaOponente ||
+      arribaPersonaje > abajoOponente ||
+      derechaPersonaje < izquierdaOponente ||
+      izquierdaPersonaje > derechaOponente
+  ) {
+      return;
+    } 
+    //Si se detecto una colision(cuando no entramos en el if) llamo esta funcion
+    detenerMovimiento();
+    alert("Tienes un enfrentamiento con " + oponente.nombre);
+  }
 
 //El codigo JS no se va ejecutar hasta que cargue el evento de 'load' para que todos los eleementos del HTML ya existan antes del javascript 
 //window(ventana) 
