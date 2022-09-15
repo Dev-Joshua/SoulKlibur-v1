@@ -184,6 +184,18 @@ button{
   font-size: 30px;
   font-weight: bold;
 }
+/* Le doy estilos al mapa de canvas */
+#ver-mapa {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#mapa {
+  border: 2px solid white
+}
+
+
 
 /* Hasta(max-width) este tamaño de pantalla se estilara lo que esta dentro del @media */
 @media (max-width: 428px) {

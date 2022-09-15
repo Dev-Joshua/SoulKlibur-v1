@@ -32,6 +32,10 @@ const ataquesDelOponente = document.getElementById('ataques-oponente');
 const contenedorTarjetas = document.getElementById('contenedorTarjetas');
 const contenedorAtaques = document.getElementById('contenedor-ataques');
 
+//Constante que guardara la informacion de la section CANVAS
+const sectionVerMapa = document.getElementById('ver-mapa');
+const mapa = document.getElementById('mapa');
+
 //Creo array para ir guardando los personajes
 let personajes = [];
 let ataqueJugador = [];
@@ -57,6 +61,9 @@ let indexAtaqueOponente;
 //Ambos jugadores inician con 3 vidas. 
 let victoriasJugador = 0;
 let victoriasOponente = 0;
+//Esta variable me permite dibujar dentro de canvas
+let lienzo = mapa.getContext("2d");
+
 //Creo mi primera clase
 class Personaje {
   //Constructor(llevara propiedades de de mis objetos)
@@ -70,9 +77,9 @@ class Personaje {
 
 
 //Creo primer objeto(akali) de la clase Personaje...
-let akali = new Personaje('Akali', './assets/akali.png', 5);
-let pyke = new Personaje('Pyke','./assets/pyke.png', 5);
-let cronos = new Personaje('Cronos','./assets/combustion.png', 5);
+let akali = new Personaje('Akali', '../assets/imgRenderAkali.png', 5);
+let pyke = new Personaje('Pyke','../assets/imgRenderPyke.png', 5);
+let cronos = new Personaje('Cronos','../assets/imgRenderCronos.png', 5);
 
 //Inyecto estos valores con push(metodo) al array de ataques
 //Con este bloque tenemos los 3 personajes con sus ataques(c/u ataques distintos segun su elemento)
@@ -105,8 +112,10 @@ personajes.push(akali, pyke, cronos);
 
 //Al iniciar el juego quiero cargar la informacion de personajes
 function iniciarJuego(){
-  //con display none escondo esta seccion(ataques) al iniciar el juego
+  //con display none escondo esta seccion(html) al iniciar el juego
+  sectionVerMapa.style.display = 'none';
   sectionSelectAtaque.style.display = 'none';
+
   //Recorro cada elemneto del array para extraer info de los objetos y poder inyectarlo en HTML
   personajes.forEach((personaje) => {
     //Imprimir cada objeto en cada iteracion
@@ -143,11 +152,25 @@ function iniciarJuego(){
 }
 
 
-//Creo la funcion de seleccionarPersonajeJugador cuando den click en botonPersonajeJugador
+//Esta funcion seleccionarPersonajeJugador se ejecutara cuando den click en Seleccionar(botonPersonajeJugador)
+//Manipulamos esta funcion para dejarla como unica fuente de verdad
 function seleccionarPersonajeJugador(){
-  //Manipulamos esta funcion para dejarla como unica fuente de verdad
   sectionSelectPersonaje.style.display = 'none';
-  sectionSelectAtaque.style.display = 'flex';
+  // sectionSelectAtaque.style.display = 'flex';
+
+  sectionVerMapa.style.display = 'flex';
+  //Convierto el rectangulo del lienzo por la imagen del personaje
+  let imagenAkali = new Image();
+  imagenAkali.src = akali.foto;
+  lienzo.drawImage(
+    imagenAkali,
+    20,
+    40,
+    100,
+    100
+  )
+  //Creo un rectangulo dentro del canvas(x,y,ancho,alto)
+  // lienzo.fillRect(5, 15, 20, 40)
   
   //Estos input estan ligados a elementos de HTML que colocamos con JS. Estos objetos tienen la informacion que necesitamos para validar  
   //Con .checked validamos que el input(radio) este seleccionado
