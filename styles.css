@@ -26,6 +26,7 @@ body{
 .titulo #ver-mapa {
   margin-top: 0px;
 }
+
 #ver-mapa {
   margin-top: 50px;
 }
@@ -229,7 +230,7 @@ button{
 
 
 /* Hasta(max-width) este tamaño de pantalla se estilara lo que esta dentro del @media */
-@media (max-width: 428px) {
+@media (max-width: 728px) {
   .titulo{
     color: white;
     font-size: 21px;
@@ -250,17 +251,22 @@ button{
     border: 10px solid #D61C4E;
     border-radius: 5px;
     font-size: 18px;
-    margin-top: 30px;
+    margin: 30px;
   }
-  .subtitulo{
-    font-size: 14px;
+  .subtitulo  {
+    font-size: 21px;
     color: aliceblue;
     font-weight: bold;
-    font-family: 'Press Start 2P', 'GraphicPixel', 'HISKYFLIPPERLOWBOLD';
+    font-family: 'Press Start 2P','GraphicPixel', 'HISKYFLIPPERLOWBOLD';
     letter-spacing: 0px;
+    /* padding: 20px; */
+    text-align: center;
+    margin-top: 50px;
   }
   .tarjetas, .tarjetas-ataques {
     flex-direction: column;
+    margin: 0px;
+    padding: 0px;
   }
   .tarjeta-personaje{
     width: 110px;
@@ -291,6 +297,49 @@ button{
     border-radius: 30px;
     border: 5px solid #FEC260;
     letter-spacing: 3px;
+
+  }
+  #boton-select-personaje {
+    background-color: #A10035;
+    font-family: 'Press Start 2P', 'GraphicPixel', 'HISKYFLIPPERHIBOLD';
+    font-size: 12px;
+    font-weight: bold;
+    width: 180px;
+    height: 60px;
+    margin: 15px;
+    color: whitesmoke;
+    border-radius: 30px;
+    border: 5px solid #FEC260;
+    letter-spacing: 3px;
+  }
+  #ver-mapa  {
+    margin: 0px;
+  }
+  #ver-mapa .subtitulo {
+    text-align: center;
+  }
+  #ver-mapa .container-button {
+    margin: 5px;
+  }
+  .container-button {
+    display: grid;
+    grid-template-columns: repeat(3, 70px);
+    grid-template-rows: repeat(2, 70px);
+    /* grid-template-areas:
+        ". up ."
+        "left down right";
+    margin-top: 50px;
+    gap: 0px; */
+    /* width: 278px; */
+    align-items: center;
+    gap: 0px;
+    justify-items: center;
+  }
+  .boton-movimiento {
+    width: 70px;
+    height: 50px;
+    letter-spacing: 0px;
+    font-size: 10px;
   }
   #select-ataque{
     background-color: #D61C4E;
@@ -341,4 +390,40 @@ button{
   width: 170px;
   height: 45px;
  }
+}
+
+@media (max-width: 320px) {
+  body {
+    display: flex;
+  }
+  .titulo {
+    font-size: 18px;
+  }
+  #select-personaje {
+    width: auto;
+  }
+  .subtitulo {
+    font-size: 16px;
+    padding: 0px;
+  }
+  #select-ataque {
+    width: 280px;
+  }
+  .boton-ataque {
+    width: 50px;
+    height: 45px;
+    border-radius: 35px;
+    margin-top: 0px;
+  }
+  .tarjetas-ataques {
+    gap: 0px;
+    height: 325px;
+  }
+  #select-ataque button {
+    height: 45px;
+    margin: 10px;
+  }
+  .mensajes-ataques {
+    grid-template-columns: 100px 100px;
+  }
 }

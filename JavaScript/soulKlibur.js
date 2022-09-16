@@ -68,21 +68,32 @@ let intervalo;
 let mapaBackground = new Image();
 mapaBackground.src = '../assets/mapa_fondo_canvas.png'; 
 
+let alturaQueBusco;
+let anchoDelMapa = window.innerWidth - 20;
+const anchoMaximoDelMapa = 1000;
 
+if(anchoDelMapa > anchoMaximoDelMapa) {
+  anchoDelMapa = anchoMaximoDelMapa - 20;
+}
+
+alturaQueBusco = anchoDelMapa * 500 / 700;
+
+mapa.width = anchoDelMapa;
+mapa.height = alturaQueBusco;
 
 //Creo mi primera clase
 class Personaje {
   //Constructor(llevara propiedades/atributos de de mis objetos(personajes))
-  constructor(nombre, foto, vida, fotoMapa, x = 150, y = 400){
+  constructor(nombre, foto, vida, fotoMapa){
     this.nombre = nombre;                                               //Esto mismo(el nombre sera igual al del parametro)
     this.foto = foto;
     this.vida = vida;
     this.ataques = [];                                                  //Agrego la propiedad ataques[]
      
-    this.x = x;                                                        //Modifico la clase personaje para darle atributos al(cabeza-personaje) en el Canvas
-    this.y = y;  
-    this.ancho = 100;
+    this.ancho = 100;                                                   //Modifico la clase personaje para darle atributos al(cabeza-personaje) en el Canvas
     this.alto = 100;
+    this.x = aleatorio(0, mapa.width - this.ancho);                     //aleatorio() para que no se salga del limite del mapa                                                       
+    this.y = aleatorio(0, mapa.height - this.alto);  
     
     this.mapaFoto = new Image();
     this.mapaFoto.src = fotoMapa;                                       //Uso fotoMapa que viene siendo los avatar(cabeza) de los personajes
@@ -109,32 +120,55 @@ let akali = new Personaje('Akali', '../assets/imgRenderAkali.png', 5, '../assets
 let pyke = new Personaje('Pyke','../assets/imgRenderPyke.png', 5, '../assets/cabeza-pyke.png');
 let cronos = new Personaje('Cronos','../assets/imgRenderCronos.png', 5, '../assets/cabeza-cronos.png');
 
-let akaliOponente = new Personaje('Akali', '../assets/imgRenderAkali.png', 5, '../assets/cabeza-akali.png', 450, 120);
-let pykeOponente = new Personaje('Pyke','../assets/imgRenderPyke.png', 5, '../assets/cabeza-pyke.png', 720, 450);
-let cronosOponente = new Personaje('Cronos','../assets/imgRenderCronos.png', 5, '../assets/cabeza-cronos.png', 800, 90);
+let akaliOponente = new Personaje('Akali', '../assets/imgRenderAkali.png', 5, '../assets/cabeza-akali.png');
+let pykeOponente = new Personaje('Pyke','../assets/imgRenderPyke.png', 5, '../assets/cabeza-pyke.png');
+let cronosOponente = new Personaje('Cronos','../assets/imgRenderCronos.png', 5, '../assets/cabeza-cronos.png');
 
 //Inyecto estos valores con push(metodo) al array de ataques
 //Con este bloque tenemos los 3 personajes con sus ataques(c/u ataques distintos segun su elemento)
 akali.ataques.push(
-  { nombre: '🌱', id: 'boton-ataque-tierra' },
-  { nombre: '🌱', id: 'boton-ataque-tierra' },
-  { nombre: '🌱', id: 'boton-ataque-tierra' },
-  { nombre: '🔥', id: 'boton-ataque-fuego' },
-  { nombre: '💦', id: 'boton-ataque-agua' }
+  { nombre: '🌱', id: 'boton-tierra' },
+  { nombre: '🌱', id: 'boton-tierra' },
+  { nombre: '🌱', id: 'boton-tierra' },
+  { nombre: '🔥', id: 'boton-fuego' },
+  { nombre: '💦', id: 'boton-agua' }
 );
 pyke.ataques.push(
-  { nombre: '💦', id: 'boton-ataque-agua' },
-  { nombre: '💦', id: 'boton-ataque-agua' },
-  { nombre: '💦', id: 'boton-ataque-agua' },
-  { nombre: '🔥', id: 'boton-ataque-fuego' },
-  { nombre: '🌱', id: 'boton-ataque-tierra' }
+  { nombre: '💦', id: 'boton-agua' },
+  { nombre: '💦', id: 'boton-agua' },
+  { nombre: '💦', id: 'boton-agua' },
+  { nombre: '🔥', id: 'boton-fuego' },
+  { nombre: '🌱', id: 'boton-tierra' }
 );
 cronos.ataques.push(
-  { nombre: '🔥', id: 'boton-ataque-fuego' },
-  { nombre: '🔥', id: 'boton-ataque-fuego' },
-  { nombre: '🔥', id: 'boton-ataque-fuego' },
-  { nombre: '🌱', id: 'boton-ataque-tierra' },
-  { nombre: '💦', id: 'boton-ataque-agua' }
+  { nombre: '🔥', id: 'boton-fuego' },
+  { nombre: '🔥', id: 'boton-fuego' },
+  { nombre: '🔥', id: 'boton-fuego' },
+  { nombre: '🌱', id: 'boton-tierra' },
+  { nombre: '💦', id: 'boton-agua' }
+);
+
+//Array ataquesPersonajeOponente
+akaliOponente.ataques.push(
+  { nombre: '🌱', id: 'boton-tierra' },
+  { nombre: '🌱', id: 'boton-tierra' },
+  { nombre: '🌱', id: 'boton-tierra' },
+  { nombre: '🔥', id: 'boton-fuego' },
+  { nombre: '💦', id: 'boton-agua' }
+);
+pykeOponente.ataques.push(
+  { nombre: '💦', id: 'boton-agua' },
+  { nombre: '💦', id: 'boton-agua' },
+  { nombre: '💦', id: 'boton-agua' },
+  { nombre: '🔥', id: 'boton-fuego' },
+  { nombre: '🌱', id: 'boton-tierra' }
+);
+cronosOponente.ataques.push(
+  { nombre: '🔥', id: 'boton-fuego' },
+  { nombre: '🔥', id: 'boton-fuego' },
+  { nombre: '🔥', id: 'boton-fuego' },
+  { nombre: '🌱', id: 'boton-tierra' },
+  { nombre: '💦', id: 'boton-agua' }
 );
 
 //Inyecto estos valores con push(metodo) al array de personajes
@@ -213,7 +247,6 @@ function seleccionarPersonajeJugador(){
    sectionVerMapa.style.display = 'flex';
    //Ejecuto la funcion que me mostrara todo lo que debe mostrar el mapa CANVAS
    iniciarMapa();
-   seleccionarPersonajePc();
    // Esta condicion solo se cumple si el jugador escoge un personaje para jugar. El pc elige y empezara el juego
 
 }
@@ -248,7 +281,7 @@ function mostrarAtaques(ataques) {
 
     //Ligo las variables de los botones a los elementos de HTML que tienen este id
     //Los botones van a existir hasta que se ejecute este bloque
-    botonFuego = document.getElementById('botonfuego');
+    botonFuego = document.getElementById('boton-fuego');
     botonAgua = document.getElementById('boton-agua');
     botonTierra = document.getElementById('boton-tierra');
     //selecciono todos los elementos(botones) que tengan la clase 'Bataque'.(no se puede id porque no puede repetirse)
@@ -516,7 +549,7 @@ function pintarCanvas() {
   //   personajeJugadorObjeto.alto
   //   //Estos atributos de la img en CANVAS estan en el constructor
   // )
-  //Uso el objeto que se creo del personajeJugador(eleccion del personaje) y llamo a la funcion pintar
+  //Uso el objeto que se creo del personajeJugador(eleccion del personaje) y llamo a la funcion pintarPersonaje
   personajeJugadorObjeto.pintarPersonaje();
   akaliOponente.pintarPersonaje();
   cronosOponente.pintarPersonaje();
@@ -561,7 +594,7 @@ function detenerMovimiento() {
 }
 //Funcion psuhKey(Si se presiona una tecla). permite capturar el evento 
 function pushKey(event) {
-  console.log(event.key);        //se imprime el nombre de la tecla presionada en consola
+  // console.log(event.key);        //se imprime el nombre de la tecla presionada en consola
                                
   switch (event.key) {          //Con switch valido los casos donde se oprime las teclas de las flechas
     case 'ArrowUp':             //En el caso 'flechaArriva'
@@ -583,8 +616,8 @@ function pushKey(event) {
 //Esta funcion guarda las funcionalidades del mapa CANVAS
 function iniciarMapa() {
   //Hacer el mapa mas grande
-  mapa.width = 1000;
-  mapa.height = 600;
+  // mapa.width = 1000;
+  // mapa.height = 600;
   //Esta variable va ser igual al personaje(objeto) elegido por el judaor para poder traer la imagen al CANVAS
   personajeJugadorObjeto = obtenerObjetoPersonaje(personajeJugador);
   console.log(personajeJugadorObjeto, personajeJugador);
@@ -629,7 +662,16 @@ function revisarColision(oponente) {
     } 
     //Si se detecto una colision(cuando no entramos en el if) llamo esta funcion
     detenerMovimiento();
-    alert("Tienes un enfrentamiento con " + oponente.nombre);
+    console.log('se detecto colision');
+    //Se detiene el ciclo de estar ejecutando la funcion setInterval que refrescaba el mapa y revisabaa las colisiones
+    clearInterval(intervalo)
+    //Se muestra la section de ataques
+    sectionSelectAtaque.style.display = 'flex';
+    //Se ocula la section del mapa
+    sectionVerMapa.style.display = 'none';
+    //Seleccionar el personajte del oponente
+    seleccionarPersonajePc(oponente);
+    // alert("Tienes un enfrentamiento con " + oponente.nombre);
   }
 
 //El codigo JS no se va ejecutar hasta que cargue el evento de 'load' para que todos los eleementos del HTML ya existan antes del javascript 
