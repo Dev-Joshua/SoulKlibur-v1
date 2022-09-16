@@ -61,4 +61,54 @@ LOGICA PRINCIPAL PARA EMPEZAR A EJECUTAR EL JUEGO:
 Datos curiosos:
 - Cuando agrego addEventListener muchas veces estos retornan un evento(objeto) que nos dice que tecla se presiono, el valor de un input, que boton se presiono... nos da toda la informacion necesaria para hacer el manejo de ese evento por medio de alguna funcion
 
+
+## Lado backend
+Internet es una red de muchas computadoras que estan conectadas entre si, es una red global. Hay muchas formas de comunicarse
+entre estas computadoras, la mas popular entre todas es la que utilizamos cuando accedemos a la web, la estructura cliente - servidor
+
+A lo largo de internet van a haber muchas computadoras que se comportaran como clientes o como servidores(proveedores de servicios);
+Esta estructura siempre va tener interacuando a estos dos entes cliente-servidor.
+
+Por medio del protocolo HTTP(protocolo de transferencia de hipertexto) un navegador se conecta a cualquier servidor.
+La forma en que generalmente se usa el sistema cliente-servidor es que:
+- El cliente es quien va a comenzar la solicitud de un recurso
+- Y el servidor es quien lo va a devolver mediante una respuesta
+
+Se puede transferir todo lo que sea un archivo a traves del protocolo HTTP, como usuario voy a acceder a una url, despues hare una peticion a un servidor y el servidor me va a devolver ese archivo. Dependiendo del tipo de archivo el navegador lo mostrara en pantalla
+por ej HTML.
+Ademas de los archivos podemos usar la transferencia de datos por medio de un API, es decir enviar datos crudos(la informacion especifica que queremos intercambiar) EJ.
+
+- Si yo quiero mandar informacion de la ficha de una persona:
+ > { 
+    Nombre: Diana
+    Edad: 27
+ > }
+
+Esto se conoce como un paquete de datos, una caja que contiene toda la informacion, de esta forma puedo solicitarle los detalles de una persona a un servidor y el servidor nos va a devolver con una estructura especifca esa respuesta.
+Y cuando comenzamos a enviar y recibir datos entre el cliente - servidor surge la necesidad de estandarizar la estructura en la que estos datos viajan.
+
+Ahi toca pensar en las reglas que el servidor establece para que los datos vayan con cierta estructura, asi como el cliente debe tener ciertos requisitos para poder conectarse a un servidor.
+
+Para este proyecto usare <b>Node Js</b>, este toma el motor de javascript V8 que utiliza chrome. Con nodeJs voy a poder crear mi servidor, mi backend, y que este programado en Js para enviar datos, recibir datos, recibir solicitudes por medio de HTTP para que devuelva un archivo HTML que sera la pagina web del juego.
+
+- package.json sera es el archivo que cree en la terminal con el comando npm init. Aca tenemos la referencia al archivo index.JS y el nombre del paquete, etc.
+- Express.js es una libreria popular del ecosistema de nodeJs(JavaScript para el backend). Esta libreria nos permite crear servidores web de manera simple con pocas lineas de codigo
+    --> Aparte de instalar la libreria tenemos que decirle a nuestro codigo que estamos usandola, asi que tambien debemos importar esa libreria.
+    --> Hay que indicarle ciertas configuraciones, principalmente:
+        cual es el puerto de mi servidor.(el puerto es un numero como un id, que indica a que servidor nos conectamos en una pc)
+    ### Comandos para instalar
+    - npm init              => para crear el archivo package.json(configuracion inicial del proyecto con npm)
+    - node index.js         => para ejecutar en consola un archivo con node
+    - npm install express   => Para utilizar express, instalar libreria(crea una nueva seccion en package.json -> dependencies).   
+
+### API
+Aplication Programming Interface, es la interfaz que definimos para que el servidor y el cliente esten de acuerdo en como se deben comunicar. De esta forma vamos a trabajar este proyecto:
+
+- Tendremos un servidor central(medio de comunicacion o intermediario)
+- Donde recibiremos los clientes(jugadores/usuarios)
+- A cada jugador le agregaremos un id(identifiacdor) unico
+- Al estar cada usuario identificado, cada uno podra emitir informacion sobre su estatus y los demas recibiran esa informacion
+- por ejemplo si el jugador(A) envia cual fue el personaje que selecciono en el juego entonces los demas jugadores podran recibir esa informacion por medio de la API
+
+
 ## Loading...
