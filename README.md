@@ -53,7 +53,13 @@ LOGICA PRINCIPAL PARA EMPEZAR A EJECUTAR EL JUEGO:
     dependiendo de si nuestro ataque perdio o gano contra el oponente.
 
 --->Logica para que una vez terminado el combate se pueda reiniciar el juego
-  
+
+LOGICA PARTE BACKND:
+
+--->Desarrollar la API con NodeJs y comenzar a consumirla desde el cliente en el frontend(comunicacion entre backend y frontend)   
+--->Se debe crear un endpoint donde nos vamos a conectar para hacer que los usuarios cada vez que accedan a mi pagina web,
+    se conecten a una lista de jugadores donde esten todos comunicados y les va a devolver su identificador unico dentro del juego(IP)
+
 - Con inner insertamos contenido a una etiqueta en html desde js
 - Genero una pequeña estructura(templates literarios) dentro de la funcion inicicar juego, esta es la forma de implementar html con valores de nuestras variables para hacer un mix de ambas cosas.
 - Creo la variable 'opcionesPersonaje', que guardara toda la estructura de HTML que se hara en JS para despues inyectar esa variable con toda la estructura como valor directamente en el HTML.
@@ -74,13 +80,22 @@ La forma en que generalmente se usa el sistema cliente-servidor es que:
 - El cliente es quien va a comenzar la solicitud de un recurso
 - Y el servidor es quien lo va a devolver mediante una respuesta
 
+Los verbos o métodos HTTP, están relacionados con lo que conocemos como CRUD operations (create, read, update, delete) y principalmente están hechos para realizar estas peticiones.
+ - Create -> POST   :Enviar datos
+ - Read -> GET      :Solicitar recursos
+ - Update -> PUT
+ - Delete -> DELETE
+
+Cada pagina web tiene su propio servidor y tiene su propio nombre de dominio, Ej: (Platzi, google, wikipedia)
+Cuando nos referimos a nuestra propia laptop hablamos de localhost(servidor en si mismo).
+
 Se puede transferir todo lo que sea un archivo a traves del protocolo HTTP, como usuario voy a acceder a una url, despues hare una peticion a un servidor y el servidor me va a devolver ese archivo. Dependiendo del tipo de archivo el navegador lo mostrara en pantalla
 por ej HTML.
 Ademas de los archivos podemos usar la transferencia de datos por medio de un API, es decir enviar datos crudos(la informacion especifica que queremos intercambiar) EJ.
 
 - Si yo quiero mandar informacion de la ficha de una persona:
  > { 
-    Nombre: Diana
+    Nombre: Diana,
     Edad: 27
  > }
 
