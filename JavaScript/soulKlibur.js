@@ -176,8 +176,10 @@ personajes.push(akali, pyke, cronos);
 // console.log(personajes);
 
 
-//Al iniciar el juego quiero cargar la informacion de personajes
+//Aqui se realiza todo lo que se mostrara en la primer pantalla
+//Al iniciar el juego quiero cargar la informacion del videojuego
 function iniciarJuego(){
+
   //con display none escondo esta seccion(html) al iniciar el juego
   sectionVerMapa.style.display = 'none';
   sectionSelectAtaque.style.display = 'none';
@@ -215,6 +217,31 @@ function iniciarJuego(){
   // botonTierra.addEventListener('click', ataqueTierra);
 
   botonReiniciar.addEventListener('click', reiniciarJuego);
+
+  //Tenemos que agregarle la capacidad de que cuando cargue el juego por 1vez en el navegador se invoque el servicio creado en nodeJs
+  //Asi podremos unirnos a la sala del juego y obtener el id como jugador dentro del juego
+  unirseAlJuego();
+}
+
+//Con esta funcion puedo hacer una peticion(asincrona)  hacia el servidor
+function unirseAlJuego() {
+  //Realizo una llamada tipo GET donde obtengo una respuesta
+  fetch("http://localhost:8080/unirse")
+  //Utilizo la propiedad .then() que tienen las funciones asincronas(fetch), recibe una funcion que sera un callback una vez   se haya resuelto esa respuesta del servidor
+      .then(function(res) {
+        //Devuelve como respuesta(un objeto tipo response)
+        // console.log(res)
+        
+        //Pregunto si la peticion salio bien! significa que traemos datos de respuesta(res.text) xq esperamos un texto con el id
+        if(res.ok) {
+           res.text()
+              //Tiene su propio metodo metodo .then() ya que tambien es una promesa
+              //Aqui obtenemos tambien una respuesta pero ya lista para utilizarla. le pongo como nombre a esa variable respuesta
+              .then(function(respuesta) {
+                console.log(respuesta)        //Utilizo esta respuesta en el cuerpo de la funcion con un console.log
+              })
+        }
+      })
 }
 
 
@@ -675,6 +702,7 @@ function revisarColision(oponente) {
   }
 
 //El codigo JS no se va ejecutar hasta que cargue el evento de 'load' para que todos los eleementos del HTML ya existan antes del javascript 
+//Al cargarse el navegador se llama la funcion iniciarJuego 
 //window(ventana) 
 window.addEventListener('load', iniciarJuego)                 
 

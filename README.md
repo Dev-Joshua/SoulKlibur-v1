@@ -38,6 +38,7 @@ Recapitulando:
 
   - Validamos con condicionales, y asignamos los input en cada parametro para confirmar la eleccion.
 
+
 LOGICA PRINCIPAL PARA EMPEZAR A EJECUTAR EL JUEGO:
 
 --->Logica para saber tanto en HTML como en JS que personajes seleccionan nuestros jugadores.
@@ -54,19 +55,44 @@ LOGICA PRINCIPAL PARA EMPEZAR A EJECUTAR EL JUEGO:
 
 --->Logica para que una vez terminado el combate se pueda reiniciar el juego
 
+
+- Con inner insertamos contenido a una etiqueta en html desde js
+- Genero una pequeña estructura(templates literarios) dentro de la funcion inicicar juego, esta es la forma de implementar html con valores de nuestras variables para hacer un mix de ambas cosas.
+- Creo la variable 'opcionesPersonaje', que guardara toda la estructura de HTML que se hara en JS para despues inyectar esa variable con toda la estructura como valor directamente en el HTML.
+
+
 LOGICA PARTE BACKND:
 
 --->Desarrollar la API con NodeJs y comenzar a consumirla desde el cliente en el frontend(comunicacion entre backend y frontend)   
 --->Se debe crear un endpoint donde nos vamos a conectar para hacer que los usuarios cada vez que accedan a mi pagina web,
     se conecten a una lista de jugadores donde esten todos comunicados y les va a devolver su identificador unico dentro del juego(IP)
 
-- Con inner insertamos contenido a una etiqueta en html desde js
-- Genero una pequeña estructura(templates literarios) dentro de la funcion inicicar juego, esta es la forma de implementar html con valores de nuestras variables para hacer un mix de ambas cosas.
-- Creo la variable 'opcionesPersonaje', que guardara toda la estructura de HTML que se hara en JS para despues inyectar esa variable con toda la estructura como valor directamente en el HTML.
+- fetch(peticion) -> Funcion que permite realizar llamadas hacia otros servicios por medio de HTTP, nos permite indicar
+                     hacia que URI, luego indicar en que metodo(por defecto toma GET).
+ Al hacer la peticion fetch recibimos una respuesta. La respuesta en general puede ser asincrona(puede tardar unos segundos por parte del servidor) 
+ res.setHeader("Access-Control-Allow-Origin", "*") -> esto es decirle desde que origen vamos a permitir que se hagan peticiones hacia el servidor. IMPORTANTE: esto puede ser inseguro.
+
+ Primer fetch en soulklibur.js:
+  --> Este .then no nos devuelve directamente la respuesta sino el objeto response
+  > fetch("http://localhost:8080/unirse")
+      .then(function(res) {
+        console.log(res)
+
+  --> En esta funcion ya obtengo la respuesta que necesito a mi petidicion. "El idJugador al unirse al juego. Cada vez que recargue la pagina aparecera un id diferente"
+  > if(res.ok) {
+        res.text()
+            .then(function(respuesta) {
+            console.log(respuesta)        
+            })
+        }
+
+- LA RESPUESTA que se obtiene de la peticion es un objeto(response) me da los valores de este objeto:
+        ->response me dice que hay un cuerpo(body: readableStream) que es un stream de datos que se puede leer
+        ->me dice ok: true, que la peticion salio bien todo funciono
 
 Datos curiosos:
 - Cuando agrego addEventListener muchas veces estos retornan un evento(objeto) que nos dice que tecla se presiono, el valor de un input, que boton se presiono... nos da toda la informacion necesaria para hacer el manejo de ese evento por medio de alguna funcion
-
+- Peticion(asincrona) -> no sé cuando voy a obtener la respuesta
 
 ## Lado backend
 Internet es una red de muchas computadoras que estan conectadas entre si, es una red global. Hay muchas formas de comunicarse
@@ -79,6 +105,7 @@ Por medio del protocolo HTTP(protocolo de transferencia de hipertexto) un navega
 La forma en que generalmente se usa el sistema cliente-servidor es que:
 - El cliente es quien va a comenzar la solicitud de un recurso
 - Y el servidor es quien lo va a devolver mediante una respuesta
+
 
 Los verbos o métodos HTTP, están relacionados con lo que conocemos como CRUD operations (create, read, update, delete) y principalmente están hechos para realizar estas peticiones.
  - Create -> POST   :Enviar datos

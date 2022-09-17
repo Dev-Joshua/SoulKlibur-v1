@@ -29,6 +29,10 @@ app.get("/unirse", (require,  res) => {
 
   //Agregamos a la lista de jugadores
   jugadores.push(jugador)
+  
+  //Antes de responder el id del jugador que se acaba de crear agrego una cabezera(informacion de metadatos sobre configuraciones)
+  //Estblezco una cabezera(Header) donde le respondo al navegador que se permite hacer llamadas de este tipo 
+  res.setHeader("Access-Control-Allow-Origin", "*")   //Cualquier origen es valido
 
   //Devolvemos id de ese jugador
   res.send(id)
@@ -64,5 +68,11 @@ Nuestro Código está hecho de la siguiente manera:
 ---> app.get es una funcion, indica que cada vez que un cliente solicite un recurso vamos a realizar algo:
     {como vamos a procesar esa solicitud, como vamos a recibir los datos de esa peticion y como responderemos a esa peticion}
 
-//Cada vez que se agrege un jugador haremos que la pagina en el frontend llame a un servicio en el backend para que se registre ese jugador y le devuelva su id
+---> Cada vez que se agrege un jugador haremos que la pagina en el frontend llame a un servicio en el backend para que se registre ese jugador y le devuelva su id
+
+  1. fetch(url) hace un GET (una petición para obtener algo) a la URL que se le especifique
+  2. Esta función nos retornará algo (lo que sea que se haya definido en el código del servidor).
+  3. No podemos trabajar con lo que nos retorne directamente, ya que el servidor se tomará un tiempo en responder.
+  4. Para eso utilizaremos el .then(func), que ejecutará el código de la función que le demos (en este caso, func), pasándole la respuesta del servidor como parámetro.
+  5. El .then suele ir por debajo de la función que hayamos llamado (fetch en este caso) e indentado, por pura estética nada más. Nótese que se puede hacer fetch(url).then(func) sin dejar ningún espacio.
 */
