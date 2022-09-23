@@ -223,15 +223,16 @@ function iniciarJuego(){
   unirseAlJuego();
 }
 
+//Con esta funcion hago la comunicacion del frontend con el backend por medio de una API
 //Con esta funcion puedo hacer una peticion(asincrona)  hacia el servidor
 function unirseAlJuego() {
   //Realizo una llamada tipo GET donde obtengo una respuesta
   fetch("http://localhost:8080/unirse")
-  //Utilizo la propiedad .then() que tienen las funciones asincronas(fetch), recibe una funcion que sera un callback una vez   se haya resuelto esa respuesta del servidor
+  //Utilizo la propiedad .then() que tienen las funciones asincronas(fetch), recibe una funcion(es un callback) que se ejecutara una vez se haya resuelto esa respuesta del servidor
       .then(function(res) {
         //Devuelve como respuesta(un objeto tipo response)
         // console.log(res)
-        
+
         //Pregunto si la peticion salio bien! significa que traemos datos de respuesta(res.text) xq esperamos un texto con el id
         if(res.ok) {
            res.text()

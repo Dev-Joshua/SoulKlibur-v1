@@ -1,15 +1,16 @@
 //Importo la libreria que voy a utilizar require("express")
 const express = require("express") 
 
-//Con express puedo crear una aplicacion que sera lo que represente a mi servidor(se encargara de recibir peticiones de clientes y responderlas)
-//Creo una aplicacion
+//Con express puedo crear una aplicacion que representara mi servidor(se encargara de recibir peticiones de clientes y responderlas)
+//Esta variable almacenara dicha aplicacion(Genero una instancia del servidor que estare utilizando)
 const app = express()
 
 //1. Creo una lista de jugadores que se van a unir al servidor
 const jugadores = [] 
 
+//Esta clase representara a cada uno de los jugadores
 class Jugador {
-  //id como parametro
+  //En su constructor va recibir el id
   constructor(id) {
     //Hago que se asigne su id a el id que recibe al momento de crear x jugador
     this.id = id;
@@ -17,16 +18,12 @@ class Jugador {
 }
 
 
-//la arrow function recibe (require -> peticion, res -> objeto que permite manejar las respuestas hacia el usuario)
-//Le doy un nombre al primer endpoint para que sea mas especifico
 //Los jugadores van a llamar este recurso para unirse al juego
 app.get("/unirse", (require,  res) => { 
-  //Uso un numero aleatorio(math.random) que sea el ip(identificador unico)
+  //Uso un numero aleatorio(math.random) que sea el identificador unico
   const id = `${Math.random()}`
-
   //Se guarda en la variable jugador el objeto creado con su id 
   const jugador = new Jugador(id)
-
   //Agregamos a la lista de jugadores
   jugadores.push(jugador)
   
@@ -59,7 +56,7 @@ app.listen(8080, () => {
 
 
 /*
-Nuestro Código está hecho de la siguiente manera:
+El Código está hecho de la siguiente manera:
  1. Importamos ExpressJS para usarlo en nuestro Proyecto
  2. Creamos una Aplicación con ExpressJS
  3. Le decimos a Express que cuando la URL raíz reciba una petición, responda “Hola”
@@ -68,7 +65,11 @@ Nuestro Código está hecho de la siguiente manera:
 ---> app.get es una funcion, indica que cada vez que un cliente solicite un recurso vamos a realizar algo:
     {como vamos a procesar esa solicitud, como vamos a recibir los datos de esa peticion y como responderemos a esa peticion}
 
----> Cada vez que se agrege un jugador haremos que la pagina en el frontend llame a un servicio en el backend para que se registre ese jugador y le devuelva su id
+---> Cada vez que ingrese un jugador haremos que la pagina en el frontend llame a un servicio en el backend para que se registre ese jugador y le devuelva su id
+
+---> la arrow function recibe (require -> peticion, res -> objeto que permite manejar las respuestas hacia el usuario)
+
+---> Le doy un nombre al primer endpoint para que sea mas especifico(/unirse)
 
   1. fetch(url) hace un GET (una petición para obtener algo) a la URL que se le especifique
   2. Esta función nos retornará algo (lo que sea que se haya definido en el código del servidor).

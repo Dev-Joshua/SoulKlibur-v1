@@ -66,6 +66,16 @@ LOGICA PARTE BACKND:
 --->Desarrollar la API con NodeJs y comenzar a consumirla desde el cliente en el frontend(comunicacion entre backend y frontend)   
 --->Se debe crear un endpoint donde nos vamos a conectar para hacer que los usuarios cada vez que accedan a mi pagina web,
     se conecten a una lista de jugadores donde esten todos comunicados y les va a devolver su identificador unico dentro del juego(IP)
+    (Aqui consumimos un recurso-> generar un id y leerlo)
+--->Una vez generado el identificador de usuario cada vez que se carga la pagin se procede a dar la logica para que cada jugador(ip)
+    pueda seleccionar su propio personaje y va a emitirlo al resto de los jugadores.
+--->Para ello se debe programar otro servicio para consumir desde el frontend y el backend. Asi que tenemos que enviarle datos, hay que  enviarle cual es el personaje que   selecciono el jugador. 
+---> Para enviar datos se utilizara un tipo de objeto en JavaScript que se llaman Json.
+
+- JSON -> Es un tipo de objeto que en vez de crearlo por medio de una clase, solo definimos su estructura 
+          con con datos reales. Tambien es una forma comun de comunicar el frontend con el backend. 
+          Ejemplo de archivo json:
+    >     {"clave", "valor"}
 
 - fetch(peticion) -> Funcion que permite realizar llamadas hacia otros servicios por medio de HTTP, nos permite indicar
                      hacia que URI, luego indicar en que metodo(por defecto toma GET).
@@ -74,17 +84,20 @@ LOGICA PARTE BACKND:
 
  Primer fetch en soulklibur.js:
   --> Este .then no nos devuelve directamente la respuesta sino el objeto response
-  > fetch("http://localhost:8080/unirse")
+
+   fetch("http://localhost:8080/unirse")
       .then(function(res) {
         console.log(res)
 
   --> En esta funcion ya obtengo la respuesta que necesito a mi petidicion. "El idJugador al unirse al juego. Cada vez que recargue la pagina aparecera un id diferente"
-  > if(res.ok) {
+
+   if(res.ok) {
         res.text()
             .then(function(respuesta) {
             console.log(respuesta)        
             })
         }
+
 
 - LA RESPUESTA que se obtiene de la peticion es un objeto(response) me da los valores de este objeto:
         ->response me dice que hay un cuerpo(body: readableStream) que es un stream de datos que se puede leer
@@ -93,6 +106,7 @@ LOGICA PARTE BACKND:
 Datos curiosos:
 - Cuando agrego addEventListener muchas veces estos retornan un evento(objeto) que nos dice que tecla se presiono, el valor de un input, que boton se presiono... nos da toda la informacion necesaria para hacer el manejo de ese evento por medio de alguna funcion
 - Peticion(asincrona) -> no sé cuando voy a obtener la respuesta
+
 
 ## Lado backend
 Internet es una red de muchas computadoras que estan conectadas entre si, es una red global. Hay muchas formas de comunicarse
@@ -123,7 +137,7 @@ Ademas de los archivos podemos usar la transferencia de datos por medio de un AP
 - Si yo quiero mandar informacion de la ficha de una persona:
  > { 
     Nombre: Diana,
-    Edad: 27
+    Edad: 27 
  > }
 
 Esto se conoce como un paquete de datos, una caja que contiene toda la informacion, de esta forma puedo solicitarle los detalles de una persona a un servidor y el servidor nos va a devolver con una estructura especifca esa respuesta.
@@ -142,6 +156,8 @@ Para este proyecto usare <b>Node Js</b>, este toma el motor de javascript V8 que
     - npm init              => para crear el archivo package.json(configuracion inicial del proyecto con npm)
     - node index.js         => para ejecutar en consola un archivo con node
     - npm install express   => Para utilizar express, instalar libreria(crea una nueva seccion en package.json -> dependencies).   
+
+
 
 ### API
 Aplication Programming Interface, es la interfaz que definimos para que el servidor y el cliente esten de acuerdo en como se deben comunicar. De esta forma vamos a trabajar este proyecto:
