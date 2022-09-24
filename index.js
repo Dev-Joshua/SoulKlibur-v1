@@ -1,11 +1,16 @@
 //Importo la libreria que voy a utilizar require("express")
 const express = require("express") 
+const cors = require("cors")
 
 //Con express puedo crear una aplicacion que representara mi servidor(se encargara de recibir peticiones de clientes y responderlas)
 //Esta variable almacenara dicha aplicacion(Genero una instancia del servidor que estare utilizando)
 const app = express()
 
-//1. Creo una lista de jugadores que se van a unir al servidor
+//Deshabilito los posibles errores relacionados con cors y habilito la capacidad de recibir peticiones POST(que traigan contenido en formato json)
+app.use(cors())
+app.use(express.json())
+
+//Creo una lista de jugadores que se van a unir al servidor
 const jugadores = [] 
 
 //Esta clase representara a cada uno de los jugadores
@@ -14,6 +19,16 @@ class Jugador {
   constructor(id) {
     //Hago que se asigne su id a el id que recibe al momento de crear x jugador
     this.id = id;
+  }
+  asignarPersonaje(personaje) {
+    this.personaje = personaje;
+  }
+}
+
+
+class Personaje {
+  constructor(nombre) {
+    this.nombre = nombre;
   }
 }
 
@@ -34,6 +49,26 @@ app.get("/unirse", (require,  res) => {
   //Devolvemos id de ese jugador
   res.send(id)
 })
+
+
+//Hago una petiocion tipo POST.(este sera mi segundo servicio)
+app.post("/soulklibur/:jugadorId", (req, res) => {
+  //Accedo a la variable enviada en la url apartir del objeto req.params
+  const jugadorId = req.params.jugadorId || ""
+  const nombre = req.body.personaje || ""
+  const personaje = new Personaje(nombre)
+  
+  const jugadorIndex = jugadores.findIndex((jugador) => jugadorId === jugador.id)
+
+  if(jugadorIndex >= 0) {
+    jugadores[jugadorIndex].asignarPersonaje(personaje)
+  }
+
+  console.log(jugadores)
+  console.log(jugadorId)
+  res.end()
+})
+
 
 
 //para poder hacer que escuche las peticiones de los clientes y se mantenga escuchando le indico el puerto
@@ -70,6 +105,8 @@ El Código está hecho de la siguiente manera:
 ---> la arrow function recibe (require -> peticion, res -> objeto que permite manejar las respuestas hacia el usuario)
 
 ---> Le doy un nombre al primer endpoint para que sea mas especifico(/unirse)
+
+---> (req, res) => {} Sera mi funcion callback que procesa mi solicitud, req-> objeto que me permite extraer lo que viene en la url. 
 
   1. fetch(url) hace un GET (una petición para obtener algo) a la URL que se le especifique
   2. Esta función nos retornará algo (lo que sea que se haya definido en el código del servidor).

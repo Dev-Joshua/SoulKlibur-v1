@@ -36,6 +36,7 @@ const contenedorAtaques = document.getElementById('contenedor-ataques');
 const sectionVerMapa = document.getElementById('ver-mapa');
 const mapa = document.getElementById('mapa');
 
+let jugadorId = null;
 //Creo array para ir guardando los personajes
 let personajes = [];
 let ataqueJugador = [];
@@ -240,6 +241,7 @@ function unirseAlJuego() {
               //Aqui obtenemos tambien una respuesta pero ya lista para utilizarla. le pongo como nombre a esa variable respuesta
               .then(function(respuesta) {
                 console.log(respuesta)        //Utilizo esta respuesta en el cuerpo de la funcion con un console.log
+                jugadorId = respuesta;
               })
         }
       })
@@ -271,12 +273,30 @@ function seleccionarPersonajeJugador(){
   } else {
     alert("¡Debes seleccionar un personaje!")
   }
-   extraerAtaques(personajeJugador);
-   sectionVerMapa.style.display = 'flex';
-   //Ejecuto la funcion que me mostrara todo lo que debe mostrar el mapa CANVAS
-   iniciarMapa();
-   // Esta condicion solo se cumple si el jugador escoge un personaje para jugar. El pc elige y empezara el juego
+  
+  //Esta funcion me envia este dato hacia el backend
+  seleccionarPersonaje(personajeJugador);
+  
+  extraerAtaques(personajeJugador);
+  sectionVerMapa.style.display = 'flex';
+  //Ejecuto la funcion que me mostrara todo lo que debe mostrar el mapa CANVAS
+  iniciarMapa();
+  // Esta condicion solo se cumple si el jugador escoge un personaje para jugar. El pc elige y empezara el juego
+}
 
+
+//Cada jugador podra seleccionar a su personaje y enviar este dato al backend para que los demas puedan ver los personajes seleccionados de los demas jugadores
+function seleccionarPersonaje(personajeJugador) {
+  fetch(`http://localhost:8080/soulklibur/${jugadorId}`, {
+    method: "post",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      personaje: personajeJugador
+    })
+  })
+  //Esta peticion no espera una respuesta(solo es enviar datos al servidor). Por lo tanto no se usa .then como con el metodo GET
 }
 
 
