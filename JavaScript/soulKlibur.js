@@ -599,6 +599,9 @@ function pintarCanvas() {
   // )
   //Uso el objeto que se creo del personajeJugador(eleccion del personaje) y llamo a la funcion pintarPersonaje
   personajeJugadorObjeto.pintarPersonaje();
+
+  enviarPosicion(personajeJugadorObjeto.x, personajeJugadorObjeto.y)
+
   akaliOponente.pintarPersonaje();
   cronosOponente.pintarPersonaje();
   pykeOponente.pintarPersonaje(); 
@@ -612,6 +615,25 @@ function pintarCanvas() {
     
   }
 }
+
+//Enviar datos al servidor
+function enviarPosicion(x, y) {
+  fetch(`http://localhost:8080/soulklibur/${jugadorId}/posicion`, {
+    method: "post",
+    headers: {
+      "Content-Type" : "application/json",     
+    },
+    //En el servidor se vera una variable x, y que tenga como valor la coordenada que tenga el personajeJugador
+    body: JSON.stringify({
+      x,
+      y
+    })
+  }) 
+
+  
+}
+
+
 //Funcion para mover la img del personaje en el mapa CANVAS
 function moverDerecha() {
   // //Le sumo 5pixeles a las x(es decir se mueve a la derecha)

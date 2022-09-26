@@ -23,6 +23,11 @@ class Jugador {
   asignarPersonaje(personaje) {
     this.personaje = personaje;
   }
+  //Asi el jugador guarda sus propias coordenadas
+  actualizarPosicion(x, y) {
+    this.x = x;
+    this.y = y;
+  }
 }
 
 
@@ -70,6 +75,22 @@ app.post("/soulklibur/:jugadorId", (req, res) => {
 })
 
 
+//Este endpoint sera una peticion tipo POST que recibira las coordenadas de ubicacion(x,y) del personaje
+app.post("/soulklibur/:jugadorId/posicion", (req, res) => {
+  //Obtener el jugadorId
+  const jugadorId = req.params.jugadorId || ""
+  const x = req.body.x || 0
+  const y = req.body.y || 0
+
+  const jugadorIndex = jugadores.findIndex((jugador) => jugadorId === jugador.id)
+
+  if(jugadorIndex >= 0) {
+    jugadores[jugadorIndex].actualizarPosicion(x, y)
+  }
+
+  //responde un dato vacio 
+  res.end()
+})
 
 //para poder hacer que escuche las peticiones de los clientes y se mantenga escuchando le indico el puerto
 //.listen(puerto, callback) propiedad que permite iniciar el servidor
