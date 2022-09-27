@@ -39,6 +39,7 @@ const mapa = document.getElementById('mapa');
 let jugadorId = null;
 //Creo array para ir guardando los personajes
 let personajes = [];
+let personajesEnemigos = [];
 let ataqueJugador = [];
 let ataqueOponente = [];
 let personajeJugador;
@@ -596,9 +597,14 @@ function pintarCanvas() {
 
   enviarPosicion(personajeJugadorObjeto.x, personajeJugadorObjeto.y)
 
-  akaliOponente.pintarPersonaje();
-  cronosOponente.pintarPersonaje();
-  pykeOponente.pintarPersonaje(); 
+  // akaliOponente.pintarPersonaje();
+  // cronosOponente.pintarPersonaje();
+  // pykeOponente.pintarPersonaje(); 
+  //Por cada uno de los oponentes(personajes) se va a ejecutar esta funcion
+  personajesEnemigos.forEach(function(personaje) {
+    personaje.pintarPersonaje();
+  })
+
 
   //Si mi personaje se esta moviendo!(tiene una velocidad en x diferente de 0 || y) se revisaran las colisiones
   if(personajeJugadorObjeto.velocidadX !== 0 || personajeJugadorObjeto.velocidadY !== 0) {
@@ -633,27 +639,31 @@ function enviarPosicion(x, y) {
         .then(function({oponentes}) {
           //recibo el objeto que trae al jugador oponente(datos) y lo imprimo en consola
             console.log(oponentes)
-            
+  
             //Por cada elemento de la lista se ejecutara esta funcion
-            oponentes.forEach(function(oponente){
-              let personajeOponente = null;
-              //Extraer de la variable oponente su personaje y de su personaje su Nombre(esto viene del servidor)
-              const personajeNombre = oponente.personaje.nombre;
-              //Se crean los 3 enemigos que se necesitan en el juego segun la lista[]
-              if(personajeNombre === "Akali") {
-                  personajeOponente = new Personaje('Akali', '../assets/imgRenderAkali.png', 5, '../assets/cabeza-akali.png');
-              } else if(personajeNombre === "Pyke") {
-                  personajeOponente = new Personaje('Pyke','../assets/imgRenderPyke.png', 5, '../assets/cabeza-pyke.png');
-              } else if(personajeNombre === "Cronos") {
-                  personajeOponente = new Personaje('Cronos','../assets/imgRenderCronos.png', 5, '../assets/cabeza-cronos.png');
-              }
-              //Obtengo las coordenadas de mis enemigos(Estas son las coordenadas que los otros jugadores desde otros pc han enviado al servidor)
-              personajeOponente.x = oponente.x;
-              personajeOponente.y = oponente.y;
+            personajesEnemigos = oponentes.map(function(oponente){
+                let personajeOponente = null;
+                //Extraer de la variable oponente su personaje y de su personaje su Nombre(esto viene del servidor)
+                const personajeNombre = oponente.personaje.nombre;
+                //Se crean los 3 enemigos que se necesitan en el juego segun la lista[]
+                if(personajeNombre === "Akali") {
+                    personajeOponente = new Personaje('Akali', '../assets/imgRenderAkali.png', 5, '../assets/cabeza-akali.png');
+                } else if(personajeNombre === "Pyke") {
+                    personajeOponente = new Personaje('Pyke','../assets/imgRenderPyke.png', 5, '../assets/cabeza-pyke.png');
+                } else if(personajeNombre === "Cronos") {
+                    personajeOponente = new Personaje('Cronos','../assets/imgRenderCronos.png', 5, '../assets/cabeza-cronos.png');
+                }
+                //Obtengo las coordenadas de mis enemigos(Estas son las coordenadas que los otros jugadores desde otros pc han enviado al servidor)
+                personajeOponente.x = oponente.x;
+                personajeOponente.y = oponente.y;
 
-              //Se dibuja cada uno de los personajes en pantalla por cada enemigo que viene despues que se haya actualizado la coordenada
-              //personajeOponente es una instancia de mi clase Personaje
-              personajeOponente.pintarPersonaje()
+                //Se dibuja cada uno de los personajes en pantalla por cada enemigo que viene despues que se haya actualizado la coordenada
+                //personajeOponente es una instancia de mi clase Personaje
+                // personajeOponente.pintarPersonaje()
+
+                //como cambio el forEach por .map debo usar un return
+                //Retornara el eobjeto nuevo de la lista que se esta generando
+                return  personajeOponente
             })
 
             
