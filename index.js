@@ -79,6 +79,7 @@ app.post("/soulklibur/:jugadorId", (req, res) => {
 app.post("/soulklibur/:jugadorId/posicion", (req, res) => {
   //Obtener el jugadorId
   const jugadorId = req.params.jugadorId || ""
+  //Accedo a x,y. (||) En caso de que no viniera un valor se pone 0 por defecto
   const x = req.body.x || 0
   const y = req.body.y || 0
 
@@ -88,8 +89,11 @@ app.post("/soulklibur/:jugadorId/posicion", (req, res) => {
     jugadores[jugadorIndex].actualizarPosicion(x, y)
   }
 
-  //responde un dato vacio 
-  res.end()
+  //Funcion que devuelve las coordenadas de los demas jugadores menos del jugador que acaba de hacer la solicitud en la url
+  const oponentes = jugadores.filter((jugador) => jugadorId !== jugador.id)                 //Diferente de jugador que recibo en la funcion(jugadorID)
+
+  //Devuelvo un JSON de todos los oponentes a traves de la respuesta de esta peticion
+  res.send({oponentes})
 })
 
 //para poder hacer que escuche las peticiones de los clientes y se mantenga escuchando le indico el puerto

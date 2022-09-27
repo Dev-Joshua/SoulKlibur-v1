@@ -85,7 +85,9 @@ mapa.height = alturaQueBusco;
 //Creo mi primera clase
 class Personaje {
   //Constructor(llevara propiedades/atributos de de mis objetos(personajes))
-  constructor(nombre, foto, vida, fotoMapa){
+  constructor(nombre, foto, vida, fotoMapa, id = null){
+    //Id para saber de que oponente es ese personaje
+    this.id = id;
     this.nombre = nombre;                                               //Esto mismo(el nombre sera igual al del parametro)
     this.foto = foto;
     this.vida = vida;
@@ -121,56 +123,47 @@ let akali = new Personaje('Akali', '../assets/imgRenderAkali.png', 5, '../assets
 let pyke = new Personaje('Pyke','../assets/imgRenderPyke.png', 5, '../assets/cabeza-pyke.png');
 let cronos = new Personaje('Cronos','../assets/imgRenderCronos.png', 5, '../assets/cabeza-cronos.png');
 
-let akaliOponente = new Personaje('Akali', '../assets/imgRenderAkali.png', 5, '../assets/cabeza-akali.png');
-let pykeOponente = new Personaje('Pyke','../assets/imgRenderPyke.png', 5, '../assets/cabeza-pyke.png');
-let cronosOponente = new Personaje('Cronos','../assets/imgRenderCronos.png', 5, '../assets/cabeza-cronos.png');
+// let akaliOponente = new Personaje('Akali', '../assets/imgRenderAkali.png', 5, '../assets/cabeza-akali.png');
+// let pykeOponente = new Personaje('Pyke','../assets/imgRenderPyke.png', 5, '../assets/cabeza-pyke.png');
+// let cronosOponente = new Personaje('Cronos','../assets/imgRenderCronos.png', 5, '../assets/cabeza-cronos.png');
 
+
+//Con este bloque tenemos los 3 personajes con sus ataques
+const AKALI_ATAQUES = [
+  { nombre: '🌱', id: 'boton-tierra' },
+  { nombre: '🌱', id: 'boton-tierra' },
+  { nombre: '🌱', id: 'boton-tierra' },
+  { nombre: '🔥', id: 'boton-fuego' },
+  { nombre: '💦', id: 'boton-agua' }
+]
 //Inyecto estos valores con push(metodo) al array de ataques
-//Con este bloque tenemos los 3 personajes con sus ataques(c/u ataques distintos segun su elemento)
-akali.ataques.push(
-  { nombre: '🌱', id: 'boton-tierra' },
-  { nombre: '🌱', id: 'boton-tierra' },
-  { nombre: '🌱', id: 'boton-tierra' },
-  { nombre: '🔥', id: 'boton-fuego' },
-  { nombre: '💦', id: 'boton-agua' }
-);
-pyke.ataques.push(
-  { nombre: '💦', id: 'boton-agua' },
-  { nombre: '💦', id: 'boton-agua' },
-  { nombre: '💦', id: 'boton-agua' },
-  { nombre: '🔥', id: 'boton-fuego' },
-  { nombre: '🌱', id: 'boton-tierra' }
-);
-cronos.ataques.push(
-  { nombre: '🔥', id: 'boton-fuego' },
-  { nombre: '🔥', id: 'boton-fuego' },
-  { nombre: '🔥', id: 'boton-fuego' },
-  { nombre: '🌱', id: 'boton-tierra' },
-  { nombre: '💦', id: 'boton-agua' }
-);
+//Con los ... es como si hubiera escrito los valores del array directamente en el push
+akali.ataques.push(... AKALI_ATAQUES);
+// akaliOponente.ataques.push(...AKALI_ATAQUES);
 
-//Array ataquesPersonajeOponente
-akaliOponente.ataques.push(
-  { nombre: '🌱', id: 'boton-tierra' },
-  { nombre: '🌱', id: 'boton-tierra' },
-  { nombre: '🌱', id: 'boton-tierra' },
-  { nombre: '🔥', id: 'boton-fuego' },
-  { nombre: '💦', id: 'boton-agua' }
-);
-pykeOponente.ataques.push(
+const PYKE_ATAQUES = [
   { nombre: '💦', id: 'boton-agua' },
   { nombre: '💦', id: 'boton-agua' },
   { nombre: '💦', id: 'boton-agua' },
   { nombre: '🔥', id: 'boton-fuego' },
   { nombre: '🌱', id: 'boton-tierra' }
-);
-cronosOponente.ataques.push(
+]
+
+pyke.ataques.push(... PYKE_ATAQUES);
+// //Array ataquesPersonajeOponente
+// pykeOponente.ataques.push(...PYKE_ATAQUES);
+
+
+const CRONOS_ATAQUES = [
   { nombre: '🔥', id: 'boton-fuego' },
   { nombre: '🔥', id: 'boton-fuego' },
   { nombre: '🔥', id: 'boton-fuego' },
   { nombre: '🌱', id: 'boton-tierra' },
   { nombre: '💦', id: 'boton-agua' }
-);
+]
+
+cronos.ataques.push(...CRONOS_ATAQUES);
+// cronosOponente.ataques.push(...CRONOS_ATAQUES);
 
 //Inyecto estos valores con push(metodo) al array de personajes
 personajes.push(akali, pyke, cronos);
@@ -292,6 +285,7 @@ function seleccionarPersonaje(personajeJugador) {
     headers: {
       "Content-Type": "application/json"
     },
+    //Envio datos a traves de body
     body: JSON.stringify({
       personaje: personajeJugador
     })
@@ -616,12 +610,12 @@ function pintarCanvas() {
   }
 }
 
-//Enviar datos al servidor
+//Enviar datos al servidor(Peticion de enviar mi posicon)
 function enviarPosicion(x, y) {
   fetch(`http://localhost:8080/soulklibur/${jugadorId}/posicion`, {
     method: "post",
     headers: {
-      "Content-Type" : "application/json",     
+      "Content-Type" : "application/json"
     },
     //En el servidor se vera una variable x, y que tenga como valor la coordenada que tenga el personajeJugador
     body: JSON.stringify({
@@ -629,8 +623,44 @@ function enviarPosicion(x, y) {
       y
     })
   }) 
+  //.then para recibir la respuesta de la promesa. recibe una primera funcion que recibe la respuesta(res) antes de ser procesada
+  .then(function(res){
+    //Verificar que todo haya salido bien en la peticion
+    if(res.ok) {
+      //Leer la respuesta(sus datos en json)
+      res.json()
+      //Para leer su respuesta se usa .then, aqui obtengo la respuesta que necesito. Devuelve una lista de enemigos.
+        .then(function({oponentes}) {
+          //recibo el objeto que trae al jugador oponente(datos) y lo imprimo en consola
+            console.log(oponentes)
+            
+            //Por cada elemento de la lista se ejecutara esta funcion
+            oponentes.forEach(function(oponente){
+              let personajeOponente = null;
+              //Extraer de la variable oponente su personaje y de su personaje su Nombre(esto viene del servidor)
+              const personajeNombre = oponente.personaje.nombre;
+              //Se crean los 3 enemigos que se necesitan en el juego segun la lista[]
+              if(personajeNombre === "Akali") {
+                  personajeOponente = new Personaje('Akali', '../assets/imgRenderAkali.png', 5, '../assets/cabeza-akali.png');
+              } else if(personajeNombre === "Pyke") {
+                  personajeOponente = new Personaje('Pyke','../assets/imgRenderPyke.png', 5, '../assets/cabeza-pyke.png');
+              } else if(personajeNombre === "Cronos") {
+                  personajeOponente = new Personaje('Cronos','../assets/imgRenderCronos.png', 5, '../assets/cabeza-cronos.png');
+              }
+              //Obtengo las coordenadas de mis enemigos(Estas son las coordenadas que los otros jugadores desde otros pc han enviado al servidor)
+              personajeOponente.x = oponente.x;
+              personajeOponente.y = oponente.y;
 
-  
+              //Se dibuja cada uno de los personajes en pantalla por cada enemigo que viene despues que se haya actualizado la coordenada
+              //personajeOponente es una instancia de mi clase Personaje
+              personajeOponente.pintarPersonaje()
+            })
+
+            
+            
+        })
+    }
+  })
 }
 
 
