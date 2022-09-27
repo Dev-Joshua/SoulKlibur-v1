@@ -36,6 +36,7 @@ const contenedorAtaques = document.getElementById('contenedor-ataques');
 const sectionVerMapa = document.getElementById('ver-mapa');
 const mapa = document.getElementById('mapa');
 
+let enemigoId = null;
 let jugadorId = null;
 //Creo array para ir guardando los personajes
 let personajes = [];
@@ -368,13 +369,30 @@ function secuenciaAtaque() {
         boton.disabled = true;
       }
       //Llamo a esta funcion despues de terminar de ejecutar secuenciaAtaque
-      ataqueAleatorioEnemigo();
+      // ataqueAleatorioEnemigo();
+      if(ataqueJugador.length == 5) {
+        enviarAtaques();
+      }
+      
     });
     //Cuando doy click en el boton la (e) regresara cual es el evento que esta sucediendo.
     //Por medio del evento(e) puedo llegar al contenido de texto del boton para validar cual es el atque seleccionado
   });
 }
 
+//Enviar como datos los ataques al servidor con el id del jugador
+function enviarAtaques() {
+  fetch(`http"//localhost:8080/soulklibur/${jugadorId}/ataques`, {
+    method: "post",
+    headers: {
+      "Content-Type" : "application/json"
+    },
+    //Envio estos datos(ataques del jugador)
+    body: JSON.stringify({
+      ataques: ataqueJugador
+    })
+  })
+}
 
 
 //Funcion para que el bot JS del juego seleccione un personaje aleatoriamente
@@ -603,17 +621,20 @@ function pintarCanvas() {
   //Por cada uno de los oponentes(personajes) se va a ejecutar esta funcion
   personajesEnemigos.forEach(function(personaje) {
     personaje.pintarPersonaje();
+    //Dejo de utilizar los enemigos fijos por unos dinamicos que vienen del servidor
+    revisarColision(personaje)
   })
 
 
   //Si mi personaje se esta moviendo!(tiene una velocidad en x diferente de 0 || y) se revisaran las colisiones
-  if(personajeJugadorObjeto.velocidadX !== 0 || personajeJugadorObjeto.velocidadY !== 0) {
-    //Llamo al metodo revisarColision
-    revisarColision(akaliOponente);
-    revisarColision(pykeOponente);
-    revisarColision(cronosOponente);
+  // if(personajeJugadorObjeto.velocidadX !== 0 || personajeJugadorObjeto.velocidadY !== 0) {
+
+    // //Llamo al metodo revisarColision
+    // revisarColision(akaliOponente);
+    // revisarColision(pykeOponente);
+    // revisarColision(cronosOponente);
     
-  }
+  // }
 }
 
 //Enviar datos al servidor(Peticion de enviar mi posicon)
@@ -647,11 +668,11 @@ function enviarPosicion(x, y) {
                 const personajeNombre = oponente.personaje.nombre;
                 //Se crean los 3 enemigos que se necesitan en el juego segun la lista[]
                 if(personajeNombre === "Akali") {
-                    personajeOponente = new Personaje('Akali', '../assets/imgRenderAkali.png', 5, '../assets/cabeza-akali.png');
+                    personajeOponente = new Personaje('Akali', '../assets/imgRenderAkali.png', 5, '../assets/cabeza-akali.png', oponente.id);
                 } else if(personajeNombre === "Pyke") {
-                    personajeOponente = new Personaje('Pyke','../assets/imgRenderPyke.png', 5, '../assets/cabeza-pyke.png');
+                    personajeOponente = new Personaje('Pyke','../assets/imgRenderPyke.png', 5, '../assets/cabeza-pyke.png', oponente.id);
                 } else if(personajeNombre === "Cronos") {
-                    personajeOponente = new Personaje('Cronos','../assets/imgRenderCronos.png', 5, '../assets/cabeza-cronos.png');
+                    personajeOponente = new Personaje('Cronos','../assets/imgRenderCronos.png', 5, '../assets/cabeza-cronos.png', oponente.id);
                 }
                 //Obtengo las coordenadas de mis enemigos(Estas son las coordenadas que los otros jugadores desde otros pc han enviado al servidor)
                 personajeOponente.x = oponente.x;
@@ -775,6 +796,9 @@ function revisarColision(oponente) {
     console.log('se detecto colision');
     //Se detiene el ciclo de estar ejecutando la funcion setInterval que refrescaba el mapa y revisabaa las colisiones
     clearInterval(intervalo)
+
+    //Asigno enemigoID igual al enemigo que recibo por argumento de la funcion
+    enemigoId = oponente.id;
     //Se muestra la section de ataques
     sectionSelectAtaque.style.display = 'flex';
     //Se ocula la section del mapa

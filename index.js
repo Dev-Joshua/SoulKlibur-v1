@@ -28,6 +28,9 @@ class Jugador {
     this.x = x;
     this.y = y;
   }
+  asignarAtaques(ataques){
+    this.ataques = ataques;
+  }
 }
 
 
@@ -94,6 +97,27 @@ app.post("/soulklibur/:jugadorId/posicion", (req, res) => {
 
   //Devuelvo un JSON de todos los oponentes a traves de la respuesta de esta peticion
   res.send({oponentes})
+})
+
+
+//Hago una petiocion tipo POST.(este sera mi segundo servicio)
+app.post("/soulklibur/:jugadorId/ataques", (req, res) => {
+  //Accedo a la variable enviada en la url apartir del objeto req.params
+  const jugadorId = req.params.jugadorId || ""
+  const ataques = req.body.ataques || []
+  const personaje = new Personaje(nombre)
+  
+  //Busco el jugador
+  const jugadorIndex = jugadores.findIndex((jugador) => jugadorId === jugador.id)
+
+  //Si el jugador existe le asigno sus ataques
+  if(jugadorIndex >= 0) {
+    jugadores[jugadorIndex].asignarAtaques(ataques)
+  }
+
+  console.log(jugadores)
+  console.log(jugadorId)
+  res.end()
 })
 
 //para poder hacer que escuche las peticiones de los clientes y se mantenga escuchando le indico el puerto
