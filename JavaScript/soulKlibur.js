@@ -36,11 +36,11 @@ const contenedorAtaques = document.getElementById('contenedor-ataques');
 const sectionVerMapa = document.getElementById('ver-mapa');
 const mapa = document.getElementById('mapa');
 
-let enemigoId = null;
+let oponenteId = null;
 let jugadorId = null;
 //Creo array para ir guardando los personajes
 let personajes = [];
-let personajesEnemigos = [];
+let personajesOponentes = [];
 let ataqueJugador = [];
 let ataqueOponente = [];
 let personajeJugador;
@@ -382,7 +382,7 @@ function secuenciaAtaque() {
 
 //Enviar como datos los ataques al servidor con el id del jugador
 function enviarAtaques() {
-  fetch(`http"//localhost:8080/soulklibur/${jugadorId}/ataques`, {
+  fetch(`http://localhost:8080/soulklibur/${jugadorId}/ataques`, {
     method: "post",
     headers: {
       "Content-Type" : "application/json"
@@ -392,8 +392,27 @@ function enviarAtaques() {
       ataques: ataqueJugador
     })
   })
+  //Esta funcion estara solicitando cuales son los ataques del oponente continuamente
+  intervalo = setInterval(obtenerAtaques, 50)
 }
 
+//Peticion tipo GET, no hay necesidad de escribir el codigo xq viene por defecto.
+function obtenerAtaques(){
+  //Los ataques van a venir en la respuesta de la peticion json
+  fetch(`http://localhost:8080/soulklibur/${oponenteId}/ataques`)
+    .then(function (res) {
+        //Si la peticion sale bien puedo procesar y utilizar esta respuesta
+        if(res.ok) {
+            res.json()
+              .then(function ({ataques}) {
+                  if(ataques.length === 5) {
+                    ataqueOponente = ataques
+                    combate()
+                  }
+              })
+        }
+    })
+}
 
 //Funcion para que el bot JS del juego seleccione un personaje aleatoriamente
 function seleccionarPersonajePc(){
@@ -470,6 +489,8 @@ function indexArrayPlayers(jugador, oponente) {
 //En esta funcion guardamos la logica de si perdimos, ganamos o empatamos.
 //Cambio la logica de ganar por +vidas a ganar por +victorias  
 function combate(){
+  //Termina de hacer peticiones al backend
+  clearInterval(intervalo)
   //El for me ayuda a recorrer a traves de los 2 arrays(ataquesJugador y ataquesOponente) que tengo.
   for (let index = 0; index < ataqueJugador.length; index++) {
     //Valido que se imprima cada uno de los ataques
@@ -619,7 +640,7 @@ function pintarCanvas() {
   // cronosOponente.pintarPersonaje();
   // pykeOponente.pintarPersonaje(); 
   //Por cada uno de los oponentes(personajes) se va a ejecutar esta funcion
-  personajesEnemigos.forEach(function(personaje) {
+  personajesOponentes.forEach(function(personaje) {
     personaje.pintarPersonaje();
     //Dejo de utilizar los enemigos fijos por unos dinamicos que vienen del servidor
     revisarColision(personaje)
@@ -660,12 +681,13 @@ function enviarPosicion(x, y) {
         .then(function({oponentes}) {
           //recibo el objeto que trae al jugador oponente(datos) y lo imprimo en consola
             console.log(oponentes)
-  
+            
             //Por cada elemento de la lista se ejecutara esta funcion
-            personajesEnemigos = oponentes.map(function(oponente){
+            personajesOponentes = oponentes.map(function(oponente){
                 let personajeOponente = null;
+                
                 //Extraer de la variable oponente su personaje y de su personaje su Nombre(esto viene del servidor)
-                const personajeNombre = oponente.personaje.nombre;
+                const personajeNombre = oponente.personaje.nombre || [];
                 //Se crean los 3 enemigos que se necesitan en el juego segun la lista[]
                 if(personajeNombre === "Akali") {
                     personajeOponente = new Personaje('Akali', '../assets/imgRenderAkali.png', 5, '../assets/cabeza-akali.png', oponente.id);
@@ -793,12 +815,12 @@ function revisarColision(oponente) {
     } 
     //Si se detecto una colision(cuando no entramos en el if) llamo esta funcion
     detenerMovimiento();
-    console.log('se detecto colision');
     //Se detiene el ciclo de estar ejecutando la funcion setInterval que refrescaba el mapa y revisabaa las colisiones
     clearInterval(intervalo)
+    console.log('se detecto colision');
 
     //Asigno enemigoID igual al enemigo que recibo por argumento de la funcion
-    enemigoId = oponente.id;
+    oponenteId = oponente.id;
     //Se muestra la section de ataques
     sectionSelectAtaque.style.display = 'flex';
     //Se ocula la section del mapa

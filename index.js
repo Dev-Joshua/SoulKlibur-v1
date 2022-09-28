@@ -81,7 +81,7 @@ app.post("/soulklibur/:jugadorId", (req, res) => {
 //Este endpoint sera una peticion tipo POST que recibira las coordenadas de ubicacion(x,y) del personaje
 app.post("/soulklibur/:jugadorId/posicion", (req, res) => {
   //Obtener el jugadorId
-  const jugadorId = req.params.jugadorId || ""
+  const jugadorId = req.params.jugadorId || []
   //Accedo a x,y. (||) En caso de que no viniera un valor se pone 0 por defecto
   const x = req.body.x || 0
   const y = req.body.y || 0
@@ -103,9 +103,8 @@ app.post("/soulklibur/:jugadorId/posicion", (req, res) => {
 //Hago una petiocion tipo POST.(este sera mi segundo servicio)
 app.post("/soulklibur/:jugadorId/ataques", (req, res) => {
   //Accedo a la variable enviada en la url apartir del objeto req.params
-  const jugadorId = req.params.jugadorId || ""
+  const jugadorId = req.params.jugadorId || []
   const ataques = req.body.ataques || []
-  const personaje = new Personaje(nombre)
   
   //Busco el jugador
   const jugadorIndex = jugadores.findIndex((jugador) => jugadorId === jugador.id)
@@ -119,6 +118,19 @@ app.post("/soulklibur/:jugadorId/ataques", (req, res) => {
   console.log(jugadorId)
   res.end()
 })
+
+
+app.get("/soulklibur/:jugadorId/ataques", (req, res) => {
+  //Se busca el jugador por medio de su id
+  const jugadorId = req.params.jugadorId || "";
+  const jugador = jugadores.find((jugador) => jugador.id === jugadorId)
+
+  //devolver los ataques del jugador
+  res.send({
+      ataques: jugador.ataques || []
+  })
+})
+
 
 //para poder hacer que escuche las peticiones de los clientes y se mantenga escuchando le indico el puerto
 //.listen(puerto, callback) propiedad que permite iniciar el servidor
