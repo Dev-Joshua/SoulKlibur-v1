@@ -21,12 +21,6 @@ dentro de los 5 intentos de atacar</p>
 [![JavaScript](https://img.shields.io/badge/-JavaScript-black?style=flat&logo=javascript&link=https://github.com/Quananhle/Front-End-Dev)](https://github.com/Quananhle/Front-End-Dev)
 
 
-## Canvas apuntes
-Canvas nos da la facilidad de crear un mapa por medio de lineas, circulos, rectangulos, poner texto o incluir imagenes.
-Asi es como voy a poder ubicar mis personajes en un mapa dibujado por canvas.
-
-La API de CAnvas proporciona un medio para dibujar graficos a traves de JavaScript y HTML<canvas>.
-
 
 ## Resumen JS
 
@@ -41,11 +35,11 @@ Recapitulando:
 
 LOGICA PRINCIPAL PARA EMPEZAR A EJECUTAR EL JUEGO:
 
---->Logica para saber tanto en HTML como en JS que personajes seleccionan nuestros jugadores.
+--->Hay que saber tanto en HTML como en JS que personajes seleccionan nuestros jugadores.
     La logica se hace partiendo desde que nuestro jugador pueda seleccionar un personaje, 
     y ademas que JS sepa cual fue el personaje que seleccionaron  y podramos mostrar en HTML manipulando el DOM.
 
---->Logica tambien para seleccionar a la personaje del oponente,
+--->Logica para seleccionar al personaje del oponente,
     es decir que nuestro juego JS saque aleatoriamentea algun personaje para que sea el oponente con el que debe combatir el personaje del jugador.
 
 --->Aplica la misma logica para seleccionar el ataque del jugador y oponente
@@ -53,120 +47,27 @@ LOGICA PRINCIPAL PARA EMPEZAR A EJECUTAR EL JUEGO:
 --->Logica para que el personaje del jugador pierda vidas/victorias o la del oponente pierda vidas/victorias 
     dependiendo de si nuestro ataque perdio o gano contra el oponente.
 
---->Logica para que una vez terminado el combate se pueda reiniciar el juego
+--->Una vez terminado el combate se pueda reiniciar el juego
 
 
 - Con inner insertamos contenido a una etiqueta en html desde js
 - Genero una pequeña estructura(templates literarios) dentro de la funcion inicicar juego, esta es la forma de implementar html con valores de nuestras variables para hacer un mix de ambas cosas.
 - Creo la variable 'opcionesPersonaje', que guardara toda la estructura de HTML que se hara en JS para despues inyectar esa variable con toda la estructura como valor directamente en el HTML.
 
+### Notas
+<p>
+    Para poder tener mas personajes en el juego o mas ataques sin tener que escribir el codigo de cada uno,
+    podemos extraer informacion del array de personajes creado en JS, asi como de los ataques.
+    La seccion tarjetas que llevaba el codigo HTML de la informacion de mis personajes, la elimino de este documento
+    porque ya lo he cogido desde el JS en la variable opcionPErsonajes
+    La etiqueta div(class="tarjetas") funcionara como un contenedor donde inyectaremos cada uno de los elementos
+    o estructura de HTML que genero en JS desde opcionPersonaje 
+</p>
 
-LOGICA PARTE BACKND:
-
---->Desarrollar la API con NodeJs y comenzar a consumirla desde el cliente en el frontend(comunicacion entre backend y frontend)   
---->Se debe crear un endpoint donde nos vamos a conectar para hacer que los usuarios cada vez que accedan a mi pagina web,
-    se conecten a una lista de jugadores donde esten todos comunicados y les va a devolver su identificador unico dentro del juego(IP)
-    (Aqui consumimos un recurso-> generar un id y leerlo)
---->Una vez generado el identificador de usuario cada vez que se carga la pagin se procede a dar la logica para que cada jugador(ip)
-    pueda seleccionar su propio personaje y va a emitirlo al resto de los jugadores.
---->Para ello se debe programar otro servicio para consumir desde el frontend y el backend. Asi que tenemos que enviarle datos, hay que  enviarle cual es el personaje que   selecciono el jugador. 
----> Para enviar datos se utilizara un tipo de objeto en JavaScript que se llaman Json.
-
-- JSON -> Es un tipo de objeto que en vez de crearlo por medio de una clase, solo definimos su estructura 
-          con con datos reales. Tambien es una forma comun de comunicar el frontend con el backend. 
-          Ejemplo de archivo json:
-    >     {"clave", "valor"}
-
-- fetch(peticion) -> Funcion que permite realizar llamadas hacia otros servicios por medio de HTTP, nos permite indicar
-                     hacia que URI, luego indicar en que metodo(por defecto toma GET).
- Al hacer la peticion fetch recibimos una respuesta. La respuesta en general puede ser asincrona(puede tardar unos segundos por parte del servidor) 
- res.setHeader("Access-Control-Allow-Origin", "*") -> esto es decirle desde que origen vamos a permitir que se hagan peticiones hacia el servidor. IMPORTANTE: esto puede ser inseguro.
-
- Primer fetch en soulklibur.js:
-  --> Este .then no nos devuelve directamente la respuesta sino el objeto response
-
-   fetch("http://localhost:8080/unirse")
-      .then(function(res) {
-        console.log(res)
-
-  --> En esta funcion ya obtengo la respuesta que necesito a mi petidicion. "El idJugador al unirse al juego. Cada vez que recargue la pagina aparecera un id diferente"
-
-   if(res.ok) {
-        res.text()
-            .then(function(respuesta) {
-            console.log(respuesta)        
-            })
-        }
-
-
-- LA RESPUESTA que se obtiene de la peticion es un objeto(response) me da los valores de este objeto:
-        ->response me dice que hay un cuerpo(body: readableStream) que es un stream de datos que se puede leer
-        ->me dice ok: true, que la peticion salio bien todo funciono
-
-Datos curiosos:
-- Cuando agrego addEventListener muchas veces estos retornan un evento(objeto) que nos dice que tecla se presiono, el valor de un input, que boton se presiono... nos da toda la informacion necesaria para hacer el manejo de ese evento por medio de alguna funcion
-- Peticion(asincrona) -> no sé cuando voy a obtener la respuesta
-
-
-## Lado backend
-Internet es una red de muchas computadoras que estan conectadas entre si, es una red global. Hay muchas formas de comunicarse
-entre estas computadoras, la mas popular entre todas es la que utilizamos cuando accedemos a la web, la estructura cliente - servidor
-
-A lo largo de internet van a haber muchas computadoras que se comportaran como clientes o como servidores(proveedores de servicios);
-Esta estructura siempre va tener interacuando a estos dos entes cliente-servidor.
-
-Por medio del protocolo HTTP(protocolo de transferencia de hipertexto) un navegador se conecta a cualquier servidor.
-La forma en que generalmente se usa el sistema cliente-servidor es que:
-- El cliente es quien va a comenzar la solicitud de un recurso
-- Y el servidor es quien lo va a devolver mediante una respuesta
-
-
-Los verbos o métodos HTTP, están relacionados con lo que conocemos como CRUD operations (create, read, update, delete) y principalmente están hechos para realizar estas peticiones.
- - Create -> POST   :Enviar datos
- - Read -> GET      :Solicitar recursos
- - Update -> PUT
- - Delete -> DELETE
-
-Cada pagina web tiene su propio servidor y tiene su propio nombre de dominio, Ej: (Platzi, google, wikipedia)
-Cuando nos referimos a nuestra propia laptop hablamos de localhost(servidor en si mismo).
-
-Se puede transferir todo lo que sea un archivo a traves del protocolo HTTP, como usuario voy a acceder a una url, despues hare una peticion a un servidor y el servidor me va a devolver ese archivo. Dependiendo del tipo de archivo el navegador lo mostrara en pantalla
-por ej HTML.
-Ademas de los archivos podemos usar la transferencia de datos por medio de un API, es decir enviar datos crudos(la informacion especifica que queremos intercambiar) EJ.
-
-- Si yo quiero mandar informacion de la ficha de una persona:
- > { 
-    Nombre: Diana,
-    Edad: 27 
- > }
-
-Esto se conoce como un paquete de datos, una caja que contiene toda la informacion, de esta forma puedo solicitarle los detalles de una persona a un servidor y el servidor nos va a devolver con una estructura especifca esa respuesta.
-Y cuando comenzamos a enviar y recibir datos entre el cliente - servidor surge la necesidad de estandarizar la estructura en la que estos datos viajan.
-
-Ahi toca pensar en las reglas que el servidor establece para que los datos vayan con cierta estructura, asi como el cliente debe tener ciertos requisitos para poder conectarse a un servidor.
-
-Para este proyecto usare <b>Node Js</b>, este toma el motor de javascript V8 que utiliza chrome. Con nodeJs voy a poder crear mi servidor, mi backend, y que este programado en Js para enviar datos, recibir datos, recibir solicitudes por medio de HTTP para que devuelva un archivo HTML que sera la pagina web del juego.
-
-- package.json sera es el archivo que cree en la terminal con el comando npm init. Aca tenemos la referencia al archivo index.JS y el nombre del paquete, etc.
-- Express.js es una libreria popular del ecosistema de nodeJs(JavaScript para el backend). Esta libreria nos permite crear servidores web de manera simple con pocas lineas de codigo
-    --> Aparte de instalar la libreria tenemos que decirle a nuestro codigo que estamos usandola, asi que tambien debemos importar esa libreria.
-    --> Hay que indicarle ciertas configuraciones, principalmente:
-        cual es el puerto de mi servidor.(el puerto es un numero como un id, que indica a que servidor nos conectamos en una pc)
-    ### Comandos para instalar
-    - npm init              => para crear el archivo package.json(configuracion inicial del proyecto con npm)
-    - node index.js         => para ejecutar en consola un archivo con node
-    - npm install express   => Para utilizar express, instalar libreria(crea una nueva seccion en package.json -> dependencies).   
-
-
-
-### API
-Aplication Programming Interface, es la interfaz que definimos para que el servidor y el cliente esten de acuerdo en como se deben comunicar. De esta forma vamos a trabajar este proyecto:
-
-- Tendremos un servidor central(medio de comunicacion o intermediario)
-- Donde recibiremos los clientes(jugadores/usuarios)
-- A cada jugador le agregaremos un id(identifiacdor) unico
-- Al estar cada usuario identificado, cada uno podra emitir informacion sobre su estatus y los demas recibiran esa informacion
-- por ejemplo si el jugador(A) envia cual fue el personaje que selecciono en el juego entonces los demas jugadores podran recibir esa informacion por medio de la API
-
+<p>
+    El enlace a JS debe colocarse abajo para mejores practicas.
+    El navegador empieza a leer el documento de arriba hacia abajo, css, html y si llega a un JS deja de un lado la lectura, para leer solo JS(Esto genera un bloqueo).
+    El navegador lo primero que hace es renderizar y crear cada uno de los elementos de HTML en el navegador, al final abre el archivo de JS y empieza a leer de igual forma de arriba hacia abajo las lineas de codigo.
+</p>
 
 ## Loading...

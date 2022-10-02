@@ -19,46 +19,12 @@
     <!-- Le damos un atributo(identidicador o id) para saber cual es el valor de cada uno. -->
     <div id="contenedorTarjetas" class="tarjetas">
       <!-- Paso este codigo(tarjeta) HTML al archivo JS dentro de la funcion iniciarJuego() -->
-      
-      <!-- <input type="radio" name="personaje" id="akali"/>
-      <label class="tarjeta-personaje" for="akali">
-        <p>Akal'i</p>
-        <img src="./assets/akali.png" alt="Akal'i">        
-      </label> -->
-      <!-- <input type="radio" name="personaje" id="pyke"/> 
-      <label class="tarjeta-personaje" for="pyke">
-        <p>Pyke</p>        
-        <img src="./assets/pyke.png" alt="">        
-      </label> -->
-      <!-- <input type="radio" name="personaje" id="cronos"/> 
-      <label class="tarjeta-personaje" for="cronos">
-        <p>Cronos</p>     
-        <img src="./assets/combustion.png" alt="">    
-      </label>  -->
     </div>
 
     <!-- Escuchamos el evento click cuando se use este boton por medio del id -->
     <button id="boton-select-personaje">Seleccionar</button>
   </section>
 
-  <!-- Canvas -->
-  <section id="ver-mapa">
-    <h2 class="subtitulo">Recorre el mapa con tu personaje:</h2>
-    <canvas id="mapa">
-    </canvas>
-    <!-- <button onclick="moverArriba()">Up</button>  
-    <button onclick="moverIzquierda()">Left</button>  
-    <button onclick="moverAbajo()">Down</button>  
-    <button onclick="moverDerecha()">Right</button>   -->
-    
-    <!--Uso un evento distinto de click para que el movimiento sea continuo  -->
-    <div class="container-button">
-      <button class="boton-movimiento up" onmouseup="detenerMovimiento()" onmousedown="moverArriba()">Up</button>
-      <button class="boton-movimiento left" onmouseup="detenerMovimiento()" onmousedown="moverIzquierda()">Left</button>
-      <button class="boton-movimiento down" onmouseup="detenerMovimiento()" onmousedown="moverAbajo()">Down</button>
-      <button class="boton-movimiento right" onmouseup="detenerMovimiento()" onmousedown="moverDerecha()">Right</button>
-    </div>
-  </section>
 
   <!-- Seccion para elegir el ataque -->
   <section  id="select-ataque"> 
@@ -104,21 +70,4 @@
 <!-- Debemos poner el 3 dentro de la etiqueta span para poder manipular el numero con JavaScript -->
 <!-- Asi podemos incrementar o restar el 3 dependiendo si perdemos o ganamos vidas -->
 
-<!-- NOTA: El enlace a JS debe colocarse abajo para mejores practicas.
-           El navegador empieza a leer el documento de arriba hacia abajo, css, html y si llega a un JS 
-           deja de un lado la lectura, para leer solo JS(Esto genera un bloqueo).
 
-           El navegador lo primero que hace es renderizar y crear cada uno de los elementos de HTML
-           en el navegador, al final abre el archivo de JS y empieza a leer de igual forma de arriba hacia abajo
-           las lineas de codigo.
--->
-<!-- 
-    Para poder tener mas personajes en el juego o mas ataques sin tener que escribir el codigo de cada uno,
-    podemos absorber informacion del array de personajes creado en JS, asi como de los ataques.
-    
-    La seccion tarjetas que llevaba el codigo HTML de la informacion de mis personajes, la elimino de este documento
-    porque ya lo he cogido desde el JS en la variable opcionPErsonajes
-
-    La etiqueta div(class="tarjetas") funcionara como un contenedor donde inyectaremos cada uno de los elementos
-    o estructura de HTML que genero en JS desde opcionPersonaje
-  -->
