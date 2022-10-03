@@ -76,7 +76,7 @@ class Personaje {
 
 
 //Creo primer objeto(akali) de la clase Personaje...
-let akali = new Personaje('Akali', '../assets/imgRenderAkali.png', 5);
+let akali = new Personaje('Akali', './../assets/akali.png', 5);
 let pyke = new Personaje('Pyke','../assets/imgRenderPyke.png', 5);
 let cronos = new Personaje('Cronos','../assets/imgRenderCronos.png', 5);
 
