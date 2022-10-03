@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # SoulKlibur
 
 <p>SoulKlibur es un pequeño videojuego web donde elegimos un personaje
@@ -72,6 +71,3 @@ LOGICA PRINCIPAL PARA EMPEZAR A EJECUTAR EL JUEGO:
 </p>
 
 ## Loading...
-=======
-# SoulKlibur-v1
->>>>>>> 4b9ed23751e14297f49ee0639ed807a57d7b6640
